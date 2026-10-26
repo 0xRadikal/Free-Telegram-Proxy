@@ -46,7 +46,7 @@ On 2026-10-26 we merged seven popular lists and resolved every hostname. **958 o
 | Tier | What gets in |
 |---|---|
 | **`resilient/`** | verified · **one link per server IP** (lowest latency kept) — *recommended* |
-| `fast/` | resilient · median round-trip through the proxy ≤ 100 ms *from the test runner* |
+| `fast/` | the fastest 25 % of `resilient`, by round-trip through the proxy *from the test runner* |
 | `stable/` | resilient · passed ≥ 90 % of its last checks (appears after ~3 hours of history) |
 | `verified/` | passed the full end-to-end test in **every** round |
 | `faketls/` · `secure/` · `classic/` | verified, split by secret type (`ee` · `dd` · 16-byte) |
