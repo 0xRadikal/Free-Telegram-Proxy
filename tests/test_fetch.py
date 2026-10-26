@@ -60,3 +60,37 @@ def test_cap_is_enforced():
             return b"x" * k if self.n < 100 else b""
 
     assert asyncio.run(read_capped(Fake(), 10 * 64 * 1024)) is None
+
+
+def test_one_unparsable_source_does_not_abort_the_run():
+    """A source returning hostile content must fail alone, not crash fetch_all."""
+    import asyncio
+
+    from aiohttp import web
+
+    from tgproxy.fetch import fetch_all
+    from tgproxy.sources import Source
+
+    async def main():
+        app = web.Application()
+
+        async def bad(_):
+            return web.Response(text="[" * 50000 + "]" * 50000)
+
+        async def good(_):
+            return web.Response(text="tg://proxy?server=a.b&port=443&secret=" + "00" * 16)
+        app.router.add_get("/bad", bad)
+        app.router.add_get("/good", good)
+        runner = web.AppRunner(app)
+        await runner.setup()
+        site = web.TCPSite(runner, "127.0.0.1", 0)
+        await site.start()
+        port = site._server.sockets[0].getsockname()[1]
+        try:
+            return await fetch_all([Source("good", f"http://127.0.0.1:{port}/good"),
+                                    Source("bad", f"http://127.0.0.1:{port}/bad")])
+        finally:
+            await runner.cleanup()
+    reps = {r.id: r for r in asyncio.run(main())}
+    assert reps["good"].status == "ok" and reps["good"].found == 1
+    assert reps["bad"].status in ("empty", "fail")
