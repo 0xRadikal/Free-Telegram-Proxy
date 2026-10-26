@@ -63,14 +63,23 @@ def _row(r: Record) -> dict:
 
 
 def _one_per_ip(recs: list[Record]) -> list[Record]:
-    """Keep the first (= lowest RTT, input is sorted) link of every server IP."""
-    seen: Counter = Counter()
-    out = []
+    """One link per server IP; output keeps the input order (RTT-sorted).
+
+    Which alias represents an IP is chosen by the most *stable* identity
+    (longest history, then the canonical server/port/secret order) — not by
+    RTT, because all aliases of one IP hit the same machine and their RTTs
+    differ only by noise. Choosing by RTT changed the published link for the
+    same server in 31 of 313 IPs between two consecutive runs, which churns
+    users' saved lists for no benefit.
+    """
+    best: dict = {}
     for r in recs:
-        if seen[r.ip] < RESILIENT_PER_IP:
-            seen[r.ip] += 1
-            out.append(r)
-    return out
+        k = (-r.hist.get("checks", 0), r.proxy.server, r.proxy.port, r.proxy.secret.raw)
+        cur = best.get(r.ip)
+        if cur is None or k < cur[0]:
+            best[r.ip] = (k, r)
+    chosen = {id(v[1]) for v in best.values()}
+    return [r for r in recs if id(r) in chosen]
 
 
 def _fastest(res: list[Record]) -> list[Record]:
@@ -80,6 +89,34 @@ def _fastest(res: list[Record]) -> list[Record]:
     k = max(1, round(len(timed) * FAST_FRACTION))
     cutoff = sorted(r.rtt for r in timed)[k - 1]
     return [r for r in timed if r.rtt <= cutoff]  # ties at the cutoff are kept
+
+
+def _reliability(r: Record) -> float:
+    """Lower-bound uptime: Wilson score (95%) over the proxy's check history.
+
+    Ranks a proxy that passed 40/40 checks above one that passed 1/1, and is
+    robust to a single bad check. Uses only recorded history; a proxy with no
+    history scores 0 and falls back to RTT order.
+    """
+    n = r.hist.get("checks", 0)
+    up = r.hist.get("uptime")
+    if not n or up is None:
+        return 0.0
+    z = 1.96
+    p = up
+    denom = 1 + z * z / n
+    centre = p + z * z / (2 * n)
+    margin = z * ((p * (1 - p) + z * z / (4 * n)) / n) ** 0.5
+    return (centre - margin) / denom
+
+
+def _top(res: list[Record]) -> list[Record]:
+    """top50: most *proven* first (Wilson lower bound of uptime), RTT breaks ties.
+
+    RTT alone is a property of the runner's location, not of the proxy:
+    measured top50 overlap between consecutive US runs was only 24-25 of 50.
+    """
+    return sorted(res, key=lambda r: (-round(_reliability(r), 3), _sort_key(r)))[:TOP_N]
 
 
 def tiers(records: list[Record]) -> dict[str, list[Record]]:
@@ -130,6 +167,8 @@ def write_outputs(res: RunResult, out: Path, runner: dict, state_dump: dict | No
     # disappears (404) instead of serving a stale copy.
     for d in OUTPUT_DIRS:
         shutil.rmtree(out / d, ignore_errors=True)
+    # Same for top-level per-run files that may legitimately be absent.
+    (out / "top50.txt").unlink(missing_ok=True)
     written: list[Path] = []
     t = tiers(res.records)
     tier_meta = {}
@@ -149,7 +188,7 @@ def write_outputs(res: RunResult, out: Path, runner: dict, state_dump: dict | No
         _write(out / "countries" / f"{cc}.txt", "\n".join(r.proxy.tg_link() for r in recs) + "\n", written)
         countries[cc] = {"count": len(recs), "flag": flag(cc), "url": f"{RAW}/countries/{cc}.txt"}
 
-    top = t["resilient"][:TOP_N]
+    top = _top(t["resilient"])
     if top:
         _write(out / "top50.txt", "\n".join(r.proxy.tg_link() for r in top) + "\n", written)
 
@@ -172,7 +211,7 @@ def write_outputs(res: RunResult, out: Path, runner: dict, state_dump: dict | No
             "stable": f"verified and passed >= {int(STABLE_UPTIME*100)}% of the last checks (min {STABLE_MIN_CHECKS})",
             "resilient": "verified, at most one link per server IP (lowest RTT kept)",
             "derived_tiers": "fast/stable/faketls/secure/classic/countries are taken from verified with one link per server IP",
-            "top50": "first 50 of resilient",
+            "top50": "50 links from resilient with the best proven uptime (Wilson lower bound over check history), then lowest RTT",
         },
     }
     health = {

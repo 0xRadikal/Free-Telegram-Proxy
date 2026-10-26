@@ -32,6 +32,25 @@ class SourceReport:
         return d
 
 
+async def read_capped(stream: aiohttp.StreamReader, cap: int) -> bytes | None:
+    """Read the whole body, or None if it exceeds `cap`.
+
+    `StreamReader.read(n)` returns as soon as ANY data is buffered — it is not
+    "read up to n". Using it once silently truncated chunked responses
+    (measured: tgmtproxy 359/733 of 900 links, weltimistar 212/340 of 946 in
+    published runs; reproduced with a local chunked server: 10 000 of 200 000
+    bytes). Loop until EOF instead.
+    """
+    buf = bytearray()
+    while True:
+        chunk = await stream.read(64 * 1024)
+        if not chunk:
+            return bytes(buf)
+        buf += chunk
+        if len(buf) > cap:
+            return None
+
+
 async def _get(session: aiohttp.ClientSession, src: Source, retries: int = 3) -> SourceReport:
     rep = SourceReport(src.id, src.url, src.kind)
     t0 = time.monotonic()
@@ -45,8 +64,8 @@ async def _get(session: aiohttp.ClientSession, src: Source, retries: int = 3) ->
                     break
                 if r.status != 200:
                     raise aiohttp.ClientResponseError(r.request_info, (), status=r.status)
-                raw = await r.content.read(MAX_BYTES + 1)
-                if len(raw) > MAX_BYTES:
+                raw = await read_capped(r.content, MAX_BYTES)
+                if raw is None:
                     rep.error = "too large"
                     break
                 text = raw.decode("utf-8", "replace")

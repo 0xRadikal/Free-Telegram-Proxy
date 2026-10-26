@@ -13,14 +13,18 @@
 - [x] شبیه‌سازی انتشار با race واقعی
 
 ## بعد از اولین انتشار (نیاز به تأیید/اقدام مالک)
-- [ ] فعال کردن GitHub Pages (Settings → Pages → Source: GitHub Actions)
-- [ ] تنظیم branch protection: اجازهٔ force-push فقط برای `github-actions` (مثل ریپوی v2ray)
-- [ ] description و topics ریپو: `telegram` `mtproto` `mtproxy` `proxy` `free-proxy` `censorship` `iran`
-- [ ] توکن ربات برای پست خودکار در @Raydikalx
+- [x] فعال کردن GitHub Pages (workflow)
+- [x] ruleset روی main (deletion + linear history) و tags
+- [x] description و topics ریپو
+- [ ] توکن ربات برای پست خودکار در @Raydikalx — **عمداً انجام نشد** (درخواست مالک)
+- [ ] جایگزینی PAT کلاسیک با توکن fine-grained (فقط Contents/Actions روی همین ریپو)
 
 ## فاز بعد
 - [ ] تحقیق RIPE Atlas از IR/RU (هزینه، مجاز بودن، دقت) — بدون ادعا تا اثبات
 - [ ] README روسی و چینی
+- [ ] تاریخچهٔ per-IP (الان per-link است؛ alias جدید یک سرور قدیمی تاریخچه ندارد)
+- [ ] پایش اجرای cron گیتهاب (تا الان همهٔ اجراها از trigger سرور بوده)
+- [ ] `stable/` تا ~12 بررسی (~3 ساعت) خالی است — طبیعی، ولی در README توضیح داده شود
 - [ ] QR کد top50
 - [ ] auto-disable منبعی که N اجرا متوالی ۰ سرور انحصاری دارد (داده در state.json جمع می‌شود)
 - [ ] پشتیبانی از SOCKS5 تلگرام (`tg://socks`) — نیاز به تحقیق جدا برای تست واقعی

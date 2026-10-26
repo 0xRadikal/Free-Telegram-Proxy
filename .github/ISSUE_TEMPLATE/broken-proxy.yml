@@ -1,0 +1,23 @@
+name: Proxy does not work for me
+description: A published proxy fails from your network
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Proxies are verified from a GitHub runner in the US. A proxy can work there and be blocked by your ISP — that report is still valuable.
+        **Do not post your own IP address.**
+  - type: input
+    id: link
+    attributes: {label: Proxy link, description: "the tg:// or t.me link"}
+    validations: {required: true}
+  - type: input
+    id: where
+    attributes: {label: Country and ISP / operator, placeholder: "Iran — MCI"}
+    validations: {required: true}
+  - type: dropdown
+    id: what
+    attributes:
+      label: What happens
+      options: ["Connecting… forever", "Proxy unavailable", "Connects but no messages load", "Other"]
+    validations: {required: true}

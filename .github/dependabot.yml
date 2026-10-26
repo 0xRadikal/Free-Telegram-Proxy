@@ -1,0 +1,19 @@
+# Exact pins (requirements*.txt) and SHA-pinned actions never pick up security
+# fixes on their own; Dependabot proposes them as PRs, which CI then tests on
+# the GitHub runner (unit + TDLib differential + live integration + e2e).
+# commit-message prefixes must never contain "[auto-output]" (publish anchor marker).
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule: {interval: "weekly", day: "monday", time: "06:00", timezone: "Etc/UTC"}
+    open-pull-requests-limit: 5
+    commit-message: {prefix: "chore(deps)", include: "scope"}
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule: {interval: "weekly", day: "monday", time: "06:00", timezone: "Etc/UTC"}
+    open-pull-requests-limit: 5
+    commit-message: {prefix: "chore(ci)", include: "scope"}
