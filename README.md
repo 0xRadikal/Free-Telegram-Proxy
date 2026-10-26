@@ -21,19 +21,19 @@ On a phone, just tap any line in that file — Telegram opens and asks *Connect 
 ## Live numbers
 
 <!-- LIVE:BEGIN -->
-**Last update:** `2026-10-26T17:41:48Z` · tested from `US` (Cloudflare colo `ORD`)
+**Last update:** `2026-10-26T18:30:36Z` · tested from `US` (Cloudflare colo `LAX`)
 
 | Stage | Count |
 |---|---:|
-| links collected from all sources | 3,251 |
-| unique servers (IP:port) probed | 1,487 |
-| **verified in all 3 rounds** (links) | **1,688** |
-| the same, counted as **real servers** | **388** (360 IPs) |
-| largest single operator's share of verified links | 454 (26.9%) |
+| links collected from all sources | 3,154 |
+| unique servers (IP:port) probed | 1,400 |
+| **verified in all 3 rounds** (links) | **1,754** |
+| the same, counted as **real servers** | **394** (363 IPs) |
+| largest single operator's share of verified links | 626 (35.7%) |
 
-`resilient` 360 · `fast` 1 · `stable` 0 · `verified` 1688 · `faketls` 119 · `secure` 86 · `classic` 163 · `all` 3251
+`resilient` 363 · `fast` 92 · `stable` 0 · `verified` 1754 · `faketls` 118 · `secure` 85 · `classic` 170 · `all` 3154
 
-[🇩🇪 DE 108](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 99](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 59](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 30](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 11](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇵🇱 PL 9](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇸🇪 SE 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇬 SG 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt) [🇬🇧 GB 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt)
+[🇩🇪 DE 109](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 102](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 56](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 32](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇺🇸 US 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇷🇺 RU 12](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇵🇱 PL 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇸🇪 SE 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇬🇧 GB 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇭🇰 HK 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/HK.txt)
 <!-- LIVE:END -->
 
 ## Why this list is different
@@ -59,7 +59,7 @@ On 2026-10-26 we merged seven popular lists and resolved every hostname. **958 o
 | Tier | What gets in |
 |---|---|
 | **`resilient/`** | verified · **one link per server IP** (lowest latency kept) — *recommended* |
-| `fast/` | resilient · median round-trip through the proxy ≤ 100 ms *from the test runner* |
+| `fast/` | the fastest 25 % of `resilient`, by round-trip through the proxy *from the test runner* |
 | `stable/` | resilient · passed ≥ 90 % of its last checks (appears after ~3 hours of history) |
 | `verified/` | passed the full end-to-end test in **every** round |
 | `faketls/` · `secure/` · `classic/` | verified, split by secret type (`ee` · `dd` · 16-byte) |
