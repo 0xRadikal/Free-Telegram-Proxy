@@ -129,3 +129,39 @@ def test_fast_is_relative_to_runner():
     t = tiers(rs)
     assert len(t["fast"]) == 10 and max(r.rtt for r in t["fast"]) == 148
     assert tiers([])["fast"] == []
+
+
+def test_top50_prefers_proven_over_fast():
+    from tgproxy.publish import _top
+    veteran = rec("vet", "1.0.0.1")
+    veteran.rounds = [ProbeResult("dc", None, 5, 200)] * 3
+    veteran.hist = {"uptime": 1.0, "checks": 40}
+    newbie = rec("new", "1.0.0.2")
+    newbie.rounds = [ProbeResult("dc", None, 5, 10)] * 3
+    newbie.hist = {"uptime": 1.0, "checks": 1}
+    flaky = rec("flk", "1.0.0.3")
+    flaky.rounds = [ProbeResult("dc", None, 5, 5)] * 3
+    flaky.hist = {"uptime": 0.5, "checks": 40}
+    assert [r.proxy.server for r in _top([newbie, flaky, veteran])] == ["vet", "flk", "new"]
+
+
+def test_top50_without_history_falls_back_to_rtt():
+    from tgproxy.publish import _top
+    a, b = rec("a", "1.0.0.1"), rec("b", "1.0.0.2")
+    a.rounds = [ProbeResult("dc", None, 5, 90)] * 3
+    b.rounds = [ProbeResult("dc", None, 5, 20)] * 3
+    assert [r.proxy.server for r in _top([a, b])] == ["b", "a"]
+
+
+def test_alias_choice_is_stable_not_rtt_noise():
+    from tgproxy.publish import _one_per_ip
+    a = rec("a.example", "9.9.9.9")
+    b = rec("b.example", "9.9.9.9")
+    a.hist, b.hist = {"checks": 10}, {"checks": 10}
+    for rtt_a, rtt_b in ((30, 40), (40, 30)):      # RTT order flips between runs
+        a.rounds = [ProbeResult("dc", None, 5, rtt_a)] * 3
+        b.rounds = [ProbeResult("dc", None, 5, rtt_b)] * 3
+        recs = sorted([a, b], key=lambda r: r.rtt)
+        assert [r.proxy.server for r in _one_per_ip(recs)] == ["a.example"]
+    b.hist = {"checks": 50}                         # longer history wins
+    assert [r.proxy.server for r in _one_per_ip([a, b])] == ["b.example"]

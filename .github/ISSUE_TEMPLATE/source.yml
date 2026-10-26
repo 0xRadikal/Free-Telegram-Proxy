@@ -1,0 +1,11 @@
+name: Suggest a source
+description: A public proxy list or channel we should collect from
+labels: ["enhancement"]
+body:
+  - type: input
+    id: url
+    attributes: {label: URL (raw file or t.me channel)}
+    validations: {required: true}
+  - type: textarea
+    id: why
+    attributes: {label: Why, description: "How often it updates, roughly how many proxies"}
