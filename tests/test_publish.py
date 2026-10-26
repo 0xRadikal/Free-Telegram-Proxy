@@ -117,3 +117,15 @@ def test_all_tier_is_text_only(tmp_path):
     write_outputs(result([rec("a", "1.1.1.1")]), tmp_path, {}, None)
     assert sorted(p.name for p in (tmp_path / "all").iterdir()) == ["tg.txt"]
     assert not list(tmp_path.rglob("*.csv"))
+
+
+def test_fast_is_relative_to_runner():
+    def at(ms, ip):
+        r = rec(f"h{ip}", ip)
+        r.rounds = [ProbeResult("dc", None, 5, ms)] * 3
+        return r
+    # simulate a far-away runner: every RTT >= 139 ms (as measured from the US)
+    rs = [at(139 + i, f"10.0.0.{i}") for i in range(40)]
+    t = tiers(rs)
+    assert len(t["fast"]) == 10 and max(r.rtt for r in t["fast"]) == 148
+    assert tiers([])["fast"] == []

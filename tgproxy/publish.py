@@ -20,7 +20,11 @@ from .pipeline import Record, RunResult
 REPO = "0xRadikal/Free-Telegram-Proxy"
 RAW = f"https://raw.githubusercontent.com/{REPO}/main"
 CDN = f"https://cdn.jsdelivr.net/gh/{REPO}@main"
-FAST_MS = 100  # runner→proxy→DC round-trip; per-server p75 was 52 ms, p90 113 ms (2026-10-26, FRA)
+# `fast` is RELATIVE: the fastest quarter of `resilient`, measured from this
+# run's runner. A fixed threshold is location-dependent and broke in practice:
+# 100 ms (calibrated from Frankfurt, per-server p75 = 52 ms) gave an EMPTY tier
+# from the US runner, whose per-server minimum was ~139 ms (2026-10-26).
+FAST_FRACTION = 0.25
 STABLE_UPTIME = 0.90
 STABLE_MIN_CHECKS = 12
 RESILIENT_PER_IP = 1
@@ -69,6 +73,15 @@ def _one_per_ip(recs: list[Record]) -> list[Record]:
     return out
 
 
+def _fastest(res: list[Record]) -> list[Record]:
+    timed = [r for r in res if r.rtt is not None]
+    if not timed:
+        return []
+    k = max(1, round(len(timed) * FAST_FRACTION))
+    cutoff = sorted(r.rtt for r in timed)[k - 1]
+    return [r for r in timed if r.rtt <= cutoff]  # ties at the cutoff are kept
+
+
 def tiers(records: list[Record]) -> dict[str, list[Record]]:
     """`verified` is the complete honest set (every alias). Every other tier is
     one link per server IP: on 2026-10-26 one operator owned ~62% of verified
@@ -78,7 +91,7 @@ def tiers(records: list[Record]) -> dict[str, list[Record]]:
     return {
         "verified": ver,
         "resilient": res,
-        "fast": [r for r in res if r.rtt is not None and r.rtt <= FAST_MS],
+        "fast": _fastest(res),
         "stable": [r for r in res if (r.hist.get("uptime") or 0) >= STABLE_UPTIME
                    and r.hist.get("checks", 0) >= STABLE_MIN_CHECKS],
         "faketls": _one_per_ip([r for r in ver if r.proxy.secret.kind == "faketls"]),
@@ -155,7 +168,7 @@ def write_outputs(res: RunResult, out: Path, runner: dict, state_dump: dict | No
         "mirror_prefix": CDN,
         "criteria": {
             "verified": f"relayed a real MTProto request to Telegram DC and got our nonce back, in all {len(res.per_round_ok)} rounds",
-            "fast": f"verified and median round-trip through the proxy <= {FAST_MS} ms (measured from the runner)",
+            "fast": f"fastest {int(FAST_FRACTION*100)}% of resilient by median round-trip through the proxy, measured from the runner",
             "stable": f"verified and passed >= {int(STABLE_UPTIME*100)}% of the last checks (min {STABLE_MIN_CHECKS})",
             "resilient": "verified, at most one link per server IP (lowest RTT kept)",
             "derived_tiers": "fast/stable/faketls/secure/classic/countries are taken from verified with one link per server IP",

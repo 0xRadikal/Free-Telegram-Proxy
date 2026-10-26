@@ -1,0 +1,16 @@
+[Unit]
+Description=Trigger Free-Telegram-Proxy update on GitHub Actions (repository_dispatch)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /opt/tgproxy-trigger/tgproxy-trigger.py
+# hardening: the script only needs to read one file and make one HTTPS call
+DynamicUser=no
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+NoNewPrivileges=yes
+ReadOnlyPaths=/etc/tgproxy-trigger
+TimeoutStartSec=90

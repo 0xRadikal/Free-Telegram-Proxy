@@ -22,6 +22,7 @@ permissions:
 
 env:
   GATE_MINUTES: "13"
+  DISPATCH_GATE_MINUTES: "8"
   OUT_MARK: "[auto-output]"
   # Everything the bot is allowed to write. Anything else changing between
   # the source anchor and the tip aborts the publish (never revert humans).
@@ -42,13 +43,21 @@ jobs:
           FORCE: ${{ github.event.inputs.force }}
         run: |
           set -euo pipefail
-          if [ "${FORCE:-false}" = "true" ] || [ "${{ github.event_name }}" = "repository_dispatch" ] || [ ! -f index.json ]; then
+          if [ "${FORCE:-false}" = "true" ] || [ ! -f index.json ]; then
             echo "run=true" >> "$GITHUB_OUTPUT"; exit 0
           fi
-          last=$(python3 -c "import json;print(json.load(open('index.json')).get('updated_unix',0))")
+          # A queued run's checkout can be stale if the run before it just
+          # published, so read index.json from the remote tip.
+          if git fetch -q --depth=1 origin main && git show origin/main:index.json > /tmp/idx.json 2>/dev/null; then :; else cp index.json /tmp/idx.json; fi
+          last=$(python3 -c "import json;print(json.load(open('/tmp/idx.json')).get('updated_unix',0))")
           age=$(( ( $(date +%s) - last ) / 60 ))
-          echo "index.json age: ${age} min"
-          if [ "$age" -lt "$GATE_MINUTES" ]; then echo "run=false" >> "$GITHUB_OUTPUT"; else echo "run=true" >> "$GITHUB_OUTPUT"; fi
+          # repository_dispatch (server timer) gets a shorter gate so timer jitter
+          # never skips it, but back-to-back triggers collapse to one run
+          # (measured: dispatches 9 s apart queued two full runs before this).
+          gate=$GATE_MINUTES
+          [ "${{ github.event_name }}" = "repository_dispatch" ] && gate=$DISPATCH_GATE_MINUTES
+          echo "index.json age: ${age} min (gate ${gate} min, event ${{ github.event_name }})"
+          if [ "$age" -lt "$gate" ]; then echo "run=false" >> "$GITHUB_OUTPUT"; else echo "run=true" >> "$GITHUB_OUTPUT"; fi
 
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         if: steps.gate.outputs.run == 'true'
