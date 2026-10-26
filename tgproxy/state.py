@@ -29,14 +29,32 @@ def proxy_id(key: tuple) -> str:
     return hashlib.sha256(f"{server}|{port}|".encode() + raw).hexdigest()[:12]
 
 
+def _int(v) -> bool:
+    return type(v) is int
+
+
+def _valid_proxy(e) -> bool:
+    return (isinstance(e, dict) and isinstance(e.get("h"), str) and set(e["h"]) <= {"0", "1"}
+            and _int(e.get("first")) and _int(e.get("last_seen"))
+            and (e.get("last_ok") is None or _int(e.get("last_ok"))))
+
+
+def _valid_source(e) -> bool:
+    return (isinstance(e, dict) and isinstance(e.get("found"), list) and isinstance(e.get("working"), list)
+            and all(_int(x) for x in e["found"] + e["working"]))
+
+
 class State:
     def __init__(self, data: dict | None = None):
-        d = data or {}
-        if d.get("version") != VERSION:
-            d = {}
-        self.proxies: dict[str, dict] = d.get("proxies", {})
-        self.sources: dict[str, dict] = d.get("sources", {})
-        self.runs: int = d.get("runs", 0)
+        # state.json is published and read back every run; a corrupt or
+        # hand-edited file must cost history, never the whole run. Invalid
+        # entries are dropped one by one so good history survives.
+        d = data if isinstance(data, dict) and data.get("version") == VERSION else {}
+        proxies = d.get("proxies") if isinstance(d.get("proxies"), dict) else {}
+        sources = d.get("sources") if isinstance(d.get("sources"), dict) else {}
+        self.proxies: dict[str, dict] = {k: v for k, v in proxies.items() if _valid_proxy(v)}
+        self.sources: dict[str, dict] = {k: v for k, v in sources.items() if _valid_source(v)}
+        self.runs: int = d["runs"] if _int(d.get("runs")) and d["runs"] >= 0 else 0
 
     @classmethod
     def load(cls, path: Path) -> "State":

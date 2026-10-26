@@ -240,7 +240,7 @@ def _funnel(res: RunResult, t) -> dict:
         "links_collected": len(recs),
         "dns_ok": sum(1 for r in recs if r.ip),
         "unique_targets_probed": res.targets,  # distinct (ip, port, secret) actually dialled
-        "unique_servers_probed": len({(r.ip, r.proxy.port) for r in recs if r.target}),
+        "unique_servers_probed": len({(t[0], t[1]) for r in recs for t in (r.targets or ([r.target] if r.target else []))}),
         "tcp_ok": sum(1 for r in recs if r.level in ("tcp", "tls", "dc")),
         "dc_ok_any_round": sum(1 for r in recs if r.passed_any),
         "verified_links": len(ver),
