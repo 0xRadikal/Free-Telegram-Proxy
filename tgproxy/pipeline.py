@@ -34,13 +34,14 @@ class Record:
     proxy: Proxy
     id: str
     ip: str | None
-    target: tuple | None        # (ip, port, secret) actually probed
+    target: tuple | None        # (ip, port, secret) of the representative address
     rounds: list = field(default_factory=list)  # list[ProbeResult]
     reject: str | None = None   # why it never got probed
     country: str | None = None
     asn: int | None = None
     asn_org: str | None = None
     hist: dict = field(default_factory=dict)
+    targets: list = field(default_factory=list)  # every (ip, port, secret) a client may dial
 
     @property
     def verified(self) -> bool:
@@ -86,16 +87,94 @@ class RunResult:
     geo: bool
 
 
-async def _probe_targets(targets: list[tuple], cfg: Config) -> dict[tuple, ProbeResult]:
+MAX_ADDRESSES = 64  # largest answer seen on 2026-10-26 was 33 addresses
+
+
+def select_addresses(ips: list[str]) -> tuple[list[str], str | None]:
+    """Addresses a Telegram client may actually dial for one hostname.
+
+    TDLib (IPAddress::init_host_port, prefer_ipv6=false by default) takes the
+    FIRST IPv4 address its resolver returns, and round-robin DNS rotates that
+    order between users. So a link is only usable by everyone if EVERY IPv4
+    address works. Measured 2026-10-26: 239 verified hostnames had several
+    addresses; on 14 of them one address refused MTProto in 3 of 3 retries
+    while the address we used to test (the first one) worked.
+    IPv6 is only used when there is no IPv4 at all (same rule as TDLib).
+    Any non-public address in the answer rejects the link: some clients would
+    be sent to a private/reserved network.
+    """
+    if not ips:
+        return [], "dns"
+    if not all(is_public(i) for i in ips):
+        return [], "non-public-ip"
+    v4 = [i for i in ips if ":" not in i]
+    addrs = v4 or list(ips)
+    if len(addrs) > MAX_ADDRESSES:
+        return [], "too-many-addresses"
+    return addrs, None
+
+
+def _combine(results: list[ProbeResult]) -> ProbeResult:
+    """One round of a multi-address link: ok only if every address passed.
+
+    RTT is the slowest address, because a client may be handed any of them.
+    """
+    if all(r.ok for r in results):
+        rtts = [r.rtt_ms for r in results if r.rtt_ms is not None]
+        tcps = [r.tcp_ms for r in results if r.tcp_ms is not None]
+        return ProbeResult("dc", None, max(tcps) if tcps else None, max(rtts) if rtts else None)
+    order = {"none": 0, "tcp": 1, "tls": 2, "dc": 3}
+    worst = min((r for r in results if not r.ok), key=lambda r: order[r.level])
+    if any(r.ok for r in results):
+        return ProbeResult(worst.level, "multi-ip:some-addresses-fail", worst.tcp_ms, None)
+    return worst
+
+
+async def _probe_targets(targets: list[tuple], cfg: Config, prober=probe) -> dict[tuple, ProbeResult]:
     sem = asyncio.Semaphore(cfg.concurrency)
     ip_sems: dict[str, asyncio.Semaphore] = defaultdict(lambda: asyncio.Semaphore(cfg.per_ip))
 
     async def one(t):
         ip, port, secret = t
         async with sem, ip_sems[ip]:
-            return t, await probe(ip, port, secret, dc=cfg.dc, timeout=cfg.timeout, connect_host=ip)
+            return t, await prober(ip, port, secret, dc=cfg.dc, timeout=cfg.timeout, connect_host=ip)
 
     return dict(await asyncio.gather(*(one(t) for t in targets)))
+
+
+def _tkey(t: tuple) -> tuple:
+    return (t[0], t[1], t[2].raw)
+
+
+async def probe_records(records: list[Record], cfg: Config, prober=probe) -> tuple[list[int], int]:
+    """Probe every distinct (ip, port, secret) once per round, shared by all
+    links that resolve to it, and give each link one combined result per round.
+
+    A link that fails a round can no longer be `verified`; addresses needed
+    only by failed links are not dialled again (fewer connections to hosts).
+    Returns (targets that passed per round, distinct targets dialled).
+    """
+    alive = [r for r in records if r.targets]
+    targets = {_tkey(t): t for r in alive for t in r.targets}
+    per_round_ok: list[int] = []
+    for i in range(cfg.rounds):
+        if not alive:
+            per_round_ok.append(0)
+            continue
+        if i:
+            await asyncio.sleep(cfg.gap)
+        need = {_tkey(t): t for r in alive for t in r.targets}
+        res = await _probe_targets(list(need.values()), cfg, prober)
+        by_key = {_tkey(t): pr for t, pr in res.items()}
+        per_round_ok.append(sum(1 for pr in by_key.values() if pr.ok))
+        nxt = []
+        for r in alive:
+            combined = _combine([by_key[_tkey(t)] for t in r.targets])
+            r.rounds.append(combined)
+            if combined.ok:
+                nxt.append(r)
+        alive = nxt
+    return per_round_ok, len(targets)
 
 
 async def runner_location() -> dict:
@@ -126,43 +205,21 @@ async def run(cfg: Config | None = None, state: State | None = None, sources=SOU
 
     records: list[Record] = []
     for key, p in pool.items():
-        ips = resolved.get(p.server, [])
-        ip = ips[0] if ips else None
+        addrs, reject = select_addresses(resolved.get(p.server, []))
+        ip = addrs[0] if addrs else (resolved.get(p.server) or [None])[0]
         rec = Record(p, proxy_id(key), ip, None)
-        if ip is None:
-            rec.reject = "dns"
-        elif not is_public(ip):
-            rec.reject = "non-public-ip"
+        if reject:
+            rec.reject = reject
         else:
             # The hostname only matters for DNS; on the wire the proxy sees
             # (ip, port, secret). Probing per target avoids hammering one
             # server through hundreds of sub-domain aliases.
-            rec.target = (ip, p.port, p.secret)
+            rec.targets = [(a, p.port, p.secret) for a in addrs]
+            rec.target = rec.targets[0]
         records.append(rec)
 
-    by_target: dict[tuple, list[Record]] = defaultdict(list)
-    for r in records:
-        if r.target:
-            by_target[(r.target[0], r.target[1], r.target[2].raw)].append(r)
-    live = {k: v[0].target for k, v in by_target.items()}
-
-    per_round_ok = []
     t = time.monotonic()
-    for i in range(cfg.rounds):
-        if i:
-            await asyncio.sleep(cfg.gap)
-        res = await _probe_targets(list(live.values()), cfg)
-        ok_keys = {}
-        for k, tgt in live.items():
-            pr = res[tgt]
-            for rec in by_target[k]:
-                rec.rounds.append(pr)
-            if pr.ok:
-                ok_keys[k] = tgt
-        per_round_ok.append(len(ok_keys))
-        # A target that failed a round can no longer be `verified` — stop
-        # spending connections on it (its failure is already recorded).
-        live = ok_keys
+    per_round_ok, n_targets = await probe_records(records, cfg)
     timings["probe"] = round(time.monotonic() - t, 2)
 
     for r in records:
@@ -186,4 +243,4 @@ async def run(cfg: Config | None = None, state: State | None = None, sources=SOU
             state.record_source(rep.id, src_found[rep.id], src_ok[rep.id], now)
         state.finish_run(now)
 
-    return RunResult(records, reports, timings, per_round_ok, len(by_target), started, geo.available)
+    return RunResult(records, reports, timings, per_round_ok, n_targets, started, geo.available)
