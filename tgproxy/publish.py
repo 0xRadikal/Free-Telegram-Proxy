@@ -8,8 +8,6 @@ Invariants (enforced here, tested in tests/test_publish.py):
 """
 from __future__ import annotations
 
-import csv
-import io
 import json
 import shutil
 from collections import Counter, defaultdict
@@ -41,53 +39,53 @@ def _sort_key(r: Record):
 
 
 def _row(r: Record) -> dict:
+    """Slim record. Links are derivable from server/port/secret, so they are
+    not repeated here (that alone was ~2/3 of the JSON size)."""
     p = r.proxy
     return {
-        "id": r.id,
         "server": p.server,
         "port": p.port,
         "secret": p.secret.hex(),
         "type": p.secret.kind,
-        "sni": p.secret.domain_text,
         "ip": r.ip,
         "country": r.country,
         "asn": r.asn,
         "asn_org": r.asn_org,
-        "level": r.level,
-        "verified": r.verified,
         "rtt_ms": r.rtt,
         "uptime": r.hist.get("uptime"),
         "checks": r.hist.get("checks", 0),
-        "streak": r.hist.get("streak", 0),
-        "first_seen": _iso(r.hist["first_seen"]) if r.hist.get("first_seen") else None,
         "sources": sorted(p.sources),
-        "tg": p.tg_link(),
-        "tme": p.tme_link(),
     }
+
+
+def _one_per_ip(recs: list[Record]) -> list[Record]:
+    """Keep the first (= lowest RTT, input is sorted) link of every server IP."""
+    seen: Counter = Counter()
+    out = []
+    for r in recs:
+        if seen[r.ip] < RESILIENT_PER_IP:
+            seen[r.ip] += 1
+            out.append(r)
+    return out
 
 
 def tiers(records: list[Record]) -> dict[str, list[Record]]:
+    """`verified` is the complete honest set (every alias). Every other tier is
+    one link per server IP: on 2026-10-26 one operator owned ~62% of verified
+    links via hundreds of sub-domains, so aliases add size, not resilience."""
     ver = sorted((r for r in records if r.verified), key=_sort_key)
-    out: dict[str, list[Record]] = {
+    res = _one_per_ip(ver)
+    return {
         "verified": ver,
-        "fast": [r for r in ver if r.rtt is not None and r.rtt <= FAST_MS],
-        "stable": [r for r in ver if (r.hist.get("uptime") or 0) >= STABLE_UPTIME
+        "resilient": res,
+        "fast": [r for r in res if r.rtt is not None and r.rtt <= FAST_MS],
+        "stable": [r for r in res if (r.hist.get("uptime") or 0) >= STABLE_UPTIME
                    and r.hist.get("checks", 0) >= STABLE_MIN_CHECKS],
-        "faketls": [r for r in ver if r.proxy.secret.kind == "faketls"],
-        "secure": [r for r in ver if r.proxy.secret.kind == "secure"],
-        "classic": [r for r in ver if r.proxy.secret.kind == "classic"],
+        "faketls": _one_per_ip([r for r in ver if r.proxy.secret.kind == "faketls"]),
+        "secure": _one_per_ip([r for r in ver if r.proxy.secret.kind == "secure"]),
+        "classic": _one_per_ip([r for r in ver if r.proxy.secret.kind == "classic"]),
         "all": sorted(records, key=lambda r: (r.proxy.server, r.proxy.port, r.proxy.secret.raw)),
     }
-    # resilient: one link per server IP — the list that survives a single
-    # operator going down. Best (lowest RTT) link wins for each IP.
-    seen: Counter = Counter()
-    res = []
-    for r in ver:
-        if seen[r.ip] < RESILIENT_PER_IP:
-            seen[r.ip] += 1
-            res.append(r)
-    out["resilient"] = res
-    return out
 
 
 def _write(path: Path, text: str, written: list) -> None:
@@ -96,22 +94,22 @@ def _write(path: Path, text: str, written: list) -> None:
     written.append(path)
 
 
-def _write_tier(base: Path, name: str, recs: list[Record], written: list) -> dict | None:
+TIER_FILES = ("tg.txt", "tme.txt", "proxies.json")
+
+
+def _write_tier(base: Path, name: str, recs: list[Record], written: list, files=TIER_FILES) -> dict | None:
     if not recs:
         return None
     d = base / name
-    _write(d / "tg.txt", "\n".join(r.proxy.tg_link() for r in recs) + "\n", written)
-    _write(d / "tme.txt", "\n".join(r.proxy.tme_link() for r in recs) + "\n", written)
-    _write(d / "proxies.json", json.dumps([_row(r) for r in recs], ensure_ascii=False, indent=1) + "\n", written)
-    buf = io.StringIO()
-    cols = ["server", "port", "secret", "type", "country", "rtt_ms", "uptime", "tme"]
-    w = csv.DictWriter(buf, cols, extrasaction="ignore", lineterminator="\n")
-    w.writeheader()
-    for r in recs:
-        w.writerow(_row(r))
-    _write(d / "proxies.csv", buf.getvalue(), written)
+    if "tg.txt" in files:
+        _write(d / "tg.txt", "\n".join(r.proxy.tg_link() for r in recs) + "\n", written)
+    if "tme.txt" in files:
+        _write(d / "tme.txt", "\n".join(r.proxy.tme_link() for r in recs) + "\n", written)
+    if "proxies.json" in files:
+        _write(d / "proxies.json", json.dumps([_row(r) for r in recs], ensure_ascii=False,
+                                              separators=(",", ":")) + "\n", written)
     return {"count": len(recs), "servers": len({(r.ip, r.proxy.port) for r in recs}),
-            "files": {f: f"{RAW}/{name}/{f}" for f in ("tg.txt", "tme.txt", "proxies.json", "proxies.csv")}}
+            "files": {f: f"{RAW}/{name}/{f}" for f in files}}
 
 
 def write_outputs(res: RunResult, out: Path, runner: dict, state_dump: dict | None = None) -> dict:
@@ -123,12 +121,13 @@ def write_outputs(res: RunResult, out: Path, runner: dict, state_dump: dict | No
     t = tiers(res.records)
     tier_meta = {}
     for name in ("verified", "fast", "stable", "resilient", "faketls", "secure", "classic", "all"):
-        m = _write_tier(out, name, t[name], written)
+        # all/ includes dead links (research use): text only, no JSON.
+        m = _write_tier(out, name, t[name], written, ("tg.txt",) if name == "all" else TIER_FILES)
         if m:
             tier_meta[name] = m
 
     by_cc: dict[str, list[Record]] = defaultdict(list)
-    for r in t["verified"]:
+    for r in t["resilient"]:
         if r.country:
             by_cc[r.country].append(r)
     countries = {}
@@ -159,6 +158,7 @@ def write_outputs(res: RunResult, out: Path, runner: dict, state_dump: dict | No
             "fast": f"verified and median round-trip through the proxy <= {FAST_MS} ms (measured from the runner)",
             "stable": f"verified and passed >= {int(STABLE_UPTIME*100)}% of the last checks (min {STABLE_MIN_CHECKS})",
             "resilient": "verified, at most one link per server IP (lowest RTT kept)",
+            "derived_tiers": "fast/stable/faketls/secure/classic/countries are taken from verified with one link per server IP",
             "top50": "first 50 of resilient",
         },
     }

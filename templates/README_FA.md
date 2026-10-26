@@ -56,7 +56,7 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top50.txt
 | `countries/XX.txt` | بر اساس کشور سرور |
 | `all/` | همه، حتی مرده‌ها — برای پژوهش |
 
-هر پوشه شامل `tg.txt`، `tme.txt`، `proxies.json` و `proxies.csv` است. دسته‌ای که در یک دور خالی باشد **حذف** می‌شود و هرگز خالی منتشر نمی‌شود.
+هر پوشه شامل `tg.txt`، `tme.txt` و `proxies.json` است (`all/` فقط `tg.txt`). `verified/` همهٔ لینک‌های سالم را دارد؛ بقیهٔ دسته‌ها از هر IP فقط یک لینک. دسته‌ای که در یک دور خالی باشد **حذف** می‌شود و هرگز خالی منتشر نمی‌شود.
 
 اگر `raw.githubusercontent.com` فیلتر بود، ابتدای آدرس را با `https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main` عوض کن.
 

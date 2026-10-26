@@ -47,6 +47,7 @@ const BASES=["https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/ma
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 async function get(p){for(const b of BASES){try{const r=await fetch(b+"/"+p,{cache:"no-store"});if(r.ok)return r.json()}catch(e){}}throw new Error(p)}
 let idx,data=[],tier="resilient";
+const tme=r=>`https://t.me/proxy?server=${encodeURIComponent(r.server)}&port=${r.port}&secret=${r.secret}`;
 function flag(cc){return cc&&cc.length==2?String.fromCodePoint(...[...cc.toUpperCase()].map(c=>0x1F1E6+c.charCodeAt(0)-65)):"🏳️"}
 function stat(k,v){return `<div class="card"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`}
 function visible(){const cc=document.getElementById("cc").value,q=document.getElementById("q").value.toLowerCase();
@@ -55,7 +56,7 @@ function draw(){const rows=visible();document.getElementById("rows").innerHTML=r
   `<tr><td>${i+1}</td><td>${esc(r.server)}:${r.port}</td><td><span class="tag">${esc(r.type)}</span></td>
    <td>${flag(r.country)} ${esc(r.country||"?")} <span class="tag">${esc(r.asn_org||"")}</span></td>
    <td class="r">${r.rtt_ms??"—"}</td><td class="r">${r.uptime==null?"—":(r.uptime*100).toFixed(0)+"%"}</td>
-   <td><a class="go" href="${esc(r.tme)}">Connect</a></td></tr>`).join("")}
+   <td><a class="go" href="${esc(tme(r))}">Connect</a></td></tr>`).join("")}
 async function loadTier(t){tier=t;document.querySelectorAll("#tiers button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));
   data=await get(t+"/proxies.json");const ccs=[...new Set(data.map(r=>r.country).filter(Boolean))].sort();
   document.getElementById("cc").innerHTML='<option value="">All countries</option>'+ccs.map(c=>`<option>${c}</option>`).join("");draw()}
@@ -68,7 +69,7 @@ async function loadTier(t){tier=t;document.querySelectorAll("#tiers button").for
   document.querySelectorAll("#tiers button").forEach(b=>b.onclick=()=>loadTier(b.dataset.t));
   await loadTier(idx.tiers.resilient?"resilient":Object.keys(idx.tiers)[0])})().catch(e=>document.getElementById("upd").textContent="failed to load: "+e.message);
 document.getElementById("cc").onchange=draw;document.getElementById("q").oninput=draw;
-document.getElementById("copy").onclick=()=>navigator.clipboard.writeText(visible().map(r=>r.tme).join("\n"));
+document.getElementById("copy").onclick=()=>navigator.clipboard.writeText(visible().map(tme).join("\n"));
 </script>
 </body>
 </html>

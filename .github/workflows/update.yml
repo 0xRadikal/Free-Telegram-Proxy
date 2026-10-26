@@ -93,6 +93,17 @@ jobs:
         if: steps.gate.outputs.run == 'true'
         run: python -m tgproxy --out .
 
+      - name: Validate outputs (fail-closed)
+        if: steps.gate.outputs.run == 'true'
+        run: python tools/validate_outputs.py .
+
+      - name: Size budget
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          mkdir -p /tmp/out
+          for p in $OUTPUT_PATHS; do [ -e "$p" ] && cp -r "$p" /tmp/out/; done
+          python tools/check_size.py /tmp/out
+
       - name: Summary
         if: steps.gate.outputs.run == 'true'
         run: |
@@ -142,7 +153,7 @@ jobs:
             for p in $OUTPUT_PATHS; do git rm -r -f --cached -q --ignore-unmatch -- "$p" >/dev/null; done
             for p in $OUTPUT_PATHS; do [ -e "$p" ] && git add -f -- "$p"; done
             TREE=$(git write-tree); rm -f "$GIT_INDEX_FILE"; unset GIT_INDEX_FILE
-            for must in tgproxy/__main__.py templates/README.md .github/workflows/update.yml index.json; do
+            for must in tgproxy/__main__.py templates/README.md tools/check_size.py tools/validate_outputs.py .github/workflows/update.yml index.json; do
               git cat-file -e "$TREE:$must" || { echo "❌ $must missing from tree"; exit 1; }
             done
             if [ "$TREE" = "$(git rev-parse "$TIP^{tree}")" ]; then echo "no change"; exit 0; fi
@@ -156,6 +167,6 @@ jobs:
         if: steps.gate.outputs.run == 'true'
         continue-on-error: true
         run: |
-          for f in top50.txt resilient/tme.txt resilient/tg.txt verified/tme.txt verified/tg.txt fast/tme.txt index.json; do
+          for f in top50.txt resilient/tme.txt resilient/tg.txt resilient/proxies.json verified/tme.txt verified/tg.txt verified/proxies.json fast/tme.txt index.json health.json; do
             curl -fsS -m 15 "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/$f" >/dev/null || true
           done

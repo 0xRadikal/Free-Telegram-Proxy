@@ -46,14 +46,16 @@ On 2026-10-26 we merged seven popular lists and resolved every hostname. **958 o
 | Tier | What gets in |
 |---|---|
 | **`resilient/`** | verified · **one link per server IP** (lowest latency kept) — *recommended* |
-| `fast/` | verified · median round-trip through the proxy ≤ 100 ms *from the test runner* |
-| `stable/` | verified · passed ≥ 90 % of its last checks (appears after ~3 hours of history) |
+| `fast/` | resilient · median round-trip through the proxy ≤ 100 ms *from the test runner* |
+| `stable/` | resilient · passed ≥ 90 % of its last checks (appears after ~3 hours of history) |
 | `verified/` | passed the full end-to-end test in **every** round |
 | `faketls/` · `secure/` · `classic/` | verified, split by secret type (`ee` · `dd` · 16-byte) |
 | `countries/XX.txt` | verified, by server location (DB-IP) |
 | `all/` | everything collected, including dead ones — for researchers |
 
-Each tier folder contains `tg.txt` (`tg://` links), `tme.txt` (`https://t.me/proxy` links), `proxies.json` and `proxies.csv`. A tier that is empty in a run is **removed**, never published empty.
+Each tier folder contains `tg.txt` (`tg://` links), `tme.txt` (`https://t.me/proxy` links) and `proxies.json` (server, port, secret, type, country, ASN, RTT, uptime, sources). `all/` has `tg.txt` only. A tier that is empty in a run is **removed**, never published empty.
+
+`verified/` lists every working link, including the many aliases of the same server. Every other tier keeps **one link per server IP** — more links to the same machine add size, not reliability.
 
 ```
 https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/resilient/tme.txt

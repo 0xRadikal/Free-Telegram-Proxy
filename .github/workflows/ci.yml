@@ -1,13 +1,19 @@
 name: CI
 
+# Every test runs on GitHub's own runner — nothing is tested only locally.
 on:
   pull_request:
   push:
     branches: [main]
-    paths: ["tgproxy/**", "tests/**", "requirements*.txt", ".github/workflows/ci.yml"]
+    paths: ["tgproxy/**", "tests/**", "tools/**", "templates/**", "requirements*.txt", ".github/workflows/**"]
+  workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -20,6 +26,33 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt -r requirements-dev.txt
-      # Unit + differential (real TDLib via tdjson) + live integration against
-      # the pinned reference proxy and real Telegram DCs. Nothing is mocked.
-      - run: python -m pytest -q
+      # Unit + differential against the real TDLib (tdjson) + live integration
+      # against the pinned reference proxy and real Telegram DCs. No mocks.
+      # -rs prints any skipped test so a silent skip cannot hide.
+      - run: python -m pytest -q -rs
+
+  e2e:
+    # Full pipeline against the live sources from the US runner, then the same
+    # validators the publisher uses. Nothing is pushed.
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run pipeline (2 short rounds, no GeoIP)
+        run: mkdir -p /tmp/out && python -m tgproxy --out /tmp/out --rounds 2 --gap 5
+      - run: python tools/validate_outputs.py /tmp/out
+      - run: python tools/check_size.py /tmp/out
+      - name: Summary
+        run: |
+          python3 - >> "$GITHUB_STEP_SUMMARY" <<'PY'
+          import json
+          i = json.load(open("/tmp/out/index.json"))
+          print("### e2e funnel (runner: %s)\n" % i["runner"])
+          for k, v in i["funnel"].items():
+              print(f"- **{k}**: {v}")
+          PY

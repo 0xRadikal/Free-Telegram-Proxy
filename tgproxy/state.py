@@ -47,6 +47,11 @@ class State:
 
     # ------------------------------------------------------------ updates
     def record(self, pid: str, ok: bool, now: int, rtt: int | None) -> None:
+        # Size control: a proxy that has never passed gets no history entry
+        # (measured: ~45% of collected links are dead; tracking them would
+        # roughly double state.json for zero user value).
+        if not ok and pid not in self.proxies:
+            return
         e = self.proxies.setdefault(pid, {"h": "", "first": now, "last_ok": None, "last_seen": now})
         e["h"] = (e["h"] + ("1" if ok else "0"))[-HISTORY:]
         e["last_seen"] = now

@@ -58,7 +58,7 @@ def test_output_is_deterministic(tmp_path):
     a, b = tmp_path / "a", tmp_path / "b"
     write_outputs(result(rs), a, {}, None)
     write_outputs(result(list(reversed(rs))), b, {}, None)
-    for f in ("verified/tg.txt", "verified/proxies.json", "index.json", "all/proxies.csv"):
+    for f in ("verified/tg.txt", "verified/proxies.json", "index.json", "all/tg.txt"):
         assert (a / f).read_bytes() == (b / f).read_bytes(), f
 
 
@@ -70,8 +70,18 @@ def test_published_links_reparse_to_same_proxy(tmp_path):
         assert parse_link(line).key == rs[0].proxy.key
 
 
+def test_state_skips_never_working_proxies():
+    s = State()
+    s.record("dead", False, 1, None)
+    assert "dead" not in s.proxies
+    s.record("x", True, 1, 10)
+    s.record("x", False, 2, None)
+    assert s.stats("x")["checks"] == 2
+
+
 def test_state_uptime_and_bounds():
     s = State()
+    s.record("x", True, 999, 30)
     for i in range(200):
         s.record("x", i % 4 != 0, 1000 + i, 30)
     st = s.stats("x")
@@ -93,3 +103,17 @@ def test_source_exclusivity_is_leave_one_out():
     b = _source_health(SourceReport("B", "u", "github"), records)
     assert a["exclusive_verified_servers"] == 1   # only 2.2.2.2
     assert b["exclusive_verified_servers"] == 0   # 1.1.1.1 is also in A
+
+
+def test_derived_tiers_are_one_per_ip(tmp_path):
+    rs = [rec(f"h{i}", "9.9.9.9", secret="dd" + "00" * 16) for i in range(30)]
+    t = tiers(rs)
+    assert len(t["verified"]) == 30
+    for name in ("resilient", "fast", "secure"):
+        assert len(t[name]) == 1, name
+
+
+def test_all_tier_is_text_only(tmp_path):
+    write_outputs(result([rec("a", "1.1.1.1")]), tmp_path, {}, None)
+    assert sorted(p.name for p in (tmp_path / "all").iterdir()) == ["tg.txt"]
+    assert not list(tmp_path.rglob("*.csv"))
