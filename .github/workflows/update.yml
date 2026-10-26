@@ -1,10 +1,16 @@
 name: Update proxies
 
-# Cadence: cron every 10 min + a freshness gate, so a delayed/skipped GitHub
-# cron tick does not stretch the gap (pattern proven in Free-v2ray-Configs).
+# Cadence. Primary: repository_dispatch from the server timer every 15 min.
+# Fallback: GitHub cron. Ticks at :04/:19/:34/:49 avoid the top of the hour
+# (documented high-load time when queued schedule jobs may be dropped) and,
+# with the 13-min gate, give a 15-min cadence if the server is down
+# (*/10 + 13-min gate simulated to 20 min). GitHub cron is best-effort:
+# measured 0 schedule runs in the first ~5 h of this repo; the sibling repo
+# Free-v2ray-Configs sees schedule runs every 2-6 h. The gate collapses
+# cron + dispatch into one run.
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "4,19,34,49 * * * *"
   workflow_dispatch:
     inputs:
       force:

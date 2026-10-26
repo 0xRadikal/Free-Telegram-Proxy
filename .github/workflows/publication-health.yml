@@ -4,11 +4,16 @@ name: Publication health (read-only)
 # GitHub cron can be delayed or dropped; this is not an external uptime SLA.
 on:
   schedule:
-    - cron: "17,47 * * * *"
+    - cron: "17,47 * * * *"   # off the top of the hour and off update.yml ticks
   workflow_dispatch:
+    inputs:
+      max_age_minutes:
+        description: "Staleness threshold (set 1 to test the alert path end to end)"
+        default: "65"
 
 permissions:
   contents: read
+  issues: write   # only to open/close the single "stale output" alert issue
 
 concurrency:
   group: publication-health
@@ -21,4 +26,37 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Inspect published metadata
-        run: python3 tools/check_freshness.py --max-age-minutes 65 --min-verified 20
+        id: check
+        env:
+          MAX_AGE: ${{ github.event.inputs.max_age_minutes || '65' }}
+        run: |
+          set -o pipefail
+          case "$MAX_AGE" in ''|*[!0-9]*) echo "invalid max_age_minutes" >&2; exit 2;; esac
+          python3 tools/check_freshness.py --max-age-minutes "$MAX_AGE" --min-verified 20 2>&1 | tee /tmp/health.txt
+      # GitHub only e-mails the cron author on failure and that is not
+      # guaranteed; an issue is visible to everyone and to watchers. At most
+      # one open issue (label `stale-output`), closed automatically on recovery.
+      # The issue list is read twice, 5 s apart: measured on this repo, a
+      # label-filtered list right after creation can briefly return [] (a
+      # duplicate was created in a live test); the runs are serialized by
+      # `concurrency`, so the only race is that indexing lag.
+      - name: Open alert issue
+        if: failure() && steps.check.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create stale-output --color B60205 --description "Published proxy list is stale or invalid" 2>/dev/null || true
+          find_open() { gh issue list --label stale-output --state open --json number -q '.[0].number // empty'; }
+          open=$(find_open); [ -n "$open" ] || { sleep 5; open=$(find_open); }
+          body="$(cat /tmp/health.txt)"$'\n\n'"Run: $RUN_URL"
+          if [ -n "$open" ]; then gh issue comment "$open" --body "$body"
+          else gh issue create --title "Published proxy list is stale or invalid" --label stale-output --body "$body"; fi
+      - name: Close alert issue on recovery
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for n in $(gh issue list --label stale-output --state open --json number -q '.[].number'); do
+            gh issue close "$n" --comment "Recovered: $(cat /tmp/health.txt)"
+          done
