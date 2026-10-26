@@ -72,8 +72,6 @@ def test_invalid_secret_dropped():
 # ── audit round 6 ──────────────────────────────────────────────────────────
 import pytest  # noqa: E402
 
-from tgproxy.links import extract, parse_link  # noqa: E402
-
 _S = "00" * 16
 
 
