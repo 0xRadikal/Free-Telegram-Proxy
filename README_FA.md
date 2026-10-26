@@ -35,19 +35,20 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top50.txt
 </div>
 
 <!-- LIVE:BEGIN -->
-**آخرین به‌روزرسانی:** `2026-10-26T21:03:19Z` · محل تست: `US` (`SEA`)
+**آخرین به‌روزرسانی:** `2026-10-26T21:18:42Z` · محل تست: `US` (`MSP`)
 
 | مرحله | تعداد |
 |---|---:|
-| لینک جمع‌آوری‌شده از همهٔ منابع | 3,205 |
-| سرور یکتا (IP:پورت) که تست شد | 1,442 |
-| **تأییدشده در همهٔ 3 دور** (لینک) | **1,779** |
-| همان‌ها، بر حسب **سرور واقعی** | **407** (377 IP) |
-| سهم بزرگ‌ترین اپراتور از لینک‌های تأییدشده | 1,079 (60.7%) |
+| لینک جمع‌آوری‌شده از همهٔ منابع | 3,230 |
+| سرور یکتا (IP:پورت) که تست شد | 1,877 |
+| **تأییدشده در همهٔ 3 دور** (لینک) | **1,735** |
+| همان‌ها، بر حسب **سرور واقعی** | **403** (370 IP) |
+| سهم پرتکرارترین IP از لینک‌های تأییدشده | 1,048 (60.4%) |
+| سهم بزرگ‌ترین شبکه (`AS219498`) از لینک‌های تأییدشده | 1,048 (60.4%) |
 
-`resilient` 377 · `fast` 97 · `stable` 328 · `verified` 1779 · `faketls` 122 · `secure` 94 · `classic` 169 · `all` 3205
+`resilient` 370 · `fast` 95 · `stable` 329 · `verified` 1735 · `faketls` 122 · `secure` 88 · `classic` 169 · `all` 3230
 
-[🇩🇪 DE 115](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 102](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 55](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 33](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 18](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 11](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇵🇱 PL 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇸🇪 SE 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇬🇧 GB 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇭🇰 HK 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/HK.txt)
+[🇩🇪 DE 109](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 100](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 53](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 35](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 16](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 14](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇵🇱 PL 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇸🇪 SE 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇬 SG 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt) [🇬🇧 GB 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt)
 <!-- LIVE:END -->
 
 <div dir="rtl">
@@ -63,6 +64,8 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top50.txt
 | **پارس secret** | regex | پورت خط‌به‌خطِ پارسر TDLib که با **خودِ باینری TDLib** مقایسه و تست شده |
 | **تاریخچه** | ندارد | درصد سالم‌بودن در ~۹۶ تست اخیر (`stable/`) |
 
+اگر یک دامنه به چند IP اشاره کند، تلگرام به هر کدام که DNS اول برگرداند وصل می‌شود؛ پس این‌جا **همهٔ IPv4های آن دامنه** باید در هر دور پاس شوند. در ۲۰۲۶-۱۰-۲۶، ۱۴ دامنه کنار یک IP سالم یک IP خراب داشتند.
+
 ### کشفی که این پروژه را شکل داد
 
 در ۲۰۲۶-۱۰-۲۶ هفت لیست معروف را ادغام کردیم و همهٔ دامنه‌ها را resolve کردیم: **۹۵۸ لینک از ۱۳۹۴ لینک سالم فقط به یک IP می‌رسیدند.** اگر همان یک سرور بیفتد یا فیلتر شود، بیشتر آن لیست‌ها هم‌زمان از کار می‌افتند. به همین دلیل پیش‌فرض ما `resilient/` است.
@@ -71,7 +74,7 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top50.txt
 
 | دسته | معیار |
 |---|---|
-| **`resilient/`** | تأییدشده · **از هر IP یک لینک** — *پیشنهادی* |
+| **`resilient/`** | تأییدشده · **از هر IP یک لینک** (لینکی که طولانی‌ترین سابقهٔ بررسی را دارد نگه داشته می‌شود تا لینک ذخیره‌شدهٔ تو بین اجراها عوض نشود) — *پیشنهادی* |
 | `fast/` | سریع‌ترین ۲۵٪ از `resilient` بر اساس زمان رفت‌وبرگشت *از محل تست* |
 | `stable/` | تأییدشده · حداقل ۹۰٪ تست‌های اخیر را پاس کرده (بعد از ~۳ ساعت تاریخچه ظاهر می‌شود) |
 | `verified/` | در **همهٔ** دورها تست کامل را پاس کرده |
