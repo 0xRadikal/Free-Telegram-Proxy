@@ -40,6 +40,7 @@ python3 tools/check_freshness.py --max-age-minutes 65 --min-verified 20
 
 ```bash
 python -m tools.optional_germany_spotcheck --source resilient/proxies.json
+# یا: python tools/optional_germany_spotcheck.py --source resilient/proxies.json
 ```
 
 خروجی پیش‌فرض `mode: dry-run` است و هیچ ارتباط شبکه‌ای با پروکسی برقرار نمی‌کند.
@@ -56,9 +57,9 @@ python -m tools.optional_germany_spotcheck --source resilient/proxies.json --max
 
 ## برنامه فاز بعد؛ نیازمند تست جداگانه
 
-- [ ] اصلاح عنوان `top_ip_share` از «operator share» به «single IP share» در README و داشبورد؛ صرفاً اصلاح برچسب.
-- [ ] اصلاح توضیح `resilient` مطابق پیاده‌سازی واقعی `longest history`, نه `lowest RTT`.
-- [ ] طراحی تست IPv4/IPv6 و همه IPهای DNS به‌شکل محدود: حتماً IP انتخابی منتشرشده با آنچه تست شده یکسان باشد؛ بدون داده و تست جدید وارد تولید نشود.
+- [x] اصلاح عنوان `top_ip_share` از «operator share» به «single IP share» در README و داشبورد؛ صرفاً اصلاح برچسب.
+- [x] اصلاح توضیح `resilient` مطابق پیاده‌سازی واقعی `longest history`, نه `lowest RTT`.
+- [x] (انجام شد: همهٔ IPv4ها تست می‌شوند؛ تست آفلاین + اجرای واقعی) طراحی تست IPv4/IPv6 و همه IPهای DNS به‌شکل محدود: حتماً IP انتخابی منتشرشده با آنچه تست شده یکسان باشد؛ بدون داده و تست جدید وارد تولید نشود.
 - [ ] ساخت تاریخچه جداگانه per-IP در کنار per-link با نسخه‌بندی state و امکان rollback.
 - [ ] محاسبه رتبه Top50 با تنوع ASN و محدودیت تمرکز، در کنار حفظ backupهای موجود؛ قبل از تغییر روی داده تاریخی offline مقایسه شود.
 - [ ] ساخت بخش Discovery از منابع جدید رایگان، با گزارش contribution واقعی هر منبع؛ جلوگیری از فشار روی منابع عمومی.
@@ -72,3 +73,7 @@ python -m tools.optional_germany_spotcheck --source resilient/proxies.json --max
 - برای برگشت: workflow جدید `publication-health.yml` را از branch بعدی حذف کنید؛ `tools/check_freshness.py` خود تغییری در وضعیت اجرا ایجاد نمی‌کند.
 - استقرار روی سرور آلمان لازم نیست. اگر اجرا شود، تنها یک برنامه دستی و موقت است.
 - تست‌های این بسته آفلاین‌اند و اجرای واقعی روی GitHub/آلمان/شبکه ایران را **اثبات نمی‌کنند**. مسیر اعتبارسنجی بیشتر، ابتدا PR و سپس بررسی دستی logs است.
+
+## واقعیت زمان‌بندی (اندازه‌گیری‌شده، ۲۶ اکتبر)
+- در ~۳ ساعت اول، workflow `update.yml` هیچ اجرای `schedule` نداشت؛ همهٔ اجراها از تایمر سرور (`repository_dispatch`) بود.
+- پس watchdog زمان‌بندی‌شده هم ممکن است دیر یا اصلاً اجرا نشود. هشدار شکست برای کاربری ارسال می‌شود که آخرین بار خط cron را تغییر داده (مستندات GitHub).
