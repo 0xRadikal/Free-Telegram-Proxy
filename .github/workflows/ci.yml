@@ -48,11 +48,24 @@ jobs:
       - run: python tools/validate_outputs.py /tmp/out
       - run: python tools/check_size.py /tmp/out
       - name: Summary
+        if: always()
         run: |
-          python3 - >> "$GITHUB_STEP_SUMMARY" <<'PY'
+          python3 - | tee -a "$GITHUB_STEP_SUMMARY" <<'PY'
           import json
           i = json.load(open("/tmp/out/index.json"))
+          h = json.load(open("/tmp/out/health.json"))
           print("### e2e funnel (runner: %s)\n" % i["runner"])
           for k, v in i["funnel"].items():
               print(f"- **{k}**: {v}")
+          print("\n### sources\n\n| id | status | http | found | verified | exclusive servers |\n|---|---|---|---:|---:|---:|")
+          for s in h["sources"]:
+              print(f"| {s['id']} | {s['status']} | {s['http']} | {s['found']} | {s['verified']} | {s['exclusive_verified_servers']} |")
           PY
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: e2e-report
+          path: |
+            /tmp/out/index.json
+            /tmp/out/health.json
+          retention-days: 7
