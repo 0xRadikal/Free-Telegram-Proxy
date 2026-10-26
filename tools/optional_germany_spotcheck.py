@@ -18,8 +18,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from tgproxy.probe import probe
-from tgproxy.secret import Secret, SecretError
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # also runnable as a script
+
+from tgproxy.probe import probe  # noqa: E402
+from tgproxy.secret import Secret, SecretError  # noqa: E402
 
 MAX_PROXIES = 25
 MAX_CONCURRENCY = 4
@@ -55,19 +57,27 @@ def load_candidates(path: Path) -> list[dict[str, Any]]:
     return valid
 
 
+def _network(p: dict[str, Any]) -> str:
+    """ASN, or the /24 (/48) prefix when GeoIP has no ASN. Measured 2026-10-26:
+    DB-IP Lite had no ASN for 191.44.90.0/24, the largest network in the list,
+    so treating every unknown ASN as distinct would over-sample it."""
+    if type(p.get("asn")) is int:
+        return f"AS{p['asn']}"
+    plen = 48 if ":" in p["ip"] else 24
+    return str(ipaddress.ip_network(f"{p['ip']}/{plen}", strict=False))
+
+
 def select_diverse(candidates: list[dict[str, Any]], n: int) -> list[dict[str, Any]]:
-    """Stable pseudo-random order, distinct ASN first, no RTT-based sampling bias."""
+    """Stable pseudo-random order, one per network first, no RTT-based sampling bias."""
     ordered = sorted(candidates, key=lambda r: hashlib.sha256(
         (r["ip"] + ":" + str(r["port"])).encode("ascii")).hexdigest())
-    chosen, asns, selected = [], set(), set()
+    chosen, nets, selected = [], set(), set()
     for p in ordered:
-        # Unknown ASNs are NOT one group: selecting one must not exclude others.
-        asn = p.get("asn")
-        if type(asn) is int and asn not in asns:
+        net = _network(p)
+        if net not in nets:
+            nets.add(net)
             chosen.append(p)
             selected.add((p["ip"], p["port"]))
-            if type(asn) is int:
-                asns.add(asn)
             if len(chosen) >= n:
                 return chosen
     for p in ordered:
@@ -130,7 +140,7 @@ def main(argv: list[str] | None = None) -> int:
         return 2
     # No output file: prevents accidental version-controlled publication of sampled endpoints.
     result = {"mode": "live" if args.live else "dry-run", "candidate_count": len(sample),
-              "sample_asns": len({p["asn"] for p in sample if type(p["asn"]) is int}),
+              "sample_networks": len({_network(p) for p in sample}),
               "origin": "operator-host (location not independently verified)",
               "note": "Only measures MTProto connectivity from the machine running this program; not Iranian/Russian ISP reachability."}
     if args.live:

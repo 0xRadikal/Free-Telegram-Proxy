@@ -61,3 +61,23 @@ def test_out_of_bounds_rejected(tmp_path):
     with pytest.raises(SystemExit) as e:
         main(["--max-proxies", "100", "--live"])
     assert e.value.code == 2
+
+
+def test_unknown_asn_grouped_by_prefix():
+    s = Secret.from_link("00" * 16)
+    rows = [{"ip": f"191.44.90.{n}", "port": 443, "asn": None, "secret": s} for n in range(1, 30)]
+    rows.append({"ip": "8.8.8.8", "port": 443, "asn": None, "secret": s})
+    first_two = select_diverse(rows, 2)
+    assert {p["ip"].rsplit(".", 1)[0] for p in first_two} == {"191.44.90", "8.8.8"}
+
+
+def test_runs_as_plain_script(tmp_path):
+    import subprocess
+    import sys
+    from pathlib import Path
+    f = tmp_path / "in.json"
+    f.write_text(json.dumps([entry("1.1.1.1", 1)]))
+    tool = Path(__file__).resolve().parent.parent / "tools" / "optional_germany_spotcheck.py"
+    r = subprocess.run([sys.executable, str(tool), "--source", str(f)], capture_output=True, text=True, cwd=tmp_path)
+    assert r.returncode == 0, r.stderr
+    assert '"mode": "dry-run"' in r.stdout
