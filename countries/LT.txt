@@ -1,0 +1,1 @@
+tg://proxy?server=tg9.chadvpn.shop&port=443&secret=eebaac6961af36ddbee993d02acdd485567275747562652e7275

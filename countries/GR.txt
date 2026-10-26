@@ -1,0 +1,1 @@
+tg://proxy?server=82.47.62.82&port=443&secret=eea63b9ba526e9762f138e4eee189bd48f636c6f75642e6d61696c2e7275

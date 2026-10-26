@@ -1,0 +1,1 @@
+tg://proxy?server=phonebackup.lol&port=443&secret=ee4a587c0a84d8c02045cbbfc2edbdb8d9636c6f75642e6d61696c2e7275

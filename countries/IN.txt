@@ -1,0 +1,1 @@
+tg://proxy?server=103.83.145.50&port=2053&secret=ddc8576be4484da99437c59af67c28ae44

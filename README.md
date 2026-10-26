@@ -21,6 +21,19 @@ On a phone, just tap any line in that file — Telegram opens and asks *Connect 
 ## Live numbers
 
 <!-- LIVE:BEGIN -->
+**Last update:** `2026-10-26T17:41:48Z` · tested from `US` (Cloudflare colo `ORD`)
+
+| Stage | Count |
+|---|---:|
+| links collected from all sources | 3,251 |
+| unique servers (IP:port) probed | 1,487 |
+| **verified in all 3 rounds** (links) | **1,688** |
+| the same, counted as **real servers** | **388** (360 IPs) |
+| largest single operator's share of verified links | 454 (26.9%) |
+
+`resilient` 360 · `fast` 1 · `stable` 0 · `verified` 1688 · `faketls` 119 · `secure` 86 · `classic` 163 · `all` 3251
+
+[🇩🇪 DE 108](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 99](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 59](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 30](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 11](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇵🇱 PL 9](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇸🇪 SE 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇬 SG 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt) [🇬🇧 GB 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt)
 <!-- LIVE:END -->
 
 ## Why this list is different

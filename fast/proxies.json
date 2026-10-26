@@ -1,0 +1,1 @@
+[{"server":"172.65.119.133","port":25565,"secret":"ee104462821249bd7ac519130220c25d0963646e2e79656b74616e65742e636f6d","type":"faketls","ip":"172.65.119.133","country":"CA","asn":13335,"asn_org":"Cloudflare, Inc.","rtt_ms":100,"uptime":1.0,"checks":2,"sources":["tgmtproxy"]}]
