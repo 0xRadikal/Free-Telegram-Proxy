@@ -64,7 +64,8 @@ async function loadTier(t){tier=t;document.querySelectorAll("#tiers button").for
   document.getElementById("upd").textContent=`Updated ${idx.updated} · tested from ${r.loc||"?"} (${r.colo||"?"})`;
   document.getElementById("stats").innerHTML=stat("links collected",f.links_collected.toLocaleString())+stat("servers probed",(f.unique_servers_probed??f.unique_targets_probed).toLocaleString())+
     stat("verified links",f.verified_links.toLocaleString())+stat("verified servers",f.verified_servers.toLocaleString())+
-    (f.top_ip_share?stat("largest operator share",(f.top_ip_share.share*100).toFixed(1)+"%"):"");
+    (f.top_ip_share?stat("largest single-IP share",(f.top_ip_share.share*100).toFixed(1)+"%"):"")+
+    (f.top_network_share?stat("largest network share",(f.top_network_share.share*100).toFixed(1)+"%"):"");
   document.getElementById("tiers").innerHTML=Object.entries(idx.tiers).filter(([k])=>k!=="all").map(([k,v])=>`<button data-t="${k}">${k} · ${v.count}</button>`).join("");
   document.querySelectorAll("#tiers button").forEach(b=>b.onclick=()=>loadTier(b.dataset.t));
   await loadTier(idx.tiers.resilient?"resilient":Object.keys(idx.tiers)[0])})().catch(e=>document.getElementById("upd").textContent="failed to load: "+e.message);

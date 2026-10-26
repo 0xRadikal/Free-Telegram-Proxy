@@ -17,3 +17,16 @@ def test_only_live_block_changes():
 def test_farsi_block():
     out = render(f"{BEGIN}{END}", IDX, "fa")
     assert "همهٔ 3 دور" in out and "DE" in out
+
+
+def test_labels_say_ip_and_network_not_operator():
+    idx = {**IDX, "funnel": {**IDX["funnel"], "top_network_share": {"network": "AS24940", "links": 4, "share": 1.0}}}
+    en = render(f"{BEGIN}{END}", idx, "en")
+    fa = render(f"{BEGIN}{END}", idx, "fa")
+    assert "operator" not in en and "اپراتور" not in fa
+    assert "single IP" in en and "`AS24940`" in en and "100.0%" in en
+    assert "پرتکرارترین IP" in fa and "`AS24940`" in fa
+
+
+def test_old_index_without_network_share_still_renders():
+    assert "network" not in render(f"{BEGIN}{END}", IDX, "en")

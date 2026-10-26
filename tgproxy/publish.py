@@ -8,6 +8,7 @@ Invariants (enforced here, tested in tests/test_publish.py):
 """
 from __future__ import annotations
 
+import ipaddress
 import json
 import shutil
 from collections import Counter, defaultdict
@@ -209,7 +210,7 @@ def write_outputs(res: RunResult, out: Path, runner: dict, state_dump: dict | No
             "verified": f"relayed a real MTProto request to Telegram DC and got our nonce back, in all {len(res.per_round_ok)} rounds",
             "fast": f"fastest {int(FAST_FRACTION*100)}% of resilient by median round-trip through the proxy, measured from the runner",
             "stable": f"verified and passed >= {int(STABLE_UPTIME*100)}% of the last checks (min {STABLE_MIN_CHECKS})",
-            "resilient": "verified, at most one link per server IP (lowest RTT kept)",
+            "resilient": "verified, at most one link per server IP (the link with the longest check history is kept, ties broken by server/port/secret); sorted by RTT",
             "derived_tiers": "fast/stable/faketls/secure/classic/countries are taken from verified with one link per server IP",
             "top50": "50 links from resilient with the best proven uptime (Wilson lower bound over check history), then lowest RTT",
         },
@@ -246,14 +247,36 @@ def _funnel(res: RunResult, t) -> dict:
         "verified_servers": len({(r.ip, r.proxy.port) for r in ver}),
         "verified_ips": len({r.ip for r in ver}),
         "top_ip_share": _top_share(ver),
+        "top_network_share": _top_network_share(ver),
     }
 
 
 def _top_share(ver: list[Record]) -> dict | None:
+    """Share of verified links that point at the single most common IP."""
     if not ver:
         return None
     ip, n = Counter(r.ip for r in ver).most_common(1)[0]
     return {"links": n, "share": round(n / len(ver), 4)}
+
+
+def network_of(r: Record) -> str:
+    """Network label: the ASN, or the /24 (IPv4) / /48 (IPv6) prefix when the
+    GeoIP database has no ASN. Measured 2026-10-26: DB-IP Lite returned no ASN
+    for 191.44.90.0/24 (RIPEstat: announced by AS215133), which held 61% of
+    verified links — grouping those as one "unknown" bucket would hide it."""
+    if r.asn:
+        return f"AS{r.asn}"
+    if not r.ip:
+        return "unknown"
+    plen = 48 if ":" in r.ip else 24
+    return str(ipaddress.ip_network(f"{r.ip}/{plen}", strict=False))
+
+
+def _top_network_share(ver: list[Record]) -> dict | None:
+    if not ver:
+        return None
+    net, n = Counter(network_of(r) for r in ver).most_common(1)[0]
+    return {"network": net, "links": n, "share": round(n / len(ver), 4)}
 
 
 def _operators(ver: list[Record], n: int = 10) -> list[dict]:

@@ -165,3 +165,23 @@ def test_alias_choice_is_stable_not_rtt_noise():
         assert [r.proxy.server for r in _one_per_ip(recs)] == ["a.example"]
     b.hist = {"checks": 50}                         # longer history wins
     assert [r.proxy.server for r in _one_per_ip([a, b])] == ["b.example"]
+
+
+def test_network_share_uses_asn_or_prefix_fallback(tmp_path):
+    from tgproxy.publish import network_of
+    a = rec("a", "191.44.90.33"); a.asn = None
+    b = rec("b", "191.44.90.29"); b.asn = None
+    c = rec("c", "1.1.1.1"); c.asn = 13335
+    d = rec("d", "2a01:4f8::1"); d.asn = None
+    assert network_of(a) == network_of(b) == "191.44.90.0/24"
+    assert network_of(c) == "AS13335" and network_of(d) == "2a01:4f8::/48"
+    out = write_outputs(result([a, b, c]), tmp_path, runner={})
+    f = out["index"]["funnel"]
+    assert f["top_ip_share"] == {"links": 1, "share": 0.3333}
+    assert f["top_network_share"] == {"network": "191.44.90.0/24", "links": 2, "share": 0.6667}
+
+
+def test_resilient_criteria_matches_implementation(tmp_path):
+    out = write_outputs(result([rec("a", "1.1.1.1")]), tmp_path, runner={})
+    txt = out["index"]["criteria"]["resilient"]
+    assert "lowest RTT kept" not in txt and "longest check history" in txt
