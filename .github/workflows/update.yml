@@ -1,0 +1,172 @@
+name: Update proxies
+
+# Cadence: cron every 10 min + a freshness gate, so a delayed/skipped GitHub
+# cron tick does not stretch the gap (pattern proven in Free-v2ray-Configs).
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Ignore the freshness gate"
+        default: "false"
+  repository_dispatch:
+    types: [update-now]
+
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  GATE_MINUTES: "13"
+  OUT_MARK: "[auto-output]"
+  # Everything the bot is allowed to write. Anything else changing between
+  # the source anchor and the tip aborts the publish (never revert humans).
+  OUTPUT_PATHS: "verified fast stable resilient faketls secure classic all countries top50.txt index.json health.json state.json README.md README_FA.md"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2
+
+      - name: Freshness gate
+        id: gate
+        env:
+          FORCE: ${{ github.event.inputs.force }}
+        run: |
+          set -euo pipefail
+          if [ "${FORCE:-false}" = "true" ] || [ "${{ github.event_name }}" = "repository_dispatch" ] || [ ! -f index.json ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          last=$(python3 -c "import json;print(json.load(open('index.json')).get('updated_unix',0))")
+          age=$(( ( $(date +%s) - last ) / 60 ))
+          echo "index.json age: ${age} min"
+          if [ "$age" -lt "$GATE_MINUTES" ]; then echo "run=false" >> "$GITHUB_OUTPUT"; else echo "run=true" >> "$GITHUB_OUTPUT"; fi
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        if: steps.gate.outputs.run == 'true'
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        if: steps.gate.outputs.run == 'true'
+        run: pip install -r requirements.txt
+
+      - name: GeoIP cache key
+        if: steps.gate.outputs.run == 'true'
+        id: geokey
+        run: echo "ym=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        if: steps.gate.outputs.run == 'true'
+        with:
+          path: .cache
+          key: dbip-${{ steps.geokey.outputs.ym }}
+
+      - name: Download DB-IP Lite (country + ASN, CC BY 4.0)
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          set -uo pipefail
+          mkdir -p .cache
+          for kind in country asn; do
+            dest=".cache/dbip-$kind-lite.mmdb"
+            [ -s "$dest" ] && [ "$(stat -c%s "$dest")" -gt 1000000 ] && continue
+            for ym in "$(date -u +%Y-%m)" "$(date -u -d 'last month' +%Y-%m)"; do
+              if curl -fsSL --retry 3 --max-time 120 -o /tmp/db.gz "https://download.db-ip.com/free/dbip-$kind-lite-$ym.mmdb.gz" \
+                 && gunzip -c /tmp/db.gz > "$dest.tmp" && [ "$(stat -c%s "$dest.tmp")" -gt 1000000 ]; then
+                mv "$dest.tmp" "$dest"; echo "✓ $kind $ym"; break
+              fi
+              rm -f "$dest.tmp"
+            done
+            [ -s "$dest" ] || echo "::warning::DB-IP $kind unavailable — countries/ASN will be empty this run"
+          done
+
+      - name: Collect, probe, publish files
+        if: steps.gate.outputs.run == 'true'
+        run: python -m tgproxy --out .
+
+      - name: Validate outputs (fail-closed)
+        if: steps.gate.outputs.run == 'true'
+        run: python tools/validate_outputs.py .
+
+      - name: Size budget
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          mkdir -p /tmp/out
+          for p in $OUTPUT_PATHS; do [ -e "$p" ] && cp -r "$p" /tmp/out/; done
+          python tools/check_size.py /tmp/out
+
+      - name: Summary
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          python3 - >> "$GITHUB_STEP_SUMMARY" <<'EOF'
+          import json
+          i = json.load(open("index.json"))
+          print("### Funnel\n")
+          for k, v in i["funnel"].items():
+              print(f"- **{k}**: {v}")
+          print("\n### Tiers\n")
+          for k, v in i["tiers"].items():
+              print(f"- `{k}`: {v['count']} links / {v['servers']} servers")
+          EOF
+
+      # ── Rolling squash on main: history = source commits + ONE output commit.
+      # Find newest non-output commit (anchor), build tree = anchor + outputs,
+      # commit with parent=anchor, push with lease. Fail-closed on anything odd.
+      - name: Publish (rolling squash)
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name  "tgproxy-bot"
+          git config user.email "actions@users.noreply.github.com"
+          is_output() { for p in $OUTPUT_PATHS; do case "$1" in "$p"|"$p"/*) return 0;; esac; done; return 1; }
+          for f in index.json health.json verified/tg.txt resilient/tg.txt top50.txt; do
+            [ -s "$f" ] || { echo "❌ missing $f — not publishing"; exit 1; }
+          done
+          N=$(python3 -c "import json;print(json.load(open('index.json'))['funnel']['verified_links'])")
+          SRV=$(python3 -c "import json;print(json.load(open('index.json'))['funnel']['verified_servers'])")
+          for attempt in 1 2 3 4 5; do
+            git fetch --no-tags --force --depth=2 origin +refs/heads/main:refs/remotes/origin/main
+            TIP=$(git rev-parse refs/remotes/origin/main)
+            ANCHOR=""
+            for d in 2 4 8 32 128; do
+              [ "$d" -gt 2 ] && git fetch --no-tags --force --depth=$d origin +refs/heads/main:refs/remotes/origin/main || true
+              ANCHOR=$(git log --format='%H%x09%s' "$TIP" | grep -v -F "$OUT_MARK" | head -1 | cut -f1 || true)
+              [ -n "$ANCHOR" ] && break
+            done
+            [ -n "$ANCHOR" ] || { echo "❌ no source anchor"; exit 1; }
+            REG=""
+            if [ "$ANCHOR" != "$TIP" ]; then
+              while IFS= read -r p; do [ -n "$p" ] && ! is_output "$p" && REG="$REG $p"; done <<< "$(git diff --name-only "$ANCHOR" "$TIP")"
+            fi
+            if [ -n "$REG" ]; then echo "⚠️ source changed between anchor and tip:$REG — retry"; sleep $((attempt*3)); continue; fi
+            export GIT_INDEX_FILE="$(mktemp -u)"
+            git read-tree "$ANCHOR"
+            for p in $OUTPUT_PATHS; do git rm -r -f --cached -q --ignore-unmatch -- "$p" >/dev/null; done
+            for p in $OUTPUT_PATHS; do [ -e "$p" ] && git add -f -- "$p"; done
+            TREE=$(git write-tree); rm -f "$GIT_INDEX_FILE"; unset GIT_INDEX_FILE
+            for must in tgproxy/__main__.py templates/README.md tools/check_size.py tools/validate_outputs.py .github/workflows/update.yml index.json; do
+              git cat-file -e "$TREE:$must" || { echo "❌ $must missing from tree"; exit 1; }
+            done
+            if [ "$TREE" = "$(git rev-parse "$TIP^{tree}")" ]; then echo "no change"; exit 0; fi
+            C=$(git commit-tree "$TREE" -p "$ANCHOR" -m "chore: update proxies — $(date -u +'%Y-%m-%d %H:%M UTC') — $N verified / $SRV servers $OUT_MARK")
+            if git push --force-with-lease="refs/heads/main:$TIP" origin "$C:refs/heads/main"; then echo "✅ published $C"; exit 0; fi
+            echo "lease rejected — retry"; sleep $((attempt*3))
+          done
+          echo "❌ could not publish"; exit 1
+
+      - name: Purge jsDelivr
+        if: steps.gate.outputs.run == 'true'
+        continue-on-error: true
+        run: |
+          for f in top50.txt resilient/tme.txt resilient/tg.txt resilient/proxies.json verified/tme.txt verified/tg.txt verified/proxies.json fast/tme.txt index.json health.json; do
+            curl -fsS -m 15 "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/$f" >/dev/null || true
+          done

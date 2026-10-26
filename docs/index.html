@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free Telegram Proxy — live</title>
+<link rel="icon" href="data:,">
+<meta name="description" content="End-to-end verified MTProto proxies for Telegram, tested against real Telegram datacenters every few minutes.">
+<style>
+:root{--bg:#0b1220;--card:#121a2b;--fg:#e6edf7;--mut:#8a97ad;--acc:#2aabee;--ok:#3ccf8e;--bd:#1f2a40}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg)}
+header{padding:28px 20px 8px;max-width:1100px;margin:auto}h1{margin:0;font-size:26px}h1 span{color:var(--acc)}
+.sub{color:var(--mut)}main{max-width:1100px;margin:auto;padding:0 20px 40px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:18px 0}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px}
+.k{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.04em}.v{font-size:26px;font-weight:700}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+button,select,input{background:var(--card);color:var(--fg);border:1px solid var(--bd);border-radius:8px;padding:8px 12px;font:inherit}
+button.on{border-color:var(--acc);color:var(--acc)}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden}
+th,td{padding:8px 10px;border-bottom:1px solid var(--bd);text-align:left;font-size:14px}th{color:var(--mut);font-weight:600}
+td.r{text-align:right;font-variant-numeric:tabular-nums}a{color:var(--acc);text-decoration:none}
+.tag{font-size:11px;padding:2px 6px;border-radius:6px;border:1px solid var(--bd);color:var(--mut)}
+.go{background:var(--acc);color:#fff;border:0;padding:6px 10px;border-radius:7px}
+.warn{color:var(--mut);font-size:13px;margin-top:18px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Free Telegram <span>Proxy</span></h1>
+  <div class="sub" id="upd">loading…</div>
+</header>
+<main>
+  <div class="grid" id="stats"></div>
+  <div class="bar" id="tiers"></div>
+  <div class="bar">
+    <select id="cc"><option value="">All countries</option></select>
+    <input id="q" placeholder="filter host…" size="18">
+    <button id="copy">Copy visible links</button>
+  </div>
+  <table><thead><tr><th>#</th><th>Server</th><th>Type</th><th>Where</th><th class="r">RTT ms</th><th class="r">Uptime</th><th></th></tr></thead>
+  <tbody id="rows"></tbody></table>
+  <p class="warn">“Verified” = relayed a real MTProto request to a Telegram datacenter and returned our random nonce, in every round, <b>from the test runner</b> shown above. It does not guarantee the proxy is reachable from your ISP. IP data: <a href="https://db-ip.com">DB-IP</a> (CC BY 4.0).</p>
+</main>
+<script>
+const BASES=["https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main","https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main"];
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+async function get(p){for(const b of BASES){try{const r=await fetch(b+"/"+p,{cache:"no-store"});if(r.ok)return r.json()}catch(e){}}throw new Error(p)}
+let idx,data=[],tier="resilient";
+const tme=r=>`https://t.me/proxy?server=${encodeURIComponent(r.server)}&port=${r.port}&secret=${r.secret}`;
+function flag(cc){return cc&&cc.length==2?String.fromCodePoint(...[...cc.toUpperCase()].map(c=>0x1F1E6+c.charCodeAt(0)-65)):"🏳️"}
+function stat(k,v){return `<div class="card"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`}
+function visible(){const cc=document.getElementById("cc").value,q=document.getElementById("q").value.toLowerCase();
+  return data.filter(r=>(!cc||r.country===cc)&&(!q||r.server.includes(q)))}
+function draw(){const rows=visible();document.getElementById("rows").innerHTML=rows.slice(0,500).map((r,i)=>
+  `<tr><td>${i+1}</td><td>${esc(r.server)}:${r.port}</td><td><span class="tag">${esc(r.type)}</span></td>
+   <td>${flag(r.country)} ${esc(r.country||"?")} <span class="tag">${esc(r.asn_org||"")}</span></td>
+   <td class="r">${r.rtt_ms??"—"}</td><td class="r">${r.uptime==null?"—":(r.uptime*100).toFixed(0)+"%"}</td>
+   <td><a class="go" href="${esc(tme(r))}">Connect</a></td></tr>`).join("")}
+async function loadTier(t){tier=t;document.querySelectorAll("#tiers button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));
+  data=await get(t+"/proxies.json");const ccs=[...new Set(data.map(r=>r.country).filter(Boolean))].sort();
+  document.getElementById("cc").innerHTML='<option value="">All countries</option>'+ccs.map(c=>`<option>${c}</option>`).join("");draw()}
+(async()=>{idx=await get("index.json");const f=idx.funnel,r=idx.runner||{};
+  document.getElementById("upd").textContent=`Updated ${idx.updated} · tested from ${r.loc||"?"} (${r.colo||"?"})`;
+  document.getElementById("stats").innerHTML=stat("links collected",f.links_collected.toLocaleString())+stat("servers probed",(f.unique_servers_probed??f.unique_targets_probed).toLocaleString())+
+    stat("verified links",f.verified_links.toLocaleString())+stat("verified servers",f.verified_servers.toLocaleString())+
+    (f.top_ip_share?stat("largest operator share",(f.top_ip_share.share*100).toFixed(1)+"%"):"");
+  document.getElementById("tiers").innerHTML=Object.entries(idx.tiers).filter(([k])=>k!=="all").map(([k,v])=>`<button data-t="${k}">${k} · ${v.count}</button>`).join("");
+  document.querySelectorAll("#tiers button").forEach(b=>b.onclick=()=>loadTier(b.dataset.t));
+  await loadTier(idx.tiers.resilient?"resilient":Object.keys(idx.tiers)[0])})().catch(e=>document.getElementById("upd").textContent="failed to load: "+e.message);
+document.getElementById("cc").onchange=draw;document.getElementById("q").oninput=draw;
+document.getElementById("copy").onclick=()=>navigator.clipboard.writeText(visible().map(tme).join("\n"));
+</script>
+</body>
+</html>
