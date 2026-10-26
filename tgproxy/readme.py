@@ -23,6 +23,7 @@ def live_block(index: dict, lang: str = "en") -> str:
     t = index["tiers"]
     r = index.get("runner") or {}
     top = f.get("top_ip_share") or {}
+    net = f.get("top_network_share") or {}
     n = lambda k: t.get(k, {}).get("count", 0)  # noqa: E731
     if lang == "fa":
         rows = [
@@ -33,7 +34,9 @@ def live_block(index: dict, lang: str = "en") -> str:
             f"| همان‌ها، بر حسب **سرور واقعی** | **{f['verified_servers']:,}** ({f['verified_ips']:,} IP) |",
         ]
         if top:
-            rows.append(f"| سهم بزرگ‌ترین اپراتور از لینک‌های تأییدشده | {top['links']:,} ({top['share']*100:.1f}%) |")
+            rows.append(f"| سهم پرتکرارترین IP از لینک‌های تأییدشده | {top['links']:,} ({top['share']*100:.1f}%) |")
+        if net:
+            rows.append(f"| سهم بزرگ‌ترین شبکه (`{net['network']}`) از لینک‌های تأییدشده | {net['links']:,} ({net['share']*100:.1f}%) |")
         head = (f"**آخرین به‌روزرسانی:** `{index['updated']}` · محل تست: `{r.get('loc') or '?'}` "
                 f"(`{r.get('colo') or '?'}`)\n\n")
         tiers_line = (f"`resilient` {n('resilient')} · `fast` {n('fast')} · `stable` {n('stable')} · "
@@ -48,7 +51,9 @@ def live_block(index: dict, lang: str = "en") -> str:
             f"| the same, counted as **real servers** | **{f['verified_servers']:,}** ({f['verified_ips']:,} IPs) |",
         ]
         if top:
-            rows.append(f"| largest single operator's share of verified links | {top['links']:,} ({top['share']*100:.1f}%) |")
+            rows.append(f"| largest single IP's share of verified links | {top['links']:,} ({top['share']*100:.1f}%) |")
+        if net:
+            rows.append(f"| largest network's (`{net['network']}`) share of verified links | {net['links']:,} ({net['share']*100:.1f}%) |")
         head = (f"**Last update:** `{index['updated']}` · tested from `{r.get('loc') or '?'}` "
                 f"(Cloudflare colo `{r.get('colo') or '?'}`)\n\n")
         tiers_line = (f"`resilient` {n('resilient')} · `fast` {n('fast')} · `stable` {n('stable')} · "

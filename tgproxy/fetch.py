@@ -69,7 +69,11 @@ async def _get(session: aiohttp.ClientSession, src: Source, retries: int = 3) ->
                     rep.error = "too large"
                     break
                 text = raw.decode("utf-8", "replace")
-                found = extract(text)
+                try:
+                    found = extract(text)
+                except Exception as e:  # noqa: BLE001 — one bad source must not abort the run
+                    rep.error = f"parse: {type(e).__name__}"
+                    break
                 rep.proxies = [Proxy(p.server, p.port, p.secret, frozenset({src.id})) for p in found]
                 rep.found = len({p.key for p in rep.proxies})
                 rep.status = "ok" if rep.found else "empty"

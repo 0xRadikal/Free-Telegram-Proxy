@@ -32,6 +32,20 @@ _LINK_RE = re.compile(
 _HEX = "0123456789abcdefABCDEF"
 
 
+def url_encode(s: str) -> str:
+    """td::url_encode — keep ASCII alnum and `-._~`, percent-encode every other
+    UTF-8 byte. TDLib's own get_proxy_link encodes the server this way, so a
+    server containing `&`, `#`, `%`, space or a newline still round-trips."""
+    out = []
+    for b in s.encode("utf-8", "surrogateescape"):
+        c = chr(b)
+        if c.isascii() and (c.isalnum() or c in "-._~"):
+            out.append(c)
+        else:
+            out.append(f"%{b:02X}")
+    return "".join(out)
+
+
 def url_decode(s: str, plus_as_space: bool = True) -> str:
     """td::url_decode, operating on UTF-8 bytes like the C++ does."""
     src = s.encode("utf-8", "surrogateescape")
@@ -110,10 +124,10 @@ class Proxy:
         return (self.server, self.port, self.secret.raw)
 
     def tg_link(self) -> str:
-        return f"tg://proxy?server={self.server}&port={self.port}&secret={self.secret.hex()}"
+        return f"tg://proxy?server={url_encode(self.server)}&port={self.port}&secret={self.secret.hex()}"
 
     def tme_link(self) -> str:
-        return f"https://t.me/proxy?server={self.server}&port={self.port}&secret={self.secret.hex()}"
+        return f"https://t.me/proxy?server={url_encode(self.server)}&port={self.port}&secret={self.secret.hex()}"
 
 
 def normalize_server(server: str) -> str:
@@ -156,22 +170,25 @@ def parse_link(link: str) -> Proxy | None:
     return from_args(a.get("server"), a.get("port"), a.get("secret"))
 
 
-def _walk_json(obj, out: list) -> None:
-    if isinstance(obj, dict):
-        q = obj.get("query") if isinstance(obj.get("query"), dict) else obj
-        server = q.get("server", q.get("host"))
-        if server is not None and q.get("port") is not None and q.get("secret") is not None:
-            px = from_args(server, q.get("port"), q.get("secret"))
-            if px:
-                out.append(px)
-                return
-        for v in obj.values():
-            _walk_json(v, out)
-    elif isinstance(obj, list):
-        for v in obj:
-            _walk_json(v, out)
-    elif isinstance(obj, str) and "proxy?" in obj:
-        out.extend(extract_text(obj))
+def _walk_json(root, out: list) -> None:
+    """Depth-first, document order, iterative: a hostile source nesting
+    100 000 arrays must not hit Python's recursion limit."""
+    stack = [root]
+    while stack:
+        obj = stack.pop()
+        if isinstance(obj, dict):
+            q = obj.get("query") if isinstance(obj.get("query"), dict) else obj
+            server = q.get("server", q.get("host"))
+            if server is not None and q.get("port") is not None and q.get("secret") is not None:
+                px = from_args(server, q.get("port"), q.get("secret"))
+                if px:
+                    out.append(px)
+                    continue
+            stack.extend(reversed(list(obj.values())))
+        elif isinstance(obj, list):
+            stack.extend(reversed(obj))
+        elif isinstance(obj, str) and "proxy?" in obj:
+            out.extend(extract_text(obj))
 
 
 def extract_text(text: str) -> list[Proxy]:
@@ -192,6 +209,6 @@ def extract(blob: str) -> list[Proxy]:
             out: list[Proxy] = []
             _walk_json(json.loads(s), out)
             return out
-        except ValueError:
+        except (ValueError, RecursionError):  # not JSON / nested past the C decoder limit
             pass
     return extract_text(s)

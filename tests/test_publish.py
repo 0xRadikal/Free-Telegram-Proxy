@@ -165,3 +165,55 @@ def test_alias_choice_is_stable_not_rtt_noise():
         assert [r.proxy.server for r in _one_per_ip(recs)] == ["a.example"]
     b.hist = {"checks": 50}                         # longer history wins
     assert [r.proxy.server for r in _one_per_ip([a, b])] == ["b.example"]
+
+
+def test_network_share_uses_asn_or_prefix_fallback(tmp_path):
+    from tgproxy.publish import network_of
+    a = rec("a", "191.44.90.33"); a.asn = None
+    b = rec("b", "191.44.90.29"); b.asn = None
+    c = rec("c", "1.1.1.1"); c.asn = 13335
+    d = rec("d", "2a01:4f8::1"); d.asn = None
+    assert network_of(a) == network_of(b) == "191.44.90.0/24"
+    assert network_of(c) == "AS13335" and network_of(d) == "2a01:4f8::/48"
+    out = write_outputs(result([a, b, c]), tmp_path, runner={})
+    f = out["index"]["funnel"]
+    assert f["top_ip_share"] == {"links": 1, "share": 0.3333}
+    assert f["top_network_share"] == {"network": "191.44.90.0/24", "links": 2, "share": 0.6667}
+
+
+def test_resilient_criteria_matches_implementation(tmp_path):
+    out = write_outputs(result([rec("a", "1.1.1.1")]), tmp_path, runner={})
+    txt = out["index"]["criteria"]["resilient"]
+    assert "lowest RTT kept" not in txt and "longest check history" in txt
+
+
+# ── audit round 6 ──────────────────────────────────────────────────────────
+import pytest  # noqa: E402
+
+
+@pytest.mark.parametrize("bad", ['"x"', '{"version":1,"proxies":[]}', '{"version":1,"proxies":{"a":"b"}}',
+                                 '{"version":1,"runs":"x"}', '{"version":1,"sources":{"s":{"found":5}}}',
+                                 '{"version":1,"proxies":{"a":{"h":5}}}'])
+def test_corrupt_state_is_ignored_not_fatal(tmp_path, bad):
+    from tgproxy.state import State
+    p = tmp_path / "state.json"
+    p.write_text(bad)
+    s = State.load(p)
+    s.record("a", True, 100, 5)
+    s.record_source("s", 1, 1, 100)
+    s.finish_run(100)
+    assert s.stats("a")["checks"] >= 1
+
+
+def test_good_state_entries_survive_next_to_bad_ones(tmp_path):
+    from tgproxy.state import State
+    good = {"h": "111", "first": 1, "last_ok": 1, "last_seen": 1}
+    s = State({"version": 1, "runs": 3, "proxies": {"g": good, "b": "junk"}, "sources": {}})
+    assert s.stats("g")["checks"] == 3 and "b" not in s.proxies and s.runs == 3
+
+
+def test_servers_probed_counts_every_dialled_address(tmp_path):
+    a = rec("multi.example", "1.1.1.1")
+    a.targets = [("1.1.1.1", 443, a.proxy.secret), ("8.8.8.8", 443, a.proxy.secret)]
+    out = write_outputs(result([a]), tmp_path, runner={})
+    assert out["index"]["funnel"]["unique_servers_probed"] == 2

@@ -13,9 +13,16 @@ from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from tgproxy.links import parse_link  # noqa: E402
+from tgproxy.links import from_args, parse_link  # noqa: E402
 
 PER_IP_TIERS = ("resilient", "fast", "stable", "faketls", "secure", "classic")
+
+
+def row_key(r: dict):
+    """Identity of a proxies.json row, validated with the same rules as links
+    (built from fields, so no URL escaping is involved)."""
+    p = from_args(r.get("server"), r.get("port"), r.get("secret"))
+    return p.key if p else None
 
 
 def fail(msg):
@@ -43,8 +50,9 @@ def main(root: Path) -> int:
                 keys[fname] = [y.key for y in parsed if y]
             else:
                 rows = json.loads(p.read_text())
-                keys[fname] = [parse_link(f"tg://proxy?server={r['server']}&port={r['port']}&secret={r['secret']}").key
-                               for r in rows]
+                keys[fname] = [row_key(r) for r in rows]
+                if None in keys[fname]:
+                    errors += fail(f"{name}/proxies.json: {keys[fname].count(None)} invalid rows")
                 if len(rows) != meta["count"]:
                     errors += fail(f"{name}/proxies.json has {len(rows)} rows, index says {meta['count']}")
                 if name in PER_IP_TIERS:
@@ -57,6 +65,30 @@ def main(root: Path) -> int:
         extra = {f.name for f in d.iterdir()} - set(meta["files"])
         if extra:
             errors += fail(f"{name}: unadvertised files {sorted(extra)}")
+    # top50.txt is what most users subscribe to: same checks as a tier, and it
+    # must be a subset of resilient (one link per IP, every link verified).
+    top = root / "top50.txt"
+    if idx.get("top50"):
+        if not top.exists() or top.stat().st_size == 0:
+            errors += fail("top50.txt advertised but missing/empty")
+        else:
+            lines = top.read_text().splitlines()
+            parsed = [parse_link(x) for x in lines]
+            if any(p is None for p in parsed):
+                errors += fail(f"top50.txt: {sum(p is None for p in parsed)} unparsable lines")
+            res_rows = {}
+            rp = root / "resilient" / "proxies.json"
+            if rp.exists():
+                for r in json.loads(rp.read_text()):
+                    res_rows[row_key(r)] = r.get("ip")
+            keys = [p.key for p in parsed if p]
+            if any(k not in res_rows for k in keys):
+                errors += fail("top50.txt contains links that are not in resilient/")
+            ips = [res_rows[k] for k in keys if k in res_rows]
+            if len(ips) != len(set(ips)) or len(keys) != len(set(keys)):
+                errors += fail("top50.txt repeats a link or an IP")
+    elif top.exists():
+        errors += fail("top50.txt exists but index.json says top50 is null")
     for cc, meta in idx.get("countries", {}).items():
         p = root / "countries" / f"{cc}.txt"
         if not p.exists() or len(p.read_text().splitlines()) != meta["count"]:

@@ -51,7 +51,7 @@ On 2026-10-26 we merged seven popular lists and resolved every hostname. **958 o
 
 | Tier | What gets in |
 |---|---|
-| **`resilient/`** | verified · **one link per server IP** (lowest latency kept) — *recommended* |
+| **`resilient/`** | verified · **one link per server IP** (the link with the longest check history is kept, so your saved link does not change between runs) — *recommended* |
 | `fast/` | the fastest 25 % of `resilient`, by round-trip through the proxy *from the test runner* |
 | `stable/` | resilient · passed ≥ 90 % of its last checks (appears after ~3 hours of history) |
 | `verified/` | passed the full end-to-end test in **every** round |
@@ -79,6 +79,7 @@ collect  →  parse (TDLib rules)  →  resolve DNS  →  dedup by IP:port:secre
         →  ×3 rounds  →  history  →  tiers
 ```
 
+* **Hostnames with several IPs** (round-robin DNS): a Telegram client connects to whichever IPv4 address its resolver returns first, so **every** IPv4 address must pass, every round. On 2026-10-26, 14 hostnames had one dead address next to a working one — a list that tests only one address would publish them as working for everyone.
 * **FakeTLS proxies** must return a ServerHello whose HMAC verifies with the secret — a normal HTTPS server cannot.
 * **Every proxy** must then forward an encrypted MTProto request to a Telegram datacenter and return the datacenter's reply containing a 128-bit nonce we generated. A port that merely accepts connections, a masking server, or a proxy with a wrong secret all fail here.
 * The test-suite proves both directions on every change: the pinned reference server ([alexbers/mtprotoproxy](https://github.com/alexbers/mtprotoproxy)) must pass in all three secret modes and all five DCs; wrong secrets, a one-bit-flipped secret, a masking server, `google.com`, `1.1.1.1` and `github.com` must all fail.
