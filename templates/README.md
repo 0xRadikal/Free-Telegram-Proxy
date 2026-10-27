@@ -10,7 +10,7 @@
 [![collected](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2F0xRadikal%2FFree-Telegram-Proxy%2Fmain%2Findex.json&query=%24.funnel.links_collected&label=links%20collected&color=lightgrey)](health.json)
 [![stars](https://img.shields.io/github/stars/0xRadikal/Free-Telegram-Proxy?style=flat)](https://github.com/0xRadikal/Free-Telegram-Proxy)
 
-[فارسی](README_FA.md) · [Русский](README_RU.md) · [Live dashboard](https://0xradikal.github.io/Free-Telegram-Proxy/) · [Telegram @Raydikalx](https://t.me/Raydikalx)
+[فارسی](README_FA.md) · [Русский](README_RU.md) · [Live dashboard](https://0xradikal.github.io/Free-Telegram-Proxy/) · [Discussions](https://github.com/0xRadikal/Free-Telegram-Proxy/discussions) · [Telegram @Raydikalx](https://t.me/Raydikalx)
 
 </div>
 

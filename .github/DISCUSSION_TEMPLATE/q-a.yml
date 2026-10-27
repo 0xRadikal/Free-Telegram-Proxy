@@ -1,0 +1,47 @@
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before asking, check the **FAQ** in the [README](https://github.com/0xRadikal/Free-Telegram-Proxy#faq) — most "how do I connect" questions are answered there.
+        A specific proxy fails from your network? Use the issue form [**Proxy does not work for me**](https://github.com/0xRadikal/Free-Telegram-Proxy/issues/new/choose) instead.
+        **Do not post your own IP address.**
+  - type: dropdown
+    id: app
+    attributes:
+      label: Telegram app
+      options:
+        - Android
+        - iPhone / iPad
+        - Telegram Desktop (Windows, macOS, Linux)
+        - Telegram Web
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: list
+    attributes:
+      label: Which list are you using?
+      options:
+        - top100.txt
+        - resilient/
+        - fast/
+        - faketls/
+        - countries/
+        - verified/
+        - Not using a list yet
+    validations:
+      required: false
+  - type: input
+    id: where
+    attributes:
+      label: Country and ISP / mobile operator (optional)
+      placeholder: "Iran — MCI"
+    validations:
+      required: false
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+    validations:
+      required: true
