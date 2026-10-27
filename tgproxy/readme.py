@@ -1,4 +1,4 @@
-"""Render README.md / README_FA.md from templates + the run's real numbers.
+"""Render README.md / README_FA.md / README_RU.md from templates + the run's real numbers.
 
 The live block between <!-- LIVE:BEGIN --> and <!-- LIVE:END --> is the only
 part that changes every run; everything else is hand-written in templates/.
@@ -42,6 +42,23 @@ def live_block(index: dict, lang: str = "en") -> str:
         tiers_line = (f"`resilient` {n('resilient')} · `fast` {n('fast')} · `stable` {n('stable')} · "
                       f"`verified` {n('verified')} · `faketls` {n('faketls')} · `secure` {n('secure')} · "
                       f"`classic` {n('classic')} · `all` {n('all')}")
+    elif lang == "ru":
+        rows = [
+            "| Этап | Количество |", "|---|---:|",
+            f"| ссылок собрано из всех источников | {f['links_collected']:,} |",
+            f"| уникальных серверов (IP:порт) проверено | {f['unique_servers_probed']:,} |",
+            f"| **прошли проверку во всех {index.get('rounds', 3)} раундах** (ссылки) | **{f['verified_links']:,}** |",
+            f"| то же, в **реальных серверах** | **{f['verified_servers']:,}** ({f['verified_ips']:,} IP) |",
+        ]
+        if top:
+            rows.append(f"| доля самого частого IP среди проверенных ссылок | {top['links']:,} ({top['share']*100:.1f}%) |")
+        if net:
+            rows.append(f"| доля крупнейшей сети (`{net['network']}`) среди проверенных ссылок | {net['links']:,} ({net['share']*100:.1f}%) |")
+        head = (f"**Последнее обновление:** `{index['updated']}` · проверено из `{r.get('loc') or '?'}` "
+                f"(`{r.get('colo') or '?'}`)\n\n")
+        tiers_line = (f"`resilient` {n('resilient')} · `fast` {n('fast')} · `stable` {n('stable')} · "
+                      f"`verified` {n('verified')} · `faketls` {n('faketls')} · `secure` {n('secure')} · "
+                      f"`classic` {n('classic')} · `all` {n('all')}")
     else:
         rows = [
             "| Stage | Count |", "|---|---:|",
@@ -69,11 +86,16 @@ def render(template: str, index: dict, lang: str) -> str:
     return re.sub(re.escape(BEGIN) + r".*?" + re.escape(END), lambda _: block, template, flags=re.S)
 
 
+# (template in templates/, output file, language). Every output must also be
+# listed in OUTPUT_PATHS of .github/workflows/update.yml (tested).
+LANGS = (("README.md", "README.md", "en"), ("README_FA.md", "README_FA.md", "fa"), ("README_RU.md", "README_RU.md", "ru"))
+
+
 def write_readmes(index: dict, root: Path, out: Path) -> None:
-    for tpl, dst, lang in (("README.md", "README.md", "en"), ("README_FA.md", "README_FA.md", "fa")):
+    for tpl, dst, lang in LANGS:
         src = root / "templates" / tpl
         if src.exists():
             (out / dst).write_text(render(src.read_text(encoding="utf-8"), index, lang), encoding="utf-8")
 
 
-__all__ = ["render", "write_readmes", "live_block", "RAW"]
+__all__ = ["render", "write_readmes", "live_block", "RAW", "LANGS"]

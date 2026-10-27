@@ -1,0 +1,20 @@
+# Third-party reference server used only by the tests (alexbers/mtprotoproxy).
+tests/refserver/** linguist-vendored
+
+# Files written by the update bot on every run (see OUTPUT_PATHS in
+# .github/workflows/update.yml). Collapsed in diffs. READMEs are deliberately
+# not listed: they are the repository landing page.
+/index.json linguist-generated
+/health.json linguist-generated
+/state.json linguist-generated
+/top100.txt linguist-generated
+/top50.txt linguist-generated
+/verified/** linguist-generated
+/fast/** linguist-generated
+/stable/** linguist-generated
+/resilient/** linguist-generated
+/faketls/** linguist-generated
+/secure/** linguist-generated
+/classic/** linguist-generated
+/all/** linguist-generated
+/countries/** linguist-generated

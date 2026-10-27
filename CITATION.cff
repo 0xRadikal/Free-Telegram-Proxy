@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this list or its data, please cite it as below."
+type: dataset
+title: "Free Telegram Proxy List: verified MTProto proxies"
+abstract: >-
+  Working public Telegram MTProto / MTProxy proxies (FakeTLS ee, secure dd and
+  classic). Every published proxy relayed a real req_pq_multi request to a
+  Telegram datacenter and returned a random nonce in every one of 3 rounds.
+  Rebuilt about every 15 minutes on GitHub Actions.
+authors:
+  - alias: "0xRadikal"
+repository-code: "https://github.com/0xRadikal/Free-Telegram-Proxy"
+url: "https://github.com/0xRadikal/Free-Telegram-Proxy"
+license: MIT
+keywords:
+  - telegram proxy
+  - free telegram proxy
+  - mtproto proxy
+  - mtproxy
+  - faketls
+  - proxy list
+  - censorship circumvention

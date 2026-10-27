@@ -32,7 +32,7 @@ env:
   OUT_MARK: "[auto-output]"
   # Everything the bot is allowed to write. Anything else changing between
   # the source anchor and the tip aborts the publish (never revert humans).
-  OUTPUT_PATHS: "verified fast stable resilient faketls secure classic all countries top100.txt top50.txt index.json health.json state.json README.md README_FA.md"
+  OUTPUT_PATHS: "verified fast stable resilient faketls secure classic all countries top100.txt top50.txt index.json health.json state.json README.md README_FA.md README_RU.md"
 
 jobs:
   update:

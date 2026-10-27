@@ -10,11 +10,11 @@
 [![collected](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2F0xRadikal%2FFree-Telegram-Proxy%2Fmain%2Findex.json&query=%24.funnel.links_collected&label=links%20collected&color=lightgrey)](health.json)
 [![stars](https://img.shields.io/github/stars/0xRadikal/Free-Telegram-Proxy?style=flat)](https://github.com/0xRadikal/Free-Telegram-Proxy)
 
-[فارسی](README_FA.md) · [Live dashboard](https://0xradikal.github.io/Free-Telegram-Proxy/) · [Telegram @Raydikalx](https://t.me/Raydikalx)
+[فارسی](README_FA.md) · [Русский](README_RU.md) · [Live dashboard](https://0xradikal.github.io/Free-Telegram-Proxy/) · [Telegram @Raydikalx](https://t.me/Raydikalx)
 
 </div>
 
-A free, open-source **Telegram proxy list**: working **MTProto / MTProxy** proxies (FakeTLS `ee`, secure `dd` and classic), rebuilt about every 15 minutes on GitHub Actions. Tap a link and Telegram connects — no app, no signup. Made for people whose Telegram is blocked or slow (Iran, Russia and other censored networks). Not affiliated with Telegram.
+A free, open-source **Telegram proxy list**: working **MTProto / MTProxy** proxies (FakeTLS `ee`, secure `dd` and classic), rebuilt about every 15 minutes on GitHub Actions. Tap a link and Telegram connects — no app, no signup. Made for people whose Telegram is blocked or slow — in Iran, Russia, China and other censored networks. Works with Telegram on Android, iPhone and Desktop. Not affiliated with Telegram.
 
 ## Start here — one line
 
@@ -27,6 +27,26 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt
 On a phone, just tap any line in that file — Telegram opens and asks *Connect proxy?*.
 
 The 5-per-network cap is raised only when the list could not be filled otherwise — too few networks, or a proven proxy would be pushed out by an unproven newcomer. The cap actually used is published as `top100_info.network_cap` in `index.json`. Already subscribed to `top50.txt`? It still works: it is the first 50 lines of `top100.txt`.
+
+## How to use a free Telegram proxy
+
+### Android and iPhone (iOS)
+
+1. Open [`top100.txt`](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt) (or [`resilient/tme.txt`](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/resilient/tme.txt)) on your phone.
+2. Tap any line. Telegram opens and asks **Connect proxy?** — tap **Connect**.
+3. Not connecting? Try the next line: censors block some proxies and not others.
+
+To add an MTProto proxy by hand: **Settings → Data and Storage → Proxy → Add Proxy → MTProto**, then paste the server, port and secret.
+
+### Telegram Desktop (Windows, macOS, Linux)
+
+Click a `tg://proxy` or `https://t.me/proxy` link, or open **Settings → Advanced → Connection type → Use custom proxy → Add proxy → MTProto**.
+
+### Pick by type or by server location
+
+* **FakeTLS (`ee`) only** — looks like normal HTTPS, often the hardest to block: [`faketls/tme.txt`](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/faketls/tme.txt)
+* **Fastest from the test runner**: [`fast/tme.txt`](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/fast/tme.txt)
+* **By server country** — e.g. [Germany](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt), [Netherlands](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt), [Russia](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt), [Iran](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt). This is where the proxy server is, **not** where it works from; the full list is in [`countries/`](countries).
 
 ## Live numbers
 
