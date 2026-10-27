@@ -23,6 +23,7 @@ td.r{text-align:right;font-variant-numeric:tabular-nums}a{color:var(--acc);text-
 .tag{font-size:11px;padding:2px 6px;border-radius:6px;border:1px solid var(--bd);color:var(--mut)}
 .go{background:var(--acc);color:#fff;border:0;padding:6px 10px;border-radius:7px}
 .warn{color:var(--mut);font-size:13px;margin-top:18px}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px}#more{color:var(--mut);font-size:13px}
 </style>
 </head>
 <body>
@@ -38,27 +39,33 @@ td.r{text-align:right;font-variant-numeric:tabular-nums}a{color:var(--acc);text-
     <input id="q" placeholder="filter host…" size="18">
     <button id="copy">Copy visible links</button>
   </div>
-  <table><thead><tr><th>#</th><th>Server</th><th>Type</th><th>Where</th><th class="r">RTT ms</th><th class="r">Uptime</th><th></th></tr></thead>
-  <tbody id="rows"></tbody></table>
+  <div class="tw"><table><thead><tr><th>#</th><th>Server</th><th>Type</th><th>Where</th><th class="r">RTT ms</th><th class="r">Uptime</th><th></th></tr></thead>
+  <tbody id="rows"></tbody></table></div>
+  <p id="more"></p>
   <p class="warn">“Verified” = relayed a real MTProto request to a Telegram datacenter and returned our random nonce, in every round, <b>from the test runner</b> shown above. It does not guarantee the proxy is reachable from your ISP. IP data: <a href="https://db-ip.com">DB-IP</a> (CC BY 4.0).</p>
 </main>
 <script>
 const BASES=["https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main","https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main"];
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 async function get(p){for(const b of BASES){try{const r=await fetch(b+"/"+p,{cache:"no-store"});if(r.ok)return r.json()}catch(e){}}throw new Error(p)}
-let idx,data=[],tier="resilient";
+let idx,data=[],tier="resilient";const MAX_ROWS=500;
 const tme=r=>`https://t.me/proxy?server=${encodeURIComponent(r.server)}&port=${r.port}&secret=${r.secret}`;
 function flag(cc){return cc&&cc.length==2?String.fromCodePoint(...[...cc.toUpperCase()].map(c=>0x1F1E6+c.charCodeAt(0)-65)):"🏳️"}
 function stat(k,v){return `<div class="card"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`}
 function visible(){const cc=document.getElementById("cc").value,q=document.getElementById("q").value.toLowerCase();
   return data.filter(r=>(!cc||r.country===cc)&&(!q||r.server.includes(q)))}
-function draw(){const rows=visible();document.getElementById("rows").innerHTML=rows.slice(0,500).map((r,i)=>
+function draw(){const rows=visible();document.getElementById("more").textContent=rows.length>MAX_ROWS?`Showing the first ${MAX_ROWS} of ${rows.length.toLocaleString()} — narrow it with the filters; "Copy visible links" copies all ${rows.length.toLocaleString()}.`:"";document.getElementById("rows").innerHTML=rows.slice(0,MAX_ROWS).map((r,i)=>
   `<tr><td>${i+1}</td><td>${esc(r.server)}:${r.port}</td><td><span class="tag">${esc(r.type)}</span></td>
    <td>${flag(r.country)} ${esc(r.country||"?")} <span class="tag">${esc(r.asn_org||"")}</span></td>
    <td class="r">${r.rtt_ms??"—"}</td><td class="r">${r.uptime==null?"—":(r.uptime*100).toFixed(0)+"%"}</td>
    <td><a class="go" href="${esc(tme(r))}">Connect</a></td></tr>`).join("")}
+async function getText(p){for(const b of BASES){try{const r=await fetch(b+"/"+p,{cache:"no-store"});if(r.ok)return r.text()}catch(e){}}throw new Error(p)}
+const key=(s,p,x)=>s.toLowerCase()+"|"+p+"|"+String(x).toLowerCase();
+async function loadTop(){const [txt,res]=await Promise.all([getText("top50.txt"),get("resilient/proxies.json")]);
+  const by=new Map(res.map(r=>[key(r.server,r.port,r.secret),r]));
+  return txt.split("\n").filter(Boolean).map(l=>{const q=new URLSearchParams(l.slice(l.indexOf("?")+1));return by.get(key(q.get("server")||"",q.get("port"),q.get("secret")||""))}).filter(Boolean)}
 async function loadTier(t){tier=t;document.querySelectorAll("#tiers button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));
-  data=await get(t+"/proxies.json");const ccs=[...new Set(data.map(r=>r.country).filter(Boolean))].sort();
+  data=t==="top50"?await loadTop():await get(t+"/proxies.json");const ccs=[...new Set(data.map(r=>r.country).filter(Boolean))].sort();
   document.getElementById("cc").innerHTML='<option value="">All countries</option>'+ccs.map(c=>`<option>${c}</option>`).join("");draw()}
 (async()=>{idx=await get("index.json");const f=idx.funnel,r=idx.runner||{};
   document.getElementById("upd").textContent=`Updated ${idx.updated} · tested from ${r.loc||"?"} (${r.colo||"?"})`;
@@ -66,9 +73,9 @@ async function loadTier(t){tier=t;document.querySelectorAll("#tiers button").for
     stat("verified links",f.verified_links.toLocaleString())+stat("verified servers",f.verified_servers.toLocaleString())+
     (f.top_ip_share?stat("largest single-IP share",(f.top_ip_share.share*100).toFixed(1)+"%"):"")+
     (f.top_network_share?stat("largest network share",(f.top_network_share.share*100).toFixed(1)+"%"):"");
-  document.getElementById("tiers").innerHTML=Object.entries(idx.tiers).filter(([k])=>k!=="all").map(([k,v])=>`<button data-t="${k}">${k} · ${v.count}</button>`).join("");
+  document.getElementById("tiers").innerHTML=(idx.top50?`<button data-t="top50">top50 · recommended</button>`:"")+Object.entries(idx.tiers).filter(([k])=>k!=="all").map(([k,v])=>`<button data-t="${esc(k)}">${esc(k)} · ${v.count}</button>`).join("");
   document.querySelectorAll("#tiers button").forEach(b=>b.onclick=()=>loadTier(b.dataset.t));
-  await loadTier(idx.tiers.resilient?"resilient":Object.keys(idx.tiers)[0])})().catch(e=>document.getElementById("upd").textContent="failed to load: "+e.message);
+  await loadTier(idx.top50?"top50":idx.tiers.resilient?"resilient":Object.keys(idx.tiers)[0])})().catch(e=>document.getElementById("upd").textContent="failed to load: "+e.message);
 document.getElementById("cc").onchange=draw;document.getElementById("q").oninput=draw;
 document.getElementById("copy").onclick=()=>navigator.clipboard.writeText(visible().map(tme).join("\n"));
 </script>

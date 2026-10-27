@@ -8,7 +8,7 @@
 [![verified links](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2F0xRadikal%2FFree-Telegram-Proxy%2Fmain%2Findex.json&query=%24.funnel.verified_links&label=verified%20links&color=2ea44f)](verified/tg.txt)
 [![servers](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2F0xRadikal%2FFree-Telegram-Proxy%2Fmain%2Findex.json&query=%24.funnel.verified_servers&label=real%20servers&color=0088cc)](resilient/tg.txt)
 [![collected](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2F0xRadikal%2FFree-Telegram-Proxy%2Fmain%2Findex.json&query=%24.funnel.links_collected&label=links%20collected&color=lightgrey)](health.json)
-[![stars](https://img.shields.io/github/stars/0xRadikal/Free-Telegram-Proxy?style=flat)](https://github.com/0xRadikal/Free-Telegram-Proxy/stargazers)
+[![stars](https://img.shields.io/github/stars/0xRadikal/Free-Telegram-Proxy?style=flat)](https://github.com/0xRadikal/Free-Telegram-Proxy)
 
 [فارسی](README_FA.md) · [Live dashboard](https://0xradikal.github.io/Free-Telegram-Proxy/) · [Telegram @Raydikalx](https://t.me/Raydikalx)
 
@@ -69,7 +69,7 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/fast/tme.tx
 https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/verified/proxies.json
 ```
 
-If `raw.githubusercontent.com` is blocked, replace the prefix with `https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main` (jsDelivr caches up to 12 h; raw caches 5 min).
+If `raw.githubusercontent.com` is blocked, use the same path on jsDelivr — e.g. `https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top50.txt` (the update job purges jsDelivr after every run; without a purge it may cache up to 12 h. raw caches 5 min).
 
 ## How a proxy is tested
 
