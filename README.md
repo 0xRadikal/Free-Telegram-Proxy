@@ -1,6 +1,6 @@
 <div align="center">
 
-# Free Telegram Proxy
+# Free Telegram Proxy List — verified MTProto proxies
 
 **Every proxy here relayed a real request to a real Telegram datacenter — three times — before it was published.**
 
@@ -13,6 +13,8 @@
 [فارسی](README_FA.md) · [Live dashboard](https://0xradikal.github.io/Free-Telegram-Proxy/) · [Telegram @Raydikalx](https://t.me/Raydikalx)
 
 </div>
+
+A free, open-source **Telegram proxy list**: working **MTProto / MTProxy** proxies (FakeTLS `ee`, secure `dd` and classic), rebuilt about every 15 minutes on GitHub Actions. Tap a link and Telegram connects — no app, no signup. Made for people whose Telegram is blocked or slow (Iran, Russia and other censored networks). Not affiliated with Telegram.
 
 ## Start here — one line
 
@@ -29,20 +31,20 @@ The 5-per-network cap is raised only when the list could not be filled otherwise
 ## Live numbers
 
 <!-- LIVE:BEGIN -->
-**Last update:** `2026-10-27T07:46:31Z` · tested from `US` (Cloudflare colo `ORD`)
+**Last update:** `2026-10-27T08:48:32Z` · tested from `US` (Cloudflare colo `SJC`)
 
 | Stage | Count |
 |---|---:|
-| links collected from all sources | 3,222 |
-| unique servers (IP:port) probed | 1,849 |
-| **verified in all 3 rounds** (links) | **1,753** |
-| the same, counted as **real servers** | **390** (356 IPs) |
-| largest single IP's share of verified links | 967 (55.2%) |
-| largest network's (`79.182.27.0/24`) share of verified links | 967 (55.2%) |
+| links collected from all sources | 3,302 |
+| unique servers (IP:port) probed | 1,931 |
+| **verified in all 3 rounds** (links) | **1,721** |
+| the same, counted as **real servers** | **386** (355 IPs) |
+| largest single IP's share of verified links | 969 (56.3%) |
+| largest network's (`79.182.27.0/24`) share of verified links | 969 (56.3%) |
 
-`resilient` 356 · `fast` 94 · `stable` 326 · `verified` 1753 · `faketls` 118 · `secure` 89 · `classic` 158 · `all` 3222
+`resilient` 355 · `fast` 92 · `stable` 322 · `verified` 1721 · `faketls` 118 · `secure` 85 · `classic` 159 · `all` 3302
 
-[🇩🇪 DE 107](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 96](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 58](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 30](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 16](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇵🇱 PL 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇸🇪 SE 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇬 SG 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt) [🇬🇧 GB 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt)
+[🇩🇪 DE 105](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 96](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 55](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 32](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 15](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 12](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇵🇱 PL 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇸🇪 SE 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇸🇬 SG 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇦🇹 AT 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/AT.txt)
 <!-- LIVE:END -->
 
 ## Why this list is different
@@ -128,6 +130,34 @@ pip install -r requirements.txt
 python -m tgproxy --out ./output
 pytest            # includes live tests against a local reference proxy
 ```
+
+## FAQ
+
+**Are these Telegram proxies free?**  
+Yes. They are public MTProto proxies collected from public lists and Telegram channels; this project only tests and publishes them. No account, app or signup is needed, and the code is open source (MIT).
+
+**How do you know a proxy actually works?**  
+The tester does what a Telegram app does: the obfuscated2 handshake (plus the FakeTLS HMAC check for ee secrets), then sends req_pq_multi through the proxy and requires a Telegram datacenter to answer with our random nonce — in every one of 3 rounds. A hostname with several IPv4 addresses must pass on all of them.
+
+**Will they work in Iran, Russia or other censored countries?**  
+They are tested from a GitHub Actions runner, not from inside every network. Censors block some proxies and not others, so if one does not connect, try the next. top100.txt spreads its proxies over many networks (at most 5 per network by default) so they do not all fail together.
+
+**Is using a free proxy safe?**  
+The proxy operator can see your IP address and when you connect. Your messages stay encrypted by Telegram's own MTProto encryption; the proxy only relays encrypted traffic and cannot read them. Some proxies may pin a sponsored channel in your chat list.
+
+**How often is the list updated?**  
+About every 15 minutes. The time of the last update is shown at the top of this page and in index.json.
+
+**What is the difference between MTProto, secure (dd) and FakeTLS (ee) proxies?**  
+All of them are MTProto proxies. dd (secure) secrets add random padding to the traffic; ee (FakeTLS) secrets wrap it in a handshake that looks like TLS to a chosen website, which is harder to detect. Each type has its own file.
+
+**raw.githubusercontent.com is blocked. Where else can I get the list?**  
+Use the same path on jsDelivr: https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt — its cache is purged after every update.
+
+**Can I use the list in my own app or bot?**  
+Yes. index.json lists every file; proxies.json has server, port, secret, type, country, ASN, round-trip time and uptime for each proxy. Keep the MIT notice and the DB-IP (CC BY 4.0) attribution.
+
+How to add a proxy by hand — **Android / iPhone:** Settings → Data and Storage → Proxy → Add Proxy → MTProto. **Telegram Desktop:** Settings → Advanced → Connection type → Use custom proxy → Add proxy → MTProto.
 
 ## License
 

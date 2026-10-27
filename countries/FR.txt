@@ -1,7 +1,6 @@
-tg://proxy?server=rakhsh.ir.igakwvwa.info&port=7443&secret=79e344818749bd7ac519130220c25d09
 tg://proxy?server=pooriyaye-vali.ir.igakwvwa.info&port=7443&secret=79e344818749bd7ac519130220c25d09
+tg://proxy?server=rakhsh.ir.igakwvwa.info&port=7443&secret=79e344818749bd7ac519130220c25d09
 tg://proxy?server=212.47.236.50&port=38443&secret=ddca11911c0de0faffec7edbada55cab1e
 tg://proxy?server=free.tprox.net&port=443&secret=dd583de2881533667b60a718e9bf8049e9
 tg://proxy?server=av.1.mtproto.ru&port=443&secret=ee2111222233334444555566667777888862726f777365722e79616e6465782e636f6d
-tg://proxy?server=t6.nevcodeframe.com&port=443&secret=ee0e4d933242164450da8a7e6b469b629774362e6e6576636f64656672616d652e636f6d
 tg://proxy?server=api.cryptocurency.wiki&port=443&secret=eed093d11c950817ff1c54b9d1812031e670782e63727970746f637572656e63792e77696b69

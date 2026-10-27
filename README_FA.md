@@ -1,6 +1,6 @@
 <div dir="rtl">
 
-# پروکسی رایگان تلگرام
+# پروکسی رایگان تلگرام — لیست پروکسی MTProto تأییدشده
 
 **هر پروکسی این‌جا قبل از انتشار، یک درخواست واقعی را به دیتاسنتر واقعی تلگرام رسانده — سه بار.**
 
@@ -15,6 +15,8 @@
 </p>
 
 [English](README.md) · [داشبورد زنده](https://0xradikal.github.io/Free-Telegram-Proxy/) · [کانال @Raydikalx](https://t.me/Raydikalx)
+
+یک **لیست پروکسی تلگرام** رایگان و متن‌باز: پروکسی‌های سالم **MTProto / MTProxy** (FakeTLS با `ee`، secure با `dd` و معمولی)، که تقریباً هر ۱۵ دقیقه روی GitHub Actions از نو ساخته می‌شود. روی لینک بزن، تلگرام وصل می‌شود — بدون برنامهٔ اضافه، بدون ثبت‌نام. برای کسانی که تلگرامشان فیلتر یا کند است. وابسته به شرکت تلگرام نیست.
 
 ## از این‌جا شروع کن
 
@@ -37,20 +39,20 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt
 </div>
 
 <!-- LIVE:BEGIN -->
-**آخرین به‌روزرسانی:** `2026-10-27T07:46:31Z` · محل تست: `US` (`ORD`)
+**آخرین به‌روزرسانی:** `2026-10-27T08:48:32Z` · محل تست: `US` (`SJC`)
 
 | مرحله | تعداد |
 |---|---:|
-| لینک جمع‌آوری‌شده از همهٔ منابع | 3,222 |
-| سرور یکتا (IP:پورت) که تست شد | 1,849 |
-| **تأییدشده در همهٔ 3 دور** (لینک) | **1,753** |
-| همان‌ها، بر حسب **سرور واقعی** | **390** (356 IP) |
-| سهم پرتکرارترین IP از لینک‌های تأییدشده | 967 (55.2%) |
-| سهم بزرگ‌ترین شبکه (`79.182.27.0/24`) از لینک‌های تأییدشده | 967 (55.2%) |
+| لینک جمع‌آوری‌شده از همهٔ منابع | 3,302 |
+| سرور یکتا (IP:پورت) که تست شد | 1,931 |
+| **تأییدشده در همهٔ 3 دور** (لینک) | **1,721** |
+| همان‌ها، بر حسب **سرور واقعی** | **386** (355 IP) |
+| سهم پرتکرارترین IP از لینک‌های تأییدشده | 969 (56.3%) |
+| سهم بزرگ‌ترین شبکه (`79.182.27.0/24`) از لینک‌های تأییدشده | 969 (56.3%) |
 
-`resilient` 356 · `fast` 94 · `stable` 326 · `verified` 1753 · `faketls` 118 · `secure` 89 · `classic` 158 · `all` 3222
+`resilient` 355 · `fast` 92 · `stable` 322 · `verified` 1721 · `faketls` 118 · `secure` 85 · `classic` 159 · `all` 3302
 
-[🇩🇪 DE 107](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 96](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 58](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 30](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 16](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇵🇱 PL 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇸🇪 SE 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇬 SG 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt) [🇬🇧 GB 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt)
+[🇩🇪 DE 105](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 96](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 55](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 32](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 15](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 12](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇵🇱 PL 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇸🇪 SE 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇸🇬 SG 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇦🇹 AT 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/AT.txt)
 <!-- LIVE:END -->
 
 <div dir="rtl">
@@ -104,6 +106,28 @@ https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt
 * **فقط از یک نقطه تست می‌شود.** «تأییدشده» یعنی از سرور تست کار کرده (محلش در `index.json`)؛ یعنی **تضمین نمی‌کند** از همراه اول یا ایرانسل باز شود.
 * نمی‌توانیم ببینیم پروکسی کانال اسپانسری نشان می‌دهد یا نه.
 * اپراتور پروکسی IP تو را می‌بیند؛ پیام‌ها با رمزنگاری خود تلگرام محافظت می‌شوند و پروکسی نمی‌تواند آن‌ها را بخواند.
+
+## پرسش‌های رایج
+
+**این پروکسی‌های تلگرام رایگان هستند؟**  
+بله. پروکسی‌های MTProto عمومی‌اند که از لیست‌ها و کانال‌های عمومی جمع می‌شوند؛ این پروژه فقط آن‌ها را تست و منتشر می‌کند. نه حساب کاربری لازم است، نه برنامهٔ جانبی. کد هم متن‌باز است (MIT).
+
+**از کجا معلوم پروکسی واقعاً کار می‌کند؟**  
+تست‌کننده همان کاری را می‌کند که اپ تلگرام: handshake رمزشده (و برای secretهای ee بررسی HMAC در FakeTLS)، بعد درخواست req_pq_multi را از طریق پروکسی به دیتاسنتر تلگرام می‌فرستد و جواب باید nonce تصادفی ما را برگرداند — در هر سه دور. اگر یک دامنه چند IPv4 داشته باشد، همهٔ آن‌ها باید پاس شوند.
+
+**روی همراه اول، ایرانسل یا نت ملی کار می‌کند؟**  
+تست از سرور GitHub انجام می‌شود، نه از داخل هر اپراتور. فیلترینگ بعضی پروکسی‌ها را می‌بندد و بعضی را نه؛ اگر یکی وصل نشد، بعدی را امتحان کن. top100.txt پروکسی‌ها را بین شبکه‌های زیادی پخش می‌کند (به‌طور پیش‌فرض حداکثر ۵ از هر شبکه) تا همه با هم از کار نیفتند.
+
+**استفاده از پروکسی رایگان امن است؟**  
+اپراتور پروکسی IP تو و زمان اتصال را می‌بیند. پیام‌ها با رمزنگاری خود تلگرام (MTProto) محافظت می‌شوند و پروکسی فقط ترافیک رمزشده را رد می‌کند و نمی‌تواند آن‌ها را بخواند. بعضی پروکسی‌ها ممکن است یک کانال اسپانسری بالای لیست چت‌ها نشان دهند.
+
+**لیست هر چند وقت به‌روز می‌شود؟**  
+تقریباً هر ۱۵ دقیقه. زمان آخرین به‌روزرسانی در بخش «آمار زنده» و در index.json هست.
+
+**raw.githubusercontent.com فیلتر است؛ از کجا بگیرم؟**  
+همان مسیر را روی jsDelivr باز کن: https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt — کش آن بعد از هر به‌روزرسانی پاک می‌شود.
+
+اضافه کردن دستی پروکسی — **اندروید و آیفون:** Settings ← Data and Storage ← Proxy ← Add Proxy ← MTProto. **تلگرام دسکتاپ:** Settings ← Advanced ← Connection type ← Use custom proxy ← Add proxy ← MTProto.
 
 موقعیت IP و ASN از [DB-IP](https://db-ip.com) (CC BY 4.0).
 
