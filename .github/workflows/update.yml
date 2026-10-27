@@ -32,7 +32,7 @@ env:
   OUT_MARK: "[auto-output]"
   # Everything the bot is allowed to write. Anything else changing between
   # the source anchor and the tip aborts the publish (never revert humans).
-  OUTPUT_PATHS: "verified fast stable resilient faketls secure classic all countries top50.txt index.json health.json state.json README.md README_FA.md"
+  OUTPUT_PATHS: "verified fast stable resilient faketls secure classic all countries top100.txt top50.txt index.json health.json state.json README.md README_FA.md"
 
 jobs:
   update:
@@ -143,7 +143,7 @@ jobs:
           git config user.name  "tgproxy-bot"
           git config user.email "actions@users.noreply.github.com"
           is_output() { for p in $OUTPUT_PATHS; do case "$1" in "$p"|"$p"/*) return 0;; esac; done; return 1; }
-          for f in index.json health.json verified/tg.txt resilient/tg.txt top50.txt; do
+          for f in index.json health.json verified/tg.txt resilient/tg.txt top100.txt top50.txt; do
             [ -s "$f" ] || { echo "❌ missing $f — not publishing"; exit 1; }
           done
           N=$(python3 -c "import json;print(json.load(open('index.json'))['funnel']['verified_links'])")
@@ -182,6 +182,6 @@ jobs:
         if: steps.gate.outputs.run == 'true'
         continue-on-error: true
         run: |
-          for f in top50.txt resilient/tme.txt resilient/tg.txt resilient/proxies.json verified/tme.txt verified/tg.txt verified/proxies.json fast/tme.txt index.json health.json; do
+          for f in top100.txt top50.txt resilient/tme.txt resilient/tg.txt resilient/proxies.json verified/tme.txt verified/tg.txt verified/proxies.json fast/tme.txt index.json health.json; do
             curl -fsS -m 15 "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/$f" >/dev/null || true
           done

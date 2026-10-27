@@ -29,10 +29,12 @@ FAST_FRACTION = 0.25
 STABLE_UPTIME = 0.90
 STABLE_MIN_CHECKS = 12
 RESILIENT_PER_IP = 1
-TOP_N = 50
+TOP_N = 100
+TOP_NETWORK_CAP = 5     # base cap per network (ASN, or /24 · /48 without ASN)
+TOP_ALIAS_N = 50        # top50.txt = first 50 of top100 (kept for existing subscribers)
 
 OUTPUT_DIRS = ("verified", "fast", "stable", "resilient", "faketls", "secure", "classic", "all", "countries")
-OUTPUT_FILES = ("top50.txt", "index.json", "health.json", "state.json")
+OUTPUT_FILES = ("top100.txt", "top50.txt", "index.json", "health.json", "state.json")
 
 
 def _iso(ts: int) -> str:
@@ -111,13 +113,55 @@ def _reliability(r: Record) -> float:
     return (centre - margin) / denom
 
 
-def _top(res: list[Record]) -> list[Record]:
-    """top50: most *proven* first (Wilson lower bound of uptime), RTT breaks ties.
+def _proven(r: Record) -> bool:
+    """Same bar as the `stable` tier."""
+    return (r.hist.get("uptime") or 0) >= STABLE_UPTIME and r.hist.get("checks", 0) >= STABLE_MIN_CHECKS
+
+
+def _rank_key(r: Record):
+    return (-round(_reliability(r), 3), _sort_key(r))
+
+
+def _top(res: list[Record]) -> tuple[list[Record], int]:
+    """top100: most *proven* first (Wilson lower bound of uptime), RTT breaks
+    ties, with at most `cap` links per network (`network_of`).
+
+    The cap starts at TOP_NETWORK_CAP and is raised one step at a time ONLY
+    when the list could not otherwise be filled with candidates of the same
+    quality class. Two classes, filled in order: proven (the `stable` bar),
+    then everything else. So the cap rises (a) when there are too few
+    networks (e.g. 3 networks → cap 34), and (b) rather than letting unproven
+    newcomers push out proven proxies (measured 2026-10-26 20:19: a fixed cap
+    of 5 admitted 15 links with < 12 checks; the dynamic cap used 7 and
+    admitted none). The cap never decreases within a run and is reported in
+    index.json as `top100_info.network_cap`.
 
     RTT alone is a property of the runner's location, not of the proxy:
     measured top50 overlap between consecutive US runs was only 24-25 of 50.
+    Returns (selection in rank order, cap used).
     """
-    return sorted(res, key=lambda r: (-round(_reliability(r), 3), _sort_key(r)))[:TOP_N]
+    want = min(TOP_N, len(res))
+    cap = TOP_NETWORK_CAP
+    chosen: list[Record] = []
+    used: Counter = Counter()
+    for group in ([r for r in res if _proven(r)], [r for r in res if not _proven(r)]):
+        group.sort(key=_rank_key)
+        goal = min(want, len(chosen) + len(group))
+        while True:
+            cnt, add = Counter(used), []
+            for r in group:
+                if len(chosen) + len(add) == goal:
+                    break
+                n = network_of(r)
+                if cnt[n] < cap:
+                    cnt[n] += 1
+                    add.append(r)
+            if len(chosen) + len(add) == goal:
+                break
+            cap += 1  # terminates: at cap >= len(group) every candidate fits
+        chosen += add
+        used = cnt
+    return chosen, cap
 
 
 def tiers(records: list[Record]) -> dict[str, list[Record]]:
@@ -169,7 +213,8 @@ def write_outputs(res: RunResult, out: Path, runner: dict, state_dump: dict | No
     for d in OUTPUT_DIRS:
         shutil.rmtree(out / d, ignore_errors=True)
     # Same for top-level per-run files that may legitimately be absent.
-    (out / "top50.txt").unlink(missing_ok=True)
+    for f in ("top100.txt", "top50.txt"):
+        (out / f).unlink(missing_ok=True)
     written: list[Path] = []
     t = tiers(res.records)
     tier_meta = {}
@@ -189,9 +234,20 @@ def write_outputs(res: RunResult, out: Path, runner: dict, state_dump: dict | No
         _write(out / "countries" / f"{cc}.txt", "\n".join(r.proxy.tg_link() for r in recs) + "\n", written)
         countries[cc] = {"count": len(recs), "flag": flag(cc), "url": f"{RAW}/countries/{cc}.txt"}
 
-    top = _top(t["resilient"])
+    top, cap = _top(t["resilient"])
+    t["top100"] = top
     if top:
-        _write(out / "top50.txt", "\n".join(r.proxy.tg_link() for r in top) + "\n", written)
+        _write(out / "top100.txt", "\n".join(r.proxy.tg_link() for r in top) + "\n", written)
+        # Compatibility: top50.txt was the recommended file before top100.
+        # Keep it as the exact first 50 lines so old subscriptions never 404.
+        _write(out / "top50.txt", "\n".join(r.proxy.tg_link() for r in top[:TOP_ALIAS_N]) + "\n", written)
+    top_info = {
+        "count": len(top),
+        "network_cap": cap,
+        "base_network_cap": TOP_NETWORK_CAP,
+        "networks": len({network_of(r) for r in top}),
+        "proven": sum(1 for r in top if _proven(r)),
+    } if top else None
 
     funnel = _funnel(res, t)
     now = res.started
@@ -204,6 +260,8 @@ def write_outputs(res: RunResult, out: Path, runner: dict, state_dump: dict | No
         "funnel": funnel,
         "tiers": tier_meta,
         "countries": countries,
+        "top100": f"{RAW}/top100.txt" if top else None,
+        "top100_info": top_info,
         "top50": f"{RAW}/top50.txt" if top else None,
         "mirror_prefix": CDN,
         "criteria": {
@@ -212,7 +270,11 @@ def write_outputs(res: RunResult, out: Path, runner: dict, state_dump: dict | No
             "stable": f"verified and passed >= {int(STABLE_UPTIME*100)}% of the last checks (min {STABLE_MIN_CHECKS})",
             "resilient": "verified, at most one link per server IP (the link with the longest check history is kept, ties broken by server/port/secret); sorted by RTT",
             "derived_tiers": "fast/stable/faketls/secure/classic/countries are taken from verified with one link per server IP",
-            "top50": "50 links from resilient with the best proven uptime (Wilson lower bound over check history), then lowest RTT",
+            "top100": (f"{TOP_N} links from resilient: proven first (the stable bar), ranked by proven uptime "
+                       f"(Wilson lower bound over check history), then lowest RTT; at most {TOP_NETWORK_CAP} per network "
+                       f"(ASN, or /24 · /48 without ASN), raised only if the list cannot be filled otherwise "
+                       f"(the cap actually used is top100_info.network_cap)"),
+            "top50": f"compatibility alias: the first {TOP_ALIAS_N} lines of top100.txt",
         },
     }
     health = {
