@@ -1,127 +1,154 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+
+<html dir="ltr" lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Free Telegram Proxy List — Verified MTProto Proxies, Live</title>
-<meta name="description" content="Free Telegram proxy list: MTProto / MTProxy (FakeTLS) proxies tested end-to-end against real Telegram datacenters about every 15 minutes. Tap to connect, no signup.">
-<link rel="canonical" href="https://0xradikal.github.io/Free-Telegram-Proxy/">
-<link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<meta name="theme-color" content="#0b1220">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Free Telegram Proxy">
-<meta property="og:url" content="https://0xradikal.github.io/Free-Telegram-Proxy/">
-<meta property="og:title" content="Free Telegram Proxy List — Verified MTProto Proxies, Live">
-<meta property="og:description" content="Free Telegram proxy list: MTProto / MTProxy (FakeTLS) proxies tested end-to-end against real Telegram datacenters about every 15 minutes. Tap to connect, no signup.">
-<meta property="og:image" content="https://0xradikal.github.io/Free-Telegram-Proxy/assets/social-preview.png">
-<meta property="og:image:width" content="1280">
-<meta property="og:image:height" content="640">
-<meta property="og:image:alt" content="Free Telegram Proxy — MTProto proxy list, every proxy verified against a real Telegram datacenter">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://0xradikal.github.io/Free-Telegram-Proxy/assets/social-preview.png">
-<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Dataset","name":"Free Telegram Proxy List (verified MTProto proxies)","alternateName":["Free-Telegram-Proxy","Free MTProto proxy list"],"description":"Working public Telegram MTProto proxies (MTProxy, FakeTLS ee, secure dd). Each proxy relayed a real request to a Telegram datacenter and returned our random nonce in every one of 3 rounds before it was published. Rebuilt about every 15 minutes on GitHub Actions; one link per real server; top100 ranked by proven uptime with at most 5 proxies per network by default.","url":"https://0xradikal.github.io/Free-Telegram-Proxy/","sameAs":"https://github.com/0xRadikal/Free-Telegram-Proxy","isAccessibleForFree":true,"license":"https://spdx.org/licenses/MIT.html","keywords":["Telegram proxy","free Telegram proxy","MTProto proxy","MTProxy","FakeTLS","proxy list","censorship circumvention"],"creator":{"@type":"Person","name":"0xRadikal","url":"https://github.com/0xRadikal"},"measurementTechnique":"End-to-end MTProto probe: obfuscated2 / FakeTLS handshake, req_pq_multi relayed to a Telegram DC, resPQ must contain our nonce, 3 rounds","distribution":[{"@type":"DataDownload","name":"top100.txt","encodingFormat":"text/plain","contentUrl":"https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt"},{"@type":"DataDownload","name":"resilient/proxies.json","encodingFormat":"application/json","contentUrl":"https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/resilient/proxies.json"},{"@type":"DataDownload","name":"verified/tme.txt","encodingFormat":"text/plain","contentUrl":"https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/verified/tme.txt"},{"@type":"DataDownload","name":"index.json","encodingFormat":"application/json","contentUrl":"https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/index.json"}]},{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"Free-Telegram-Proxy","codeRepository":"https://github.com/0xRadikal/Free-Telegram-Proxy","programmingLanguage":"Python","license":"https://spdx.org/licenses/MIT.html","url":"https://github.com/0xRadikal/Free-Telegram-Proxy"},{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"en","mainEntity":[{"@type":"Question","name":"Are these Telegram proxies free?","acceptedAnswer":{"@type":"Answer","text":"Yes. They are public MTProto proxies collected from public lists and Telegram channels; this project only tests and publishes them. No account, app or signup is needed, and the code is open source (MIT)."}},{"@type":"Question","name":"How do you know a proxy actually works?","acceptedAnswer":{"@type":"Answer","text":"The tester does what a Telegram app does: the obfuscated2 handshake (plus the FakeTLS HMAC check for ee secrets), then sends req_pq_multi through the proxy and requires a Telegram datacenter to answer with our random nonce — in every one of 3 rounds. A hostname with several IPv4 addresses must pass on all of them."}},{"@type":"Question","name":"Will they work in Iran, Russia or other censored countries?","acceptedAnswer":{"@type":"Answer","text":"They are tested from a GitHub Actions runner, not from inside every network. Censors block some proxies and not others, so if one does not connect, try the next. top100.txt spreads its proxies over many networks (at most 5 per network by default) so they do not all fail together."}},{"@type":"Question","name":"Is using a free proxy safe?","acceptedAnswer":{"@type":"Answer","text":"The proxy operator can see your IP address and when you connect. Your messages stay encrypted by Telegram's own MTProto encryption; the proxy only relays encrypted traffic and cannot read them. Some proxies may pin a sponsored channel in your chat list."}},{"@type":"Question","name":"How often is the list updated?","acceptedAnswer":{"@type":"Answer","text":"About every 15 minutes. The time of the last update is shown at the top of this page and in index.json."}},{"@type":"Question","name":"What is the difference between MTProto, secure (dd) and FakeTLS (ee) proxies?","acceptedAnswer":{"@type":"Answer","text":"All of them are MTProto proxies. dd (secure) secrets add random padding to the traffic; ee (FakeTLS) secrets wrap it in a handshake that looks like TLS to a chosen website, which is harder to detect. Each type has its own file."}},{"@type":"Question","name":"raw.githubusercontent.com is blocked. Where else can I get the list?","acceptedAnswer":{"@type":"Answer","text":"Use the same path on jsDelivr: https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt — its cache is purged after every update."}},{"@type":"Question","name":"Can I use the list in my own app or bot?","acceptedAnswer":{"@type":"Answer","text":"Yes. index.json lists every file; proxies.json has server, port, secret, type, country, ASN, round-trip time and uptime for each proxy. Keep the MIT notice and the DB-IP (CC BY 4.0) attribution."}}]}]</script>
-<style>
-:root{--bg:#0b1220;--card:#121a2b;--fg:#e6edf7;--mut:#8a97ad;--acc:#2aabee;--ok:#3ccf8e;--bd:#1f2a40}
-*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg)}
-header{padding:28px 20px 8px;max-width:1100px;margin:auto}h1{margin:0;font-size:26px}h1 span{color:var(--acc)}
-.sub{color:var(--mut)}main{max-width:1100px;margin:auto;padding:0 20px 40px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:18px 0}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px}
-.k{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.04em}.v{font-size:26px;font-weight:700}
-.bar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
-button,select,input{background:var(--card);color:var(--fg);border:1px solid var(--bd);border-radius:8px;padding:8px 12px;font:inherit}
-button.on{border-color:var(--acc);color:var(--acc)}
-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden}
-th,td{padding:8px 10px;border-bottom:1px solid var(--bd);text-align:left;font-size:14px}th{color:var(--mut);font-weight:600}
-td.r{text-align:right;font-variant-numeric:tabular-nums}a{color:var(--acc);text-decoration:none}
-.tag{font-size:11px;padding:2px 6px;border-radius:6px;border:1px solid var(--bd);color:var(--mut)}
-.go{background:var(--acc);color:#fff;border:0;padding:6px 10px;border-radius:7px}
-.warn{color:var(--mut);font-size:13px;margin-top:18px}
-.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px}#more{color:var(--mut);font-size:13px}
-.intro{max-width:820px}nav a{margin-right:14px}section{margin-top:34px}h2{font-size:20px;margin:0 0 10px}h3{font-size:16px;margin:18px 0 6px}pre{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px;white-space:pre-wrap;word-break:break-all}code{word-break:break-all}details{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px 14px;margin:8px 0}summary{cursor:pointer;font-weight:600}footer{max-width:1100px;margin:auto;padding:10px 20px 40px;color:var(--mut);font-size:13px}</style>
-</head>
-<body>
-<header>
-  <nav><a href="https://github.com/0xRadikal/Free-Telegram-Proxy">GitHub</a><a href="https://github.com/0xRadikal/Free-Telegram-Proxy/blob/main/README_FA.md" hreflang="fa">فارسی</a><a href="#faq">FAQ</a></nav>
-  <h1>Free Telegram <span>Proxy</span> List</h1>
-  <p class="intro">A free, open-source list of working <b>Telegram proxies</b> (MTProto / MTProxy, including FakeTLS). Every proxy here relayed a real request to a real Telegram datacenter — three times — before it was published. The list is rebuilt about every 15 minutes on GitHub Actions. No app and no signup: tap <b>Connect</b> and Telegram asks “Connect proxy?”.</p>
-  <div class="sub" id="upd">loading…</div>
-</header>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="light" name="color-scheme"/>
+<meta content="#247EFD" name="theme-color"/>
+<meta content="Open-source Telegram MTProto proxy list, updated about every 15 minutes. Explore end-to-end verified proxies, unique servers, Top 100 and transparent testing limits." name="description"/>
+<title>Free Telegram Proxy List — Verified MTProto | Raydikalx</title>
+<link href="favicon.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link rel="stylesheet" href="styles.css">
+<link href="https://0xradikal.github.io/Free-Telegram-Proxy/" rel="canonical"/><link href="https://0xradikal.github.io/Free-Telegram-Proxy/" hreflang="en" rel="alternate"/><link href="https://0xradikal.github.io/Free-Telegram-Proxy/fa/" hreflang="fa" rel="alternate"/><link href="https://0xradikal.github.io/Free-Telegram-Proxy/" hreflang="x-default" rel="alternate"/><meta content="index, follow, max-image-preview:large" name="robots"/><meta content="website" property="og:type"/><meta content="Raydikalx" property="og:site_name"/><meta content="en_US" property="og:locale"/><meta content="Free Telegram Proxy List — Verified MTProto | Raydikalx" property="og:title"/><meta content="Open-source Telegram MTProto proxy list, updated about every 15 minutes. Explore end-to-end verified proxies, unique servers, Top 100 and transparent testing limits." property="og:description"/><meta content="https://0xradikal.github.io/Free-Telegram-Proxy/" property="og:url"/><meta content="https://0xradikal.github.io/Free-Telegram-Proxy/assets/social-preview.png" property="og:image"/><meta content="Original Raydikalx cool-white Root-R symbol on electric blue; Free Telegram Proxy" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Free Telegram Proxy List — Verified MTProto | Raydikalx" name="twitter:title"/><meta content="Open-source Telegram MTProto proxy list, updated about every 15 minutes. Explore end-to-end verified proxies, unique servers, Top 100 and transparent testing limits." name="twitter:description"/><meta content="https://0xradikal.github.io/Free-Telegram-Proxy/assets/social-preview.png" name="twitter:image"/><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://0xradikal.github.io/Free-Telegram-Proxy/#website","url":"https://0xradikal.github.io/Free-Telegram-Proxy/","name":"Raydikalx Free Telegram Proxy","inLanguage":["en","fa"],"description":"Open-source Telegram MTProto proxy directory with independently documented verification criteria."},{"@type":"WebPage","@id":"https://0xradikal.github.io/Free-Telegram-Proxy/#webpage","url":"https://0xradikal.github.io/Free-Telegram-Proxy/","name":"Free Telegram Proxy List — Verified MTProto | Raydikalx","description":"Open-source Telegram MTProto proxy list, updated about every 15 minutes. Explore end-to-end verified proxies, unique servers, Top 100 and transparent testing limits.","inLanguage":"en","isPartOf":{"@id":"https://0xradikal.github.io/Free-Telegram-Proxy/#website"},"about":{"@id":"https://github.com/0xRadikal/Free-Telegram-Proxy#source-code"}},{"@type":"SoftwareSourceCode","@id":"https://github.com/0xRadikal/Free-Telegram-Proxy#source-code","name":"Free-Telegram-Proxy","codeRepository":"https://github.com/0xRadikal/Free-Telegram-Proxy","url":"https://github.com/0xRadikal/Free-Telegram-Proxy","description":"Open-source Telegram MTProto proxy collection, verification and publishing workflow.","programmingLanguage":"Python","creator":{"@type":"Person","name":"0xRadikal","url":"https://github.com/0xRadikal"}}]}</script><meta content="1280" property="og:image:width"/><meta content="640" property="og:image:height"/><meta content="image/png" property="og:image:type"/><meta content="fa_IR" property="og:locale:alternate"/><link href="assets/apple-touch-icon.png" rel="apple-touch-icon"/><link rel="stylesheet" href="responsive.css">
+<link href="https://fonts.googleapis.com/css2?family=Estedad:wght@300;400;500;600;700;800;900&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/></head>
+<body class="motion-on">
+<div aria-hidden="true" class="read-progress" id="readProgress"></div>
+<a class="skip" data-t="skip" href="#explorer">Skip to proxy explorer</a>
+<div class="site-top" id="top">
+<div aria-hidden="true" class="atmosphere"><div class="lightball lightball-a"></div><div class="lightball lightball-b"></div><div class="hero-mesh"></div><div class="hero-noise"></div></div>
+<div class="shell">
+<header class="topbar">
+<a aria-label="Raydikalx — home" class="identity" href="#top">
+<span class="identity-icon"><img alt="" decoding="async" height="52" sizes="(max-width: 510px) 37px, 52px" src="assets/brand-icon.webp" width="52"/></span>
+<span class="identity-copy"><strong>Raydikalx</strong><small data-t="brandSub">OPEN SOURCE NETWORK</small></span>
+</a>
+<nav aria-label="Main navigation" class="primary-nav">
+<a data-t="navExplore" href="#explorer">Explorer</a>
+<a data-t="navMethod" href="#method">Our method</a>
+<a data-t="navCommunity" href="https://t.me/Raydikalx" rel="noopener noreferrer" target="_blank">Community</a>
+<a href="#faq">Questions</a><a href="methodology/">Verification guide</a></nav>
+<div class="nav-tools">
+<button aria-label="Pause ambient animations" aria-pressed="false" class="motion-switch" id="motionSwitch" title="Pause animations" type="button"><svg aria-hidden="true" fill="none" height="17" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewbox="0 0 24 24" width="17"><path d="M9 5v14M15 5v14"></path></svg><span id="motionLabel">Pause motion</span></button>
+<a aria-label="Switch to Persian" class="lang-control" data-preview-lang="Raydikalx_V7_Telegram_Preview_FA.html" href="Raydikalx_V7_Telegram_Preview_FA.html" id="lang"><span aria-hidden="true" class="language-symbol">文</span><span id="langLabel">فارسی</span></a>
+<a aria-label="GitHub source repository" class="nav-git" href="https://github.com/0xRadikal/Free-Telegram-Proxy" rel="noopener noreferrer" target="_blank">
+<svg aria-hidden="true" class="git-icon" fill="currentColor" viewbox="0 0 24 24"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-2.08c-3.13.69-3.78-1.33-3.78-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.03-.69.08-.68.08-.68 1.13.08 1.72 1.17 1.72 1.17 1 1.72 2.63 1.23 3.27.94.1-.72.4-1.23.72-1.51-2.51-.29-5.14-1.26-5.14-5.6 0-1.22.44-2.24 1.15-3.03-.12-.28-.5-1.42.11-2.97 0 0 .94-.3 3.11 1.15a10.9 10.9 0 0 1 5.66 0c2.17-1.45 3.11-1.15 3.11-1.15.6 1.55.22 2.69.11 2.97.72.79 1.14 1.81 1.14 3.03 0 4.35-2.64 5.3-5.15 5.59.4.35.77 1.03.77 2.09v3.1c0 .31.2.66.78.54A11.2 11.2 0 0 0 12 .8Z"></path></svg>
+<span>GitHub</span><span aria-hidden="true">↗</span>
+</a>
+</div>
+<details class="mobile-menu"><summary aria-label="Open site menu"><span aria-hidden="true" class="menu-glyph">☰</span></summary><nav aria-label="Mobile navigation"><a data-t="navExplore" href="#explorer">Explorer</a><a data-t="navMethod" href="#method">Our method</a><a data-t="navCommunity" href="https://t.me/Raydikalx" rel="noopener noreferrer" target="_blank">Community</a><a href="#faq">Questions</a><a href="methodology/">Verification guide</a><a href="https://github.com/0xRadikal/Free-Telegram-Proxy" rel="noopener noreferrer" target="_blank">GitHub repository ↗</a></nav></details></header>
+<section aria-labelledby="hero-title" class="hero">
+<div aria-hidden="true" class="hero-sidecode">01 — TRANSPARENT NETWORK SYSTEM / RAYDIKALX</div>
+<div class="hero-text">
+<span class="hero-eyebrow"><span aria-hidden="true" class="eyebrow-star">✳</span> <span data-t="eyebrow">THE OPEN NETWORK INITIATIVE</span></span>
+<h1 id="hero-title"><span data-t="heroA">Free Telegram proxies,</span><br/><span class="hero-sheen" data-t="heroB">verified against real datacenters.</span></h1>
+<p class="hero-description" data-t="heroDesc">A public, open-source MTProto proxy directory with three-round end-to-end checks, distinct server counts, clear selection criteria and disclosed testing limits.</p>
+<div class="hero-buttons">
+<a class="btn btn-white" href="#explorer"><span data-t="exploreCta">Explore proxies</span><span aria-hidden="true" class="button-arrow">↗</span></a>
+<a class="btn btn-outline" href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt" rel="noopener noreferrer" target="_blank" title="100 selected links with network diversity"><span data-t="top50">Recommended Top 100</span><span aria-hidden="true">↗</span></a>
+</div>
+<p class="hero-disclaimer"><span aria-hidden="true" class="dot-light"></span> <span data-t="heroNote">Tested at the runner location — not a guarantee for every ISP.</span></p>
+</div>
+<div aria-label="Original Raydikalx brand mark" class="hero-visual">
+<div aria-hidden="true" class="orbital orbit-a"></div><div aria-hidden="true" class="orbital orbit-b"></div>
+<svg aria-hidden="true" class="signal-diagram" focusable="false" viewbox="0 0 560 520">
+<defs><lineargradient id="lineGrad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".06"></stop><stop offset=".55" stop-color="#ffffff" stop-opacity=".7"></stop><stop offset="1" stop-color="#ffffff" stop-opacity=".08"></stop></lineargradient></defs>
+<path class="signal-wire" d="M20 110 H136 Q160 110 160 136 V252 H400 Q427 252 427 225 V85 H548" id="wireA"></path>
+<path class="signal-wire" d="M6 394 H108 Q142 394 142 366 V294 H412 Q450 294 450 340 V440 H556" id="wireB"></path>
+<path class="signal-flow a" d="M20 110 H136 Q160 110 160 136 V252 H400 Q427 252 427 225 V85 H548"></path>
+<path class="signal-flow b" d="M6 394 H108 Q142 394 142 366 V294 H412 Q450 294 450 340 V440 H556"></path>
+<circle class="signal-node" cx="160" cy="252" r="5"></circle><circle class="signal-node" cx="427" cy="252" r="5"></circle><circle class="signal-node" cx="142" cy="294" r="4"></circle><circle class="signal-node" cx="450" cy="294" r="4"></circle>
+</svg>
+<div class="brand-stage" id="brandStage">
+<img alt="Original cool-white Root-R monogram on the electric-blue Raydikalx background" decoding="async" fetchpriority="high" height="1254" sizes="(max-width: 510px) 224px, (max-width: 770px) 270px, (max-width: 1190px) 300px, 362px" src="assets/brand-hero.webp" width="1254"/>
+</div>
+<div aria-hidden="true" class="float-coordinate"><span class="coordinate-cross">✳</span><span>MTProto // Network 01</span></div>
+<div class="floating-note"><span aria-hidden="true" class="tick-symbol">✓</span><span><strong data-t="floatingTitle">End-to-end tested</strong><small data-t="floatingDesc">Real Telegram DC response</small></span></div>
+</div>
+</section>
+<div aria-hidden="true" class="hero-bottom-rail"><span>GITHUB / OPEN SOURCE</span><span class="rail-signal"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span>RAYDIKALX / SYSTEMS 2026</span></div>
+</div>
+</div>
 <main>
-  <div class="grid" id="stats"></div>
-  <div class="bar" id="tiers"></div>
-  <div class="bar">
-    <select id="cc"><option value="">All countries</option></select>
-    <input id="q" placeholder="filter host…" size="18">
-    <button id="copy">Copy visible links</button>
-  </div>
-  <div class="tw"><table><thead><tr><th>#</th><th>Server</th><th>Type</th><th>Where</th><th class="r">RTT ms</th><th class="r">Uptime</th><th></th></tr></thead>
-  <tbody id="rows"></tbody></table></div>
-  <p id="more"></p>
-  <p class="warn">“Verified” = relayed a real MTProto request to a Telegram datacenter and returned our random nonce, in every round, <b>from the test runner</b> shown above. It does not guarantee the proxy is reachable from your ISP. IP data: <a href="https://db-ip.com">DB-IP</a> (CC BY 4.0).</p>
-  <section id="subscribe">
-  <h2>Subscribe with one link</h2>
-  <p><b>top100.txt</b> — 100 proxies, one per real server, ranked by proven uptime, at most 5 per network:</p>
-  <pre>https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt</pre>
-  <p>Mirror if GitHub is blocked: <code>https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt</code>. Other lists: <a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/resilient/tme.txt">every real server</a>, <a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/fast/tme.txt">fastest</a>, <a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/faketls/tme.txt">FakeTLS only</a>, per country in <a href="https://github.com/0xRadikal/Free-Telegram-Proxy/tree/main/countries">countries/</a>, and every file in <a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/index.json">index.json</a>.</p>
-  </section>
-  <section id="how-to">
-  <h2>How to add a proxy to Telegram</h2>
-  <h3>Android and iPhone</h3>
-  <p>Tap any <b>Connect</b> link above (or any line of top100.txt). Telegram opens and asks to connect. To add one by hand: <b>Settings → Data and Storage → Proxy → Add Proxy → MTProto</b>, then enter the server, port and secret.</p>
-  <h3>Telegram Desktop (Windows, macOS, Linux)</h3>
-  <p>Click a <b>Connect</b> link, or open <b>Settings → Advanced → Connection type → Use custom proxy → Add proxy → MTProto</b>.</p>
-  </section>
-  <section id="faq">
-  <h2>Frequently asked questions</h2>
-  <details><summary>Are these Telegram proxies free?</summary><p>Yes. They are public MTProto proxies collected from public lists and Telegram channels; this project only tests and publishes them. No account, app or signup is needed, and the code is open source (MIT).</p></details>
-  <details><summary>How do you know a proxy actually works?</summary><p>The tester does what a Telegram app does: the obfuscated2 handshake (plus the FakeTLS HMAC check for ee secrets), then sends req_pq_multi through the proxy and requires a Telegram datacenter to answer with our random nonce — in every one of 3 rounds. A hostname with several IPv4 addresses must pass on all of them.</p></details>
-  <details><summary>Will they work in Iran, Russia or other censored countries?</summary><p>They are tested from a GitHub Actions runner, not from inside every network. Censors block some proxies and not others, so if one does not connect, try the next. top100.txt spreads its proxies over many networks (at most 5 per network by default) so they do not all fail together.</p></details>
-  <details><summary>Is using a free proxy safe?</summary><p>The proxy operator can see your IP address and when you connect. Your messages stay encrypted by Telegram&#x27;s own MTProto encryption; the proxy only relays encrypted traffic and cannot read them. Some proxies may pin a sponsored channel in your chat list.</p></details>
-  <details><summary>How often is the list updated?</summary><p>About every 15 minutes. The time of the last update is shown at the top of this page and in index.json.</p></details>
-  <details><summary>What is the difference between MTProto, secure (dd) and FakeTLS (ee) proxies?</summary><p>All of them are MTProto proxies. dd (secure) secrets add random padding to the traffic; ee (FakeTLS) secrets wrap it in a handshake that looks like TLS to a chosen website, which is harder to detect. Each type has its own file.</p></details>
-  <details><summary>raw.githubusercontent.com is blocked. Where else can I get the list?</summary><p>Use the same path on jsDelivr: https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt — its cache is purged after every update.</p></details>
-  <details><summary>Can I use the list in my own app or bot?</summary><p>Yes. index.json lists every file; proxies.json has server, port, secret, type, country, ASN, round-trip time and uptime for each proxy. Keep the MIT notice and the DB-IP (CC BY 4.0) attribution.</p></details>
-  </section>
-</main>
-<footer>Open source (MIT) · <a href="https://github.com/0xRadikal/Free-Telegram-Proxy">github.com/0xRadikal/Free-Telegram-Proxy</a> · not affiliated with Telegram.</footer>
-<script>
-const BASES=["https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main","https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main"];
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-async function get(p){for(const b of BASES){try{const r=await fetch(b+"/"+p,{cache:"no-store"});if(r.ok)return r.json()}catch(e){}}throw new Error(p)}
-let idx,data=[],tier="resilient";const MAX_ROWS=500;
-const tme=r=>`https://t.me/proxy?server=${encodeURIComponent(r.server)}&port=${r.port}&secret=${r.secret}`;
-function flag(cc){return cc&&cc.length==2?String.fromCodePoint(...[...cc.toUpperCase()].map(c=>0x1F1E6+c.charCodeAt(0)-65)):"🏳️"}
-function stat(k,v){return `<div class="card"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`}
-function visible(){const cc=document.getElementById("cc").value,q=document.getElementById("q").value.toLowerCase();
-  return data.filter(r=>(!cc||r.country===cc)&&(!q||r.server.includes(q)))}
-function draw(){const rows=visible();document.getElementById("more").textContent=rows.length>MAX_ROWS?`Showing the first ${MAX_ROWS} of ${rows.length.toLocaleString()} — narrow it with the filters; "Copy visible links" copies all ${rows.length.toLocaleString()}.`:"";document.getElementById("rows").innerHTML=rows.slice(0,MAX_ROWS).map((r,i)=>
-  `<tr><td>${i+1}</td><td>${esc(r.server)}:${r.port}</td><td><span class="tag">${esc(r.type)}</span></td>
-   <td>${flag(r.country)} ${esc(r.country||"?")} <span class="tag">${esc(r.asn_org||"")}</span></td>
-   <td class="r">${r.rtt_ms??"—"}</td><td class="r">${r.uptime==null?"—":(r.uptime*100).toFixed(0)+"%"}</td>
-   <td><a class="go" href="${esc(tme(r))}">Connect</a></td></tr>`).join("")}
-async function getText(p){for(const b of BASES){try{const r=await fetch(b+"/"+p,{cache:"no-store"});if(r.ok)return r.text()}catch(e){}}throw new Error(p)}
-const key=(s,p,x)=>s.toLowerCase()+"|"+p+"|"+String(x).toLowerCase();
-async function loadTop(f){const [txt,res]=await Promise.all([getText(f+".txt"),get("resilient/proxies.json")]);
-  const by=new Map(res.map(r=>[key(r.server,r.port,r.secret),r]));
-  return txt.split("\n").filter(Boolean).map(l=>{const q=new URLSearchParams(l.slice(l.indexOf("?")+1));return by.get(key(q.get("server")||"",q.get("port"),q.get("secret")||""))}).filter(Boolean)}
-async function loadTier(t){tier=t;document.querySelectorAll("#tiers button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));
-  data=t==="top100"||t==="top50"?await loadTop(t):await get(t+"/proxies.json");const ccs=[...new Set(data.map(r=>r.country).filter(Boolean))].sort();
-  document.getElementById("cc").innerHTML='<option value="">All countries</option>'+ccs.map(c=>`<option>${c}</option>`).join("");draw()}
-(async()=>{idx=await get("index.json");const f=idx.funnel,r=idx.runner||{};
-  // top50 only for index.json files published before top100 existed
-  const TOP=idx.top100?"top100":idx.top50?"top50":"";
-  document.getElementById("upd").textContent=`Updated ${idx.updated} · tested from ${r.loc||"?"} (${r.colo||"?"})`;
-  document.getElementById("stats").innerHTML=stat("links collected",f.links_collected.toLocaleString())+stat("servers probed",(f.unique_servers_probed??f.unique_targets_probed).toLocaleString())+
-    stat("verified links",f.verified_links.toLocaleString())+stat("verified servers",f.verified_servers.toLocaleString())+
-    (f.top_ip_share?stat("largest single-IP share",(f.top_ip_share.share*100).toFixed(1)+"%"):"")+
-    (f.top_network_share?stat("largest network share",(f.top_network_share.share*100).toFixed(1)+"%"):"");
-  document.getElementById("tiers").innerHTML=(TOP?`<button data-t="${TOP}">${TOP} · recommended</button>`:"")+Object.entries(idx.tiers).filter(([k])=>k!=="all").map(([k,v])=>`<button data-t="${esc(k)}">${esc(k)} · ${v.count}</button>`).join("");
-  document.querySelectorAll("#tiers button").forEach(b=>b.onclick=()=>loadTier(b.dataset.t));
-  await loadTier(TOP||(idx.tiers.resilient?"resilient":Object.keys(idx.tiers)[0]))})().catch(e=>document.getElementById("upd").textContent="failed to load: "+e.message);
-document.getElementById("cc").onchange=draw;document.getElementById("q").oninput=draw;
-document.getElementById("copy").onclick=()=>navigator.clipboard.writeText(visible().map(tme).join("\n"));
-</script>
-</body>
+<section aria-label="Repository overview" class="overview shell reveal-section">
+<div class="section-caption"><span class="section-caption-left"><span aria-hidden="true" class="small-diamond"></span><span data-t="overviewEyebrow">TRANSPARENT BY DEFAULT</span></span><span class="run-location" id="runLocation">—</span></div>
+<div class="stats-grid" id="stats">
+<div class="stat-item"><span class="stat-k" data-t="statReal">Real servers verified</span><strong id="statServers">—</strong><span class="stat-foot" data-t="statRealDesc">Unique tested server endpoints</span><span aria-hidden="true" class="stat-decor">◈</span></div>
+<div class="stat-item"><span class="stat-k" data-t="statVerified">Verified proxy links</span><strong id="statVerified">—</strong><span class="stat-foot" data-t="statVerifiedDesc">Passed every verification round</span><span aria-hidden="true" class="stat-decor">⌁</span></div>
+<div class="stat-item"><span class="stat-k" data-t="statProbed">Servers probed</span><strong id="statProbed">—</strong><span class="stat-foot" data-t="statProbedDesc">Unique IP and port targets</span><span aria-hidden="true" class="stat-decor">⤧</span></div>
+<div class="stat-item"><span class="stat-k" data-t="statCollected">Links collected</span><strong id="statCollected">—</strong><span class="stat-foot" data-t="statCollectedDesc">Before end-to-end validation</span><span aria-hidden="true" class="stat-decor">⧉</span></div>
+</div>
+<div class="freshness-bar">
+<div aria-live="polite" class="source-status" id="sourceStatus" role="status"><span aria-hidden="true" class="source-dot"></span><span id="sourceText">Historical preview — not live</span></div>
+<div class="freshness-right"><span data-t="lastUpdate">Source updated:</span> <time id="updated">—</time><span aria-hidden="true" class="freshness-divider"></span><button class="refresh-btn" id="refresh" type="button"><span aria-hidden="true">↻</span><span data-t="retry">Retry sync</span></button></div>
+</div>
+</section>
+<section aria-labelledby="bot-route-title" class="bot-route shell" id="telegram-bot">
+<div class="bot-route-card">
+<div class="bot-route-content">
+<div class="bot-route-eyebrow"><span aria-hidden="true" class="bot-route-mark"></span>THE FASTER PATH · INSIDE TELEGRAM</div>
+<div class="bot-route-state"><span aria-hidden="true" class="bot-route-state-dot"></span>Free proxy feature · In development</div>
+<h2 id="bot-route-title">Find your next proxy. Without leaving Telegram.</h2>
+<p class="bot-route-description">Meet <strong>@configexBot</strong>, the Telegram bot from Raydikalx. A free-proxy section connected to this repository is planned, so you can discover proxy links and open them inside Telegram instead of navigating back through a browser.</p>
+<div class="bot-route-actions">
+<a aria-label="Open @configexBot" class="bot-route-button primary" href="https://t.me/configexBot" rel="noopener noreferrer" target="_blank"><svg aria-hidden="true" fill="none" height="24" viewbox="0 0 24 24" width="24"><path d="m20.7 3.8-3.3 15.7c-.22 1.1-.9 1.36-1.83.77l-5-3.7-2.41 2.32c-.27.26-.5.49-1.02.49l.36-5.09 9.25-8.35c.4-.36-.09-.57-.63-.21L4.7 12.94l-4.92-1.54c-1.07-.34-1.09-1.07.23-1.59L19.25 2.4c.89-.33 1.67.22 1.45 1.4Z" fill="currentColor" transform="translate(1.5 1.6) scale(.9)"></path></svg><span>Open @configexBot</span><svg aria-hidden="true" fill="none" height="17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="17"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg></a>
+<a class="bot-route-button secondary" href="https://t.me/Raydikalx" rel="noopener noreferrer" target="_blank"><span>Join our Telegram channel</span><span aria-hidden="true">↗</span></a>
+</div>
+<p class="bot-route-disclaimer"><span aria-hidden="true">ⓘ</span>The bot link works now. Free proxy delivery inside the bot has not launched yet.</p>
+<a class="bot-route-browse" href="#explorer">Or browse proxies on this page<span aria-hidden="true">↓</span></a>
+</div>
+<div class="bot-route-visual">
+<div aria-hidden="true" class="bot-visual-orbit bot-visual-orbit-a"></div><div aria-hidden="true" class="bot-visual-orbit bot-visual-orbit-b"></div>
+<div class="bot-visual-title">PLANNED BOT EXPERIENCE · CONCEPT</div>
+<div aria-label="From the repository to your Telegram chat: Verified repository data, Receive links from the bot, Choose &amp; connect in Telegram" class="bot-route-device" role="img">
+<div class="bot-device-top"><div class="bot-device-symbol"><img alt="" decoding="async" height="42" loading="lazy" src="assets/brand-icon.webp" width="42"/></div><div class="bot-device-name"><strong>configexBot</strong><span>@configexBot</span></div><span aria-hidden="true" class="bot-device-dots">•••</span></div>
+<div class="bot-device-center">
+<div class="bot-node source"><span class="node-index">01</span><span>Verified repository data</span><span aria-hidden="true" class="bot-node-pip"></span></div>
+<div aria-hidden="true" class="bot-node-line"><span></span></div>
+<div class="bot-node bot"><span class="node-index">02</span><span>Receive links from the bot</span><span aria-hidden="true" class="bot-node-pip"></span></div>
+<div aria-hidden="true" class="bot-node-line"><span></span></div>
+<div class="bot-node destination"><span class="node-index">03</span><span>Choose &amp; connect in Telegram</span><span aria-hidden="true" class="bot-node-pip"></span></div>
+</div>
+<div class="bot-device-foot"><span class="bot-device-tech">MTProto</span><span>After the free proxy feature launches</span></div>
+</div>
+</div>
+</div>
+</section>
+<section aria-labelledby="explorerTitle" class="explorer-section shell reveal-section" id="explorer"><noscript><p class="seo-noscript">Interactive filtering requires JavaScript. The public Top 100 list and technical documentation remain available without it. <a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt">Open Top 100</a></p></noscript>
+<div class="section-heading">
+<div><div class="overline"><span class="overline-line"></span><span data-t="explorerOverline">EXPLORE THE NETWORK</span></div><h2 data-t="explorerTitle" id="explorerTitle">The proxy explorer.</h2><p data-t="explorerSubtitle">A clear view of the network, not just a long list of links.</p></div>
+<div class="section-heading-tools"><a class="external-link" href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/resilient/tme.txt" id="selectedList" rel="noopener noreferrer" target="_blank"><span data-t="fullList">Full source list</span><span aria-hidden="true">↗</span></a></div>
+</div>
+<div class="workspace">
+<div class="workspace-header">
+<div class="workspace-intro"><div aria-hidden="true" class="workspace-symbol">≋</div><div><strong data-t="workspaceTitle">Network directory</strong><span data-t="workspaceSub">Verification tiers &amp; real server data</span></div></div>
+<div class="workspace-indicator"><span aria-hidden="true" class="pulse-off"></span><span data-t="notLive" id="tierModeText">NON-LIVE PREVIEW</span></div>
+</div>
+<div aria-label="Proxy categories: scroll horizontally to see all" class="tier-scroller" role="region" tabindex="0"><div aria-label="Proxy categories" class="tier-tabs" id="tiers"></div></div>
+<div class="filter-zone">
+<div class="filter-main">
+<label class="field search-field" for="search"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.5"></circle><path d="m16 16 5 5"></path></svg><input autocomplete="off" data-placeholder="searchPlaceholder" id="search" placeholder="Search hostname or IP…" type="search"/></label>
+<label class="select-field" for="country"><span class="sr-only" data-t="countryLabel">Country filter</span><select id="country"><option data-t="allCountries" value="">All countries</option></select></label>
+<label class="select-field" for="sort"><span class="sr-only" data-t="sortLabel">Sort</span><select id="sort"><option data-t="sortSpeed" value="speed">Lowest latency</option><option data-t="sortUptime" value="uptime">Highest uptime</option><option data-t="sortName" value="name">Hostname A–Z</option></select></label>
+</div>
+<div class="filter-aside"><button class="clear-filter" data-t="clear" id="clear" type="button">Clear filters</button><button class="copy-all" disabled="" id="copy" type="button"><span aria-hidden="true">⧉</span><span data-t="copy" id="copyLabel">Copy filtered</span></button></div>
+</div>
+<div class="result-toolbar"><div><strong id="matchCount">0</strong><span data-t="matching" id="matchingLabel"> matching proxies</span><span class="sample-tag" data-t="previewLabel" id="sampleTag">HISTORICAL SAMPLE</span></div><div class="result-meta" id="tierDescription">—</div></div>
+<div class="data-table-wrap" id="tableWrap"><table class="data-table"><thead><tr><th data-t="tableServer" scope="col">SERVER / OPERATOR</th><th data-t="tableCountry" scope="col">LOCATION</th><th data-t="tableType" scope="col">PROTOCOL</th><th data-t="tableLatency" scope="col">RTT</th><th data-t="tableUptime" scope="col">HISTORY</th><th scope="col"><span class="sr-only">Action</span></th></tr></thead><tbody id="tableBody"></tbody></table></div>
+<div class="mobile-card-grid" id="cardGrid"></div>
+<div class="empty-state" hidden="" id="empty"><span aria-hidden="true" class="empty-symbol">⌕</span><h3 id="emptyTitle">No matching entries</h3><p id="emptyDesc">Try a different search or filter.</p><button class="empty-action" data-t="clear" id="emptyClear" type="button">Clear filters</button></div>
+<div class="workspace-footer"><span id="pagination">—</span><button class="show-more" hidden="" id="more" type="button"><span data-t="showMore">Show more proxies</span><span aria-hidden="true">↓</span></button></div>
+</div>
+<aside class="integrity-note"><span aria-hidden="true" class="integrity-icon">i</span><div><strong data-t="safetyTitle">What “verified” means</strong><p data-t="safetyCopy">The proxy relayed an MTProto request to a Telegram datacenter and returned the expected response from the test runner. This does not guarantee access from your network. Proxy operators may see your IP address.</p></div><a data-t="readLimits" href="https://github.com/0xRadikal/Free-Telegram-Proxy#honest-limits" rel="noopener noreferrer" target="_blank">Read limitations ↗</a></aside>
+</section>
+<section class="method-area reveal-section" id="method"><div class="shell"><div class="method-heading"><div><div class="overline"><span class="overline-line"></span><span data-t="methodOverline">BUILT FOR PROOF, NOT CLAIMS</span></div><h2 data-t="methodTitle">Trust the process.</h2></div><p data-t="methodSubtitle">Measured by real network responses, with clear selection rules and inspectable output.</p></div><div aria-hidden="true" class="verification-track"><span class="track-label">INPUT</span><div class="verification-track-line"><span class="track-progress"></span><i></i><i></i><i></i></div><span class="track-label">OUTPUT</span></div><div class="method-grid">
+<article class="method-card"><div class="method-number">01 <span> / 03</span></div><div aria-hidden="true" class="method-glyph">◎</div><h3 data-t="method1">Collect &amp; identify</h3><p data-t="method1copy">Aggregate public lists, resolve DNS, and distinguish server endpoints from duplicate aliases.</p></article>
+<article class="method-card"><div class="method-number">02 <span> / 03</span></div><div aria-hidden="true" class="method-glyph">⌁</div><h3 data-t="method2">Verify end to end</h3><p data-t="method2copy">Confirm actual MTProto replies from Telegram datacenters in all required test rounds.</p></article>
+<article class="method-card"><div class="method-number">03 <span> / 03</span></div><div aria-hidden="true" class="method-glyph">◈</div><h3 data-t="method3">Rank &amp; publish</h3><p data-t="method3copy">Prioritize independent server IPs, historical uptime, and measured runner-side latency.</p></article>
+</div></div></section>
+<section aria-labelledby="facts-title" class="seo-explainer shell" id="seo-explainer"><div class="seo-heading"><h2 id="facts-title">What the published data actually means</h2></div><div class="seo-fact-grid"><article><h3>Verified links ≠ independent servers</h3><p>Many working links may resolve to the same IP. The repository reports links and real server counts separately.</p></article><article><h3>Measured speed ≠ local speed</h3><p>Latency and uptime are historical measurements from the designated test runner, not the visitor’s browser or ISP.</p></article><article><h3>Transparency over guarantees</h3><p>The public README documents the test method, the data format and important limitations. There is no promise that each proxy works everywhere.</p></article></div><a class="seo-read-method" href="https://github.com/0xRadikal/Free-Telegram-Proxy#how-a-proxy-is-tested">Read verification methodology on GitHub</a><div class="seo-reference-links"><a href="methodology/">How verification works →</a><a href="data/">Data dictionary &amp; tier definitions →</a></div><article class="seo-update-note"><h3>Recommended Top 100: diverse servers, not duplicated aliases</h3><p>The current repository recommends top100.txt: independent resilient servers, proven uptime before speed, and normally at most five selected links per network. The published network cap may rise if needed. top50.txt remains a compatibility subset, not the primary recommendation.</p><a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt">Open recommended Top 100 on GitHub →</a></article></section><section aria-labelledby="faq-title" class="seo-faq shell" id="faq"><h2 id="faq-title">Free Telegram proxies: how this project works</h2><p class="seo-faq-lead">Answers grounded in the public repository, its verification methodology and its documented limitations.</p><details class="seo-faq-item"><summary>What is Free-Telegram-Proxy?</summary><p>It is an open-source collection of Telegram MTProto proxy links maintained by 0xRadikal under the Raydikalx brand. It groups results by verification and selection criteria rather than promising universal access.</p></details><details class="seo-faq-item"><summary>How does it verify a Telegram proxy?</summary><p>The project tests whether a proxy relays an MTProto request to a real Telegram datacenter and returns the expected response containing the test nonce. Verified proxies must pass all three rounds. A successful TCP connection alone is not enough.</p></details><details class="seo-faq-item"><summary>What is the difference between verified and resilient lists?</summary><p>Verified includes links that pass every end-to-end round, which may contain multiple aliases for the same server. Resilient keeps at most one link per server IP so repeated domains do not inflate apparent server diversity.</p></details><details class="seo-faq-item"><summary>How are fast and stable proxies selected?</summary><p>Fast is the fastest quarter of the resilient list by median round-trip time measured from the test runner. Stable requires at least 90% success over the recent history, with a minimum of 12 checks.</p></details><details class="seo-faq-item"><summary>Do verified proxies work from every country or ISP?</summary><p>No. Tests are carried out from the indicated runner location. Firewalls and censorship differ by network, and runner-side measurements cannot guarantee reachability from your own provider.</p></details><details class="seo-faq-item"><summary>Can a Telegram proxy see my messages or IP address?</summary><p>The proxy operator can see your IP address and connection metadata. Telegram protects message content using its own MTProto encryption; this project does not certify operators or post-login sponsored channels.</p></details><details class="seo-faq-item"><summary>Where can I get the full proxy data and source code?</summary><p>The GitHub repository publishes machine-readable index.json, tier-specific proxies.json files, direct Telegram links and selection criteria. You can inspect the source, issue history and methodology independently.</p></details></section></main>
+<footer class="site-footer"><div class="shell footer-content"><div class="footer-brand"><img alt="" decoding="async" height="36" loading="lazy" sizes="(max-width: 510px) 37px, 52px" src="assets/brand-icon.webp" width="36"/><div><strong>Raydikalx</strong><span data-t="footerMade">An independent open-source project</span></div></div><div class="footer-links"><a href="https://github.com/0xRadikal/Free-Telegram-Proxy" rel="noopener noreferrer" target="_blank">GitHub ↗</a><a href="https://t.me/Raydikalx" rel="noopener noreferrer" target="_blank">Telegram ↗</a><a data-t="topLink" href="#top">Back to top ↑</a><a href="fa/">فارسی</a></div></div></footer>
+<div aria-live="polite" class="toast" hidden="" id="toast" role="status"></div>
+<script defer src="app.js"></script><script defer src="motion.js"></script><script defer src="nav-menu.js"></script></body>
 </html>
