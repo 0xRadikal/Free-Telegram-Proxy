@@ -14,9 +14,9 @@
 
 </p>
 
-[English](README.md) · [داشبورد زنده](https://0xradikal.github.io/Free-Telegram-Proxy/) · [کانال @Raydikalx](https://t.me/Raydikalx)
+[English](README.md) · [Русский](README_RU.md) · [داشبورد زنده](https://0xradikal.github.io/Free-Telegram-Proxy/) · [کانال @Raydikalx](https://t.me/Raydikalx)
 
-یک **لیست پروکسی تلگرام** رایگان و متن‌باز: پروکسی‌های سالم **MTProto / MTProxy** (FakeTLS با `ee`، secure با `dd` و معمولی)، که تقریباً هر ۱۵ دقیقه روی GitHub Actions از نو ساخته می‌شود. روی لینک بزن، تلگرام وصل می‌شود — بدون برنامهٔ اضافه، بدون ثبت‌نام. برای کسانی که تلگرامشان فیلتر یا کند است. وابسته به شرکت تلگرام نیست.
+یک **لیست پروکسی تلگرام** رایگان و متن‌باز: پروکسی‌های سالم **MTProto / MTProxy** (FakeTLS با `ee`، secure با `dd` و معمولی)، که تقریباً هر ۱۵ دقیقه روی GitHub Actions از نو ساخته می‌شود. روی لینک بزن، تلگرام وصل می‌شود — بدون برنامهٔ اضافه، بدون ثبت‌نام. برای کسانی که تلگرامشان فیلتر یا کند است — روی همراه اول، ایرانسل، رایتل و اینترنت خانگی (با این توضیح که تست از سرور خارج از ایران انجام می‌شود). روی اندروید، آیفون و دسکتاپ کار می‌کند. وابسته به شرکت تلگرام نیست.
 
 ## از این‌جا شروع کن
 
@@ -33,6 +33,24 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt
 روی گوشی کافی است روی یکی از خط‌ها بزنی؛ تلگرام باز می‌شود و می‌پرسد «اتصال به پروکسی؟».
 
 سقف ۵ از هر شبکه فقط وقتی بالا می‌رود که لیست بدون آن پر نشود — شبکه‌ها کم باشند، یا یک پروکسی اثبات‌شده جایش را به یک تازه‌وارد بی‌سابقه بدهد. سقفی که واقعاً استفاده شده در `index.json` با کلید `top100_info.network_cap` منتشر می‌شود. اگر قبلاً `top50.txt` را اضافه کرده‌ای، هنوز کار می‌کند: همان ۵۰ خط اول `top100.txt` است.
+
+## آموزش اتصال به پروکسی تلگرام
+
+### اندروید و آیفون
+
+1. فایل [`top100.txt`](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt) (یا [`resilient/tme.txt`](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/resilient/tme.txt)) را روی گوشی باز کن.
+2. روی یکی از خط‌ها بزن؛ تلگرام باز می‌شود و می‌پرسد «اتصال به پروکسی؟» — **Connect** را بزن.
+3. وصل نشد؟ خط بعدی را امتحان کن؛ فیلترینگ بعضی پروکسی‌ها را می‌بندد و بعضی را نه.
+
+### تلگرام دسکتاپ (ویندوز، مک، لینوکس)
+
+روی لینک `tg://proxy` یا `https://t.me/proxy` کلیک کن، یا از مسیر Settings ← Advanced ← Connection type ← Use custom proxy اضافه کن.
+
+### انتخاب بر اساس نوع یا محل سرور
+
+* **فقط FakeTLS (`ee`)** — شبیه HTTPS معمولی است و معمولاً سخت‌تر فیلتر می‌شود: [`faketls/tme.txt`](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/faketls/tme.txt)
+* **سریع‌ترین‌ها از محل تست**: [`fast/tme.txt`](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/fast/tme.txt)
+* **بر اساس کشور سرور** — مثلاً [آلمان](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt)، [هلند](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt)، [ایران](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt). این محل سرور پروکسی است، **نه** جایی که از آن کار می‌کند؛ فهرست کامل در [`countries/`](countries).
 
 ## آمار زنده
 
