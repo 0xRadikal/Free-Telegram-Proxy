@@ -354,3 +354,14 @@ def test_jsdelivr_purge_covers_every_file_the_site_reads():
     wf = (ROOT / ".github/workflows/update.yml").read_text(encoding="utf-8")
     purge = re.search(r"name: Purge jsDelivr.*?for f in (.*?); do", wf, re.S).group(1).split()
     assert needed <= set(purge), needed - set(purge)
+
+
+def test_search_console_verification_stays_in_place():
+    # Google Search Console (URL-prefix property for BASE) re-checks these
+    # periodically; removing either one loses verification.
+    p = _page("")
+    assert p.meta.get("google-site-verification") == "tL_l3mWWaWIHxF-BGJs-wedBq9Hn55OmsV4YyirIxSY"
+    src = _src("")
+    assert src.index('name="google-site-verification"') < src.index("</head>")
+    f = DOCS / "googleea45fcdf4e09c638.html"
+    assert f.read_bytes() == b"google-site-verification: googleea45fcdf4e09c638.html"
