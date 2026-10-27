@@ -1,5 +1,5 @@
 tg://proxy?server=edge.core.sx&port=443&secret=ee2b457f1b779f27467e6401b49a1899f8656467652e636f72652e7378
-tg://proxy?server=51.21.149.196&port=443&secret=e8da6fda391b335dff2083634c9e7db5
 tg://proxy?server=16.192.75.76&port=443&secret=79e1fd121a66fcddbd101afcfdd47df5
+tg://proxy?server=51.21.149.196&port=443&secret=e8da6fda391b335dff2083634c9e7db5
 tg://proxy?server=89.127.201.206&port=443&secret=ee02ad2cb059cc54486e3499efc3170e2c7777772e617669746f2e7275
 tg://proxy?server=n391810.tidalcache.com&port=443&secret=ee5c89ab20266ce759f96a0745b63d7cdf656467652e746964616c63616368652e636f6d
