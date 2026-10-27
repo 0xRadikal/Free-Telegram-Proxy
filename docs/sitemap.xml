@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://0xradikal.github.io/Free-Telegram-Proxy/</loc>
-    <changefreq>hourly</changefreq>
-  </url>
+  <url><loc>https://0xradikal.github.io/Free-Telegram-Proxy/</loc></url>
+  <url><loc>https://0xradikal.github.io/Free-Telegram-Proxy/fa/</loc></url>
+  <url><loc>https://0xradikal.github.io/Free-Telegram-Proxy/methodology/</loc></url>
+  <url><loc>https://0xradikal.github.io/Free-Telegram-Proxy/fa/methodology/</loc></url>
+  <url><loc>https://0xradikal.github.io/Free-Telegram-Proxy/data/</loc></url>
+  <url><loc>https://0xradikal.github.io/Free-Telegram-Proxy/fa/data/</loc></url>
 </urlset>
