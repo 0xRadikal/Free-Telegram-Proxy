@@ -61,21 +61,23 @@ function draw(){const rows=visible();document.getElementById("more").textContent
    <td><a class="go" href="${esc(tme(r))}">Connect</a></td></tr>`).join("")}
 async function getText(p){for(const b of BASES){try{const r=await fetch(b+"/"+p,{cache:"no-store"});if(r.ok)return r.text()}catch(e){}}throw new Error(p)}
 const key=(s,p,x)=>s.toLowerCase()+"|"+p+"|"+String(x).toLowerCase();
-async function loadTop(){const [txt,res]=await Promise.all([getText("top50.txt"),get("resilient/proxies.json")]);
+async function loadTop(f){const [txt,res]=await Promise.all([getText(f+".txt"),get("resilient/proxies.json")]);
   const by=new Map(res.map(r=>[key(r.server,r.port,r.secret),r]));
   return txt.split("\n").filter(Boolean).map(l=>{const q=new URLSearchParams(l.slice(l.indexOf("?")+1));return by.get(key(q.get("server")||"",q.get("port"),q.get("secret")||""))}).filter(Boolean)}
 async function loadTier(t){tier=t;document.querySelectorAll("#tiers button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));
-  data=t==="top50"?await loadTop():await get(t+"/proxies.json");const ccs=[...new Set(data.map(r=>r.country).filter(Boolean))].sort();
+  data=t==="top100"||t==="top50"?await loadTop(t):await get(t+"/proxies.json");const ccs=[...new Set(data.map(r=>r.country).filter(Boolean))].sort();
   document.getElementById("cc").innerHTML='<option value="">All countries</option>'+ccs.map(c=>`<option>${c}</option>`).join("");draw()}
 (async()=>{idx=await get("index.json");const f=idx.funnel,r=idx.runner||{};
+  // top50 only for index.json files published before top100 existed
+  const TOP=idx.top100?"top100":idx.top50?"top50":"";
   document.getElementById("upd").textContent=`Updated ${idx.updated} · tested from ${r.loc||"?"} (${r.colo||"?"})`;
   document.getElementById("stats").innerHTML=stat("links collected",f.links_collected.toLocaleString())+stat("servers probed",(f.unique_servers_probed??f.unique_targets_probed).toLocaleString())+
     stat("verified links",f.verified_links.toLocaleString())+stat("verified servers",f.verified_servers.toLocaleString())+
     (f.top_ip_share?stat("largest single-IP share",(f.top_ip_share.share*100).toFixed(1)+"%"):"")+
     (f.top_network_share?stat("largest network share",(f.top_network_share.share*100).toFixed(1)+"%"):"");
-  document.getElementById("tiers").innerHTML=(idx.top50?`<button data-t="top50">top50 · recommended</button>`:"")+Object.entries(idx.tiers).filter(([k])=>k!=="all").map(([k,v])=>`<button data-t="${esc(k)}">${esc(k)} · ${v.count}</button>`).join("");
+  document.getElementById("tiers").innerHTML=(TOP?`<button data-t="${TOP}">${TOP} · recommended</button>`:"")+Object.entries(idx.tiers).filter(([k])=>k!=="all").map(([k,v])=>`<button data-t="${esc(k)}">${esc(k)} · ${v.count}</button>`).join("");
   document.querySelectorAll("#tiers button").forEach(b=>b.onclick=()=>loadTier(b.dataset.t));
-  await loadTier(idx.top50?"top50":idx.tiers.resilient?"resilient":Object.keys(idx.tiers)[0])})().catch(e=>document.getElementById("upd").textContent="failed to load: "+e.message);
+  await loadTier(TOP||(idx.tiers.resilient?"resilient":Object.keys(idx.tiers)[0]))})().catch(e=>document.getElementById("upd").textContent="failed to load: "+e.message);
 document.getElementById("cc").onchange=draw;document.getElementById("q").oninput=draw;
 document.getElementById("copy").onclick=()=>navigator.clipboard.writeText(visible().map(tme).join("\n"));
 </script>

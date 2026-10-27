@@ -131,7 +131,7 @@ def test_fast_is_relative_to_runner():
     assert tiers([])["fast"] == []
 
 
-def test_top50_prefers_proven_over_fast():
+def test_top_prefers_proven_over_fast():
     from tgproxy.publish import _top
     veteran = rec("vet", "1.0.0.1")
     veteran.rounds = [ProbeResult("dc", None, 5, 200)] * 3
@@ -142,15 +142,110 @@ def test_top50_prefers_proven_over_fast():
     flaky = rec("flk", "1.0.0.3")
     flaky.rounds = [ProbeResult("dc", None, 5, 5)] * 3
     flaky.hist = {"uptime": 0.5, "checks": 40}
-    assert [r.proxy.server for r in _top([newbie, flaky, veteran])] == ["vet", "flk", "new"]
+    top, _ = _top([newbie, flaky, veteran])
+    assert [r.proxy.server for r in top] == ["vet", "flk", "new"]
 
 
-def test_top50_without_history_falls_back_to_rtt():
+def test_top_without_history_falls_back_to_rtt():
     from tgproxy.publish import _top
     a, b = rec("a", "1.0.0.1"), rec("b", "1.0.0.2")
     a.rounds = [ProbeResult("dc", None, 5, 90)] * 3
     b.rounds = [ProbeResult("dc", None, 5, 20)] * 3
-    assert [r.proxy.server for r in _top([a, b])] == ["b", "a"]
+    top, _ = _top([a, b])
+    assert [r.proxy.server for r in top] == ["b", "a"]
+
+
+def _net(n_networks, per_net, checks=40, uptime=1.0, start=0):
+    """per_net records in each of n_networks distinct ASNs."""
+    out = []
+    for n in range(n_networks):
+        for i in range(per_net):
+            r = rec(f"n{n + start}-{i}", f"10.{n + start}.{i // 250}.{i % 250 + 1}")
+            r.asn = 64500 + n + start
+            r.hist = {"uptime": uptime, "checks": checks}
+            out.append(r)
+    return out
+
+
+def test_top_caps_each_network_at_base_when_enough_networks():
+    from collections import Counter
+    from tgproxy.publish import TOP_N, TOP_NETWORK_CAP, _top, network_of
+    rs = _net(1, 80) + _net(40, 3, start=1)       # one dominant network + 40 small ones
+    top, cap = _top(rs)
+    assert len(top) == TOP_N == 100 and cap == TOP_NETWORK_CAP == 5
+    assert max(Counter(network_of(r) for r in top).values()) == 5
+
+
+def test_top_cap_rises_only_as_far_as_needed():
+    from collections import Counter
+    from tgproxy.publish import _top, network_of
+    rs = _net(3, 60)                               # only 3 networks: 5 per network fills 15
+    top, cap = _top(rs)
+    assert len(top) == 100 and cap == 34           # smallest cap with 3*cap >= 100
+    c = Counter(network_of(r) for r in top)
+    assert sorted(c.values()) == [32, 34, 34]       # greedy: higher-ranked networks fill first
+
+
+def test_top_raises_cap_rather_than_admit_unproven():
+    """Proven (stable-tier) proxies first: if the cap would force in unproven
+    newcomers while proven ones are left out, the cap is raised instead."""
+    from tgproxy.publish import STABLE_MIN_CHECKS, _top
+    proven = _net(10, 12)                                        # 120 proven, 10 networks
+    newbies = _net(40, 1, checks=STABLE_MIN_CHECKS - 1, start=10)  # 40 unproven, 40 networks
+    top, cap = _top(proven + newbies)
+    assert cap == 10 and len(top) == 100
+    assert all(r.hist["checks"] >= STABLE_MIN_CHECKS for r in top)
+
+
+def test_top_fills_with_unproven_only_after_proven_run_out():
+    from tgproxy.publish import STABLE_MIN_CHECKS, _top
+    proven = _net(20, 2)                                         # 40 proven
+    newbies = _net(30, 3, checks=1, start=20)                    # 90 unproven
+    top, cap = _top(proven + newbies)
+    assert len(top) == 100 and cap == 5
+    assert all(r.hist["checks"] >= STABLE_MIN_CHECKS for r in top[:40])
+    assert all(r.hist["checks"] < STABLE_MIN_CHECKS for r in top[40:])
+
+
+def test_top_small_and_empty_pools():
+    from tgproxy.publish import TOP_NETWORK_CAP, _top
+    assert _top([]) == ([], TOP_NETWORK_CAP)
+    top, cap = _top(_net(1, 7))                    # fewer candidates than TOP_N
+    assert len(top) == 7 and cap == 7
+
+
+def test_top_is_deterministic_under_input_order():
+    import random
+    from tgproxy.publish import _top
+    rs = _net(1, 80) + _net(40, 3, start=1)
+    want = [r.proxy.key for r in _top(rs)[0]]
+    for seed in range(5):
+        random.Random(seed).shuffle(rs)
+        assert [r.proxy.key for r in _top(rs)[0]] == want
+
+
+def test_top100_and_top50_alias_written(tmp_path):
+    from tgproxy.publish import network_of
+    rs = _net(1, 80) + _net(40, 3, start=1)
+    out = write_outputs(result(rs), tmp_path, runner={})
+    t100 = (tmp_path / "top100.txt").read_text().splitlines()
+    t50 = (tmp_path / "top50.txt").read_text().splitlines()
+    assert len(t100) == 100 and t50 == t100[:50]
+    idx = out["index"]
+    assert idx["top100"].endswith("/top100.txt") and idx["top50"].endswith("/top50.txt")
+    info = idx["top100_info"]
+    assert info == {"count": 100, "network_cap": 5, "base_network_cap": 5,
+                    "networks": len({network_of(r) for r in out["tiers"]["top100"]}),
+                    "proven": 100}
+
+
+def test_no_top_files_when_nothing_verified(tmp_path):
+    (tmp_path / "top100.txt").write_text("stale\n")
+    (tmp_path / "top50.txt").write_text("stale\n")
+    out = write_outputs(result([rec("a", "1.1.1.1", rounds=(BAD, BAD, BAD))]), tmp_path, runner={})
+    assert not (tmp_path / "top100.txt").exists() and not (tmp_path / "top50.txt").exists()
+    assert out["index"]["top100"] is None and out["index"]["top50"] is None
+    assert out["index"]["top100_info"] is None
 
 
 def test_alias_choice_is_stable_not_rtt_noise():

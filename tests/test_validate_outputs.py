@@ -23,34 +23,90 @@ def test_good_outputs_pass(tmp_path):
     assert _run(_good(tmp_path)).returncode == 0
 
 
-def test_corrupt_top50_line_rejected(tmp_path):
+import json  # noqa: E402
+
+import pytest  # noqa: E402
+
+
+@pytest.mark.parametrize("f", ["top100.txt", "top50.txt"])
+def test_corrupt_top_line_rejected(tmp_path, f):
     d = _good(tmp_path)
-    with open(d / "top50.txt", "a") as f:
-        f.write("tg://proxy?server=bad&port=0&secret=zz\n")
+    with open(d / f, "a") as fh:
+        fh.write("tg://proxy?server=bad&port=0&secret=zz\n")
+    r = _run(d)
+    assert r.returncode == 1 and f.split(".")[0] in r.stdout
+
+
+def test_top100_not_from_resilient_rejected(tmp_path):
+    d = _good(tmp_path)
+    (d / "top100.txt").write_text("tg://proxy?server=c.example&port=443&secret=" + "00" * 16 + "\n")
+    r = _run(d)
+    assert r.returncode == 1 and "top100" in r.stdout
+
+
+@pytest.mark.parametrize("f", ["top100.txt", "top50.txt"])
+def test_top_advertised_but_missing_rejected(tmp_path, f):
+    d = _good(tmp_path)
+    (d / f).unlink()
+    r = _run(d)
+    assert r.returncode == 1 and f.split(".")[0] in r.stdout
+
+
+def test_top100_duplicate_ip_rejected(tmp_path):
+    d = _good(tmp_path)
+    line = (d / "top100.txt").read_text().splitlines()[0]
+    (d / "top100.txt").write_text(line + "\n" + line + "\n")
+    r = _run(d)
+    assert r.returncode == 1 and "top100" in r.stdout
+
+
+def test_top50_must_be_prefix_of_top100(tmp_path):
+    d = _good(tmp_path)
+    lines = (d / "top100.txt").read_text().splitlines()
+    (d / "top50.txt").write_text("\n".join(reversed(lines)) + "\n")
     r = _run(d)
     assert r.returncode == 1 and "top50" in r.stdout
 
 
-def test_top50_not_from_resilient_rejected(tmp_path):
+def test_top_file_present_but_index_null_rejected(tmp_path):
     d = _good(tmp_path)
-    (d / "top50.txt").write_text("tg://proxy?server=c.example&port=443&secret=" + "00" * 16 + "\n")
+    idx = json.loads((d / "index.json").read_text())
+    idx["top100"] = None
+    (d / "index.json").write_text(json.dumps(idx))
     r = _run(d)
-    assert r.returncode == 1 and "top50" in r.stdout
+    assert r.returncode == 1 and "top100" in r.stdout
 
 
-def test_top50_advertised_but_missing_rejected(tmp_path):
+def _many(tmp_path, n_nets, per_net):
+    from test_publish import _net
+    write_outputs(result(_net(n_nets, per_net)), tmp_path, runner={})
+    return tmp_path
+
+
+def test_network_cap_exceeded_rejected(tmp_path):
+    d = _many(tmp_path, 30, 6)                         # 180 candidates, cap 5 suffices
+    idx = json.loads((d / "index.json").read_text())
+    assert idx["top100_info"]["network_cap"] == 5
+    idx["top100_info"]["network_cap"] = 4               # claim a tighter cap than published
+    (d / "index.json").write_text(json.dumps(idx))
+    r = _run(d)
+    assert r.returncode == 1 and "network" in r.stdout
+
+
+def test_raised_cap_passes(tmp_path):
+    d = _many(tmp_path, 3, 60)
+    assert json.loads((d / "index.json").read_text())["top100_info"]["network_cap"] == 34
+    r = _run(d)
+    assert r.returncode == 0, r.stdout
+
+
+def test_top_info_count_mismatch_rejected(tmp_path):
     d = _good(tmp_path)
-    (d / "top50.txt").unlink()
+    idx = json.loads((d / "index.json").read_text())
+    idx["top100_info"]["count"] += 1
+    (d / "index.json").write_text(json.dumps(idx))
     r = _run(d)
-    assert r.returncode == 1 and "top50" in r.stdout
-
-
-def test_top50_duplicate_ip_rejected(tmp_path):
-    d = _good(tmp_path)
-    line = (d / "top50.txt").read_text().splitlines()[0]
-    (d / "top50.txt").write_text(line + "\n" + line + "\n")
-    r = _run(d)
-    assert r.returncode == 1 and "top50" in r.stdout
+    assert r.returncode == 1 and "top100" in r.stdout
 
 
 def test_server_needing_url_escaping_validates(tmp_path):

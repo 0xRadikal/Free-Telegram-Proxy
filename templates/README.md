@@ -16,13 +16,15 @@
 
 ## Start here — one line
 
-Fewest links, most resilient: **one proxy per real server**, ranked by **proven uptime** across past checks, then speed.
+100 links, built not to fail together: **one proxy per real server**, **at most 5 per network** (ASN), ranked by **proven uptime** across past checks, then speed.
 
 ```
-https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top50.txt
+https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt
 ```
 
 On a phone, just tap any line in that file — Telegram opens and asks *Connect proxy?*.
+
+The 5-per-network cap is raised only when the list could not be filled otherwise — too few networks, or a proven proxy would be pushed out by an unproven newcomer. The cap actually used is published as `top100_info.network_cap` in `index.json`. Already subscribed to `top50.txt`? It still works: it is the first 50 lines of `top100.txt`.
 
 ## Live numbers
 
@@ -51,7 +53,8 @@ On 2026-10-26 we merged seven popular lists and resolved every hostname. **958 o
 
 | Tier | What gets in |
 |---|---|
-| **`resilient/`** | verified · **one link per server IP** (the link with the longest check history is kept, so your saved link does not change between runs) — *recommended* |
+| **`top100.txt`** | 100 from `resilient` · proven proxies first (the `stable` bar) · ranked by proven uptime, then RTT · **≤ 5 per network**, raised only if needed — *recommended*; `top50.txt` = its first 50 |
+| **`resilient/`** | verified · **one link per server IP** (the link with the longest check history is kept, so your saved link does not change between runs) — every real server |
 | `fast/` | the fastest 25 % of `resilient`, by round-trip through the proxy *from the test runner* |
 | `stable/` | resilient · passed ≥ 90 % of its last checks (appears after ~3 hours of history) |
 | `verified/` | passed the full end-to-end test in **every** round |
@@ -69,7 +72,7 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/fast/tme.tx
 https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/verified/proxies.json
 ```
 
-If `raw.githubusercontent.com` is blocked, use the same path on jsDelivr — e.g. `https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top50.txt` (the update job purges jsDelivr after every run; without a purge it may cache up to 12 h. raw caches 5 min).
+If `raw.githubusercontent.com` is blocked, use the same path on jsDelivr — e.g. `https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt` (the update job purges jsDelivr after every run; without a purge it may cache up to 12 h. raw caches 5 min).
 
 ## How a proxy is tested
 
