@@ -8,7 +8,7 @@
 [![verified links](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2F0xRadikal%2FFree-Telegram-Proxy%2Fmain%2Findex.json&query=%24.funnel.verified_links&label=verified%20links&color=2ea44f)](verified/tg.txt)
 [![servers](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2F0xRadikal%2FFree-Telegram-Proxy%2Fmain%2Findex.json&query=%24.funnel.verified_servers&label=real%20servers&color=0088cc)](resilient/tg.txt)
 [![collected](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2F0xRadikal%2FFree-Telegram-Proxy%2Fmain%2Findex.json&query=%24.funnel.links_collected&label=links%20collected&color=lightgrey)](health.json)
-[![stars](https://img.shields.io/github/stars/0xRadikal/Free-Telegram-Proxy?style=flat)](https://github.com/0xRadikal/Free-Telegram-Proxy/stargazers)
+[![stars](https://img.shields.io/github/stars/0xRadikal/Free-Telegram-Proxy?style=flat)](https://github.com/0xRadikal/Free-Telegram-Proxy)
 
 [فارسی](README_FA.md) · [Live dashboard](https://0xradikal.github.io/Free-Telegram-Proxy/) · [Telegram @Raydikalx](https://t.me/Raydikalx)
 
@@ -27,20 +27,20 @@ On a phone, just tap any line in that file — Telegram opens and asks *Connect 
 ## Live numbers
 
 <!-- LIVE:BEGIN -->
-**Last update:** `2026-10-27T06:29:40Z` · tested from `US` (Cloudflare colo `LAX`)
+**Last update:** `2026-10-27T07:00:20Z` · tested from `US` (Cloudflare colo `MSP`)
 
 | Stage | Count |
 |---|---:|
-| links collected from all sources | 3,160 |
-| unique servers (IP:port) probed | 1,850 |
-| **verified in all 3 rounds** (links) | **1,710** |
-| the same, counted as **real servers** | **381** (347 IPs) |
-| largest single IP's share of verified links | 563 (32.9%) |
-| largest network's (`AS219498`) share of verified links | 563 (32.9%) |
+| links collected from all sources | 3,114 |
+| unique servers (IP:port) probed | 1,809 |
+| **verified in all 3 rounds** (links) | **1,704** |
+| the same, counted as **real servers** | **385** (352 IPs) |
+| largest single IP's share of verified links | 561 (32.9%) |
+| largest network's (`AS219498`) share of verified links | 561 (32.9%) |
 
-`resilient` 347 · `fast` 97 · `stable` 325 · `verified` 1710 · `faketls` 111 · `secure` 81 · `classic` 163 · `all` 3160
+`resilient` 352 · `fast` 97 · `stable` 325 · `verified` 1704 · `faketls` 113 · `secure` 87 · `classic` 161 · `all` 3114
 
-[🇩🇪 DE 101](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 98](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 54](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 30](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 12](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 11](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇵🇱 PL 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇸🇪 SE 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇬🇧 GB 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇬 SG 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
+[🇩🇪 DE 100](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 97](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 60](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 32](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 12](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇵🇱 PL 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇸🇪 SE 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇬🇧 GB 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇬 SG 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
 <!-- LIVE:END -->
 
 ## Why this list is different
@@ -83,7 +83,7 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/fast/tme.tx
 https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/verified/proxies.json
 ```
 
-If `raw.githubusercontent.com` is blocked, replace the prefix with `https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main` (jsDelivr caches up to 12 h; raw caches 5 min).
+If `raw.githubusercontent.com` is blocked, use the same path on jsDelivr — e.g. `https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top50.txt` (the update job purges jsDelivr after every run; without a purge it may cache up to 12 h. raw caches 5 min).
 
 ## How a proxy is tested
 
