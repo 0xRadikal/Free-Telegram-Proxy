@@ -16,31 +16,33 @@
 
 ## Start here — one line
 
-Fewest links, most resilient: **one proxy per real server**, ranked by **proven uptime** across past checks, then speed.
+100 links, built not to fail together: **one proxy per real server**, **at most 5 per network** (ASN), ranked by **proven uptime** across past checks, then speed.
 
 ```
-https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top50.txt
+https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt
 ```
 
 On a phone, just tap any line in that file — Telegram opens and asks *Connect proxy?*.
 
+The 5-per-network cap is raised only when the list could not be filled otherwise — too few networks, or a proven proxy would be pushed out by an unproven newcomer. The cap actually used is published as `top100_info.network_cap` in `index.json`. Already subscribed to `top50.txt`? It still works: it is the first 50 lines of `top100.txt`.
+
 ## Live numbers
 
 <!-- LIVE:BEGIN -->
-**Last update:** `2026-10-27T07:00:20Z` · tested from `US` (Cloudflare colo `MSP`)
+**Last update:** `2026-10-27T07:46:31Z` · tested from `US` (Cloudflare colo `ORD`)
 
 | Stage | Count |
 |---|---:|
-| links collected from all sources | 3,114 |
-| unique servers (IP:port) probed | 1,809 |
-| **verified in all 3 rounds** (links) | **1,704** |
-| the same, counted as **real servers** | **385** (352 IPs) |
-| largest single IP's share of verified links | 561 (32.9%) |
-| largest network's (`AS219498`) share of verified links | 561 (32.9%) |
+| links collected from all sources | 3,222 |
+| unique servers (IP:port) probed | 1,849 |
+| **verified in all 3 rounds** (links) | **1,753** |
+| the same, counted as **real servers** | **390** (356 IPs) |
+| largest single IP's share of verified links | 967 (55.2%) |
+| largest network's (`79.182.27.0/24`) share of verified links | 967 (55.2%) |
 
-`resilient` 352 · `fast` 97 · `stable` 325 · `verified` 1704 · `faketls` 113 · `secure` 87 · `classic` 161 · `all` 3114
+`resilient` 356 · `fast` 94 · `stable` 326 · `verified` 1753 · `faketls` 118 · `secure` 89 · `classic` 158 · `all` 3222
 
-[🇩🇪 DE 100](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 97](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 60](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 32](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 12](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇵🇱 PL 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇸🇪 SE 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇬🇧 GB 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇬 SG 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
+[🇩🇪 DE 107](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 96](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 58](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 30](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 16](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇵🇱 PL 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇸🇪 SE 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇬 SG 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt) [🇬🇧 GB 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt)
 <!-- LIVE:END -->
 
 ## Why this list is different
@@ -65,7 +67,8 @@ On 2026-10-26 we merged seven popular lists and resolved every hostname. **958 o
 
 | Tier | What gets in |
 |---|---|
-| **`resilient/`** | verified · **one link per server IP** (the link with the longest check history is kept, so your saved link does not change between runs) — *recommended* |
+| **`top100.txt`** | 100 from `resilient` · proven proxies first (the `stable` bar) · ranked by proven uptime, then RTT · **≤ 5 per network**, raised only if needed — *recommended*; `top50.txt` = its first 50 |
+| **`resilient/`** | verified · **one link per server IP** (the link with the longest check history is kept, so your saved link does not change between runs) — every real server |
 | `fast/` | the fastest 25 % of `resilient`, by round-trip through the proxy *from the test runner* |
 | `stable/` | resilient · passed ≥ 90 % of its last checks (appears after ~3 hours of history) |
 | `verified/` | passed the full end-to-end test in **every** round |
@@ -83,7 +86,7 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/fast/tme.tx
 https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/verified/proxies.json
 ```
 
-If `raw.githubusercontent.com` is blocked, use the same path on jsDelivr — e.g. `https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top50.txt` (the update job purges jsDelivr after every run; without a purge it may cache up to 12 h. raw caches 5 min).
+If `raw.githubusercontent.com` is blocked, use the same path on jsDelivr — e.g. `https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt` (the update job purges jsDelivr after every run; without a purge it may cache up to 12 h. raw caches 5 min).
 
 ## How a proxy is tested
 

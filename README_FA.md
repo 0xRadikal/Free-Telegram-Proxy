@@ -18,37 +18,39 @@
 
 ## از این‌جا شروع کن
 
-کمترین تعداد لینک، بیشترین مقاومت: **از هر سرور واقعی فقط یک پروکسی**، مرتب‌شده بر اساس **پایداری اثبات‌شده** در بررسی‌های قبلی و بعد سرعت.
+۱۰۰ لینک که با هم از کار نمی‌افتند: **از هر سرور واقعی فقط یک پروکسی**، **از هر شبکه (ASN) حداکثر ۵ تا**، مرتب‌شده بر اساس **پایداری اثبات‌شده** در بررسی‌های قبلی و بعد سرعت.
 
 </div>
 
 ```
-https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top50.txt
+https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt
 ```
 
 <div dir="rtl">
 
 روی گوشی کافی است روی یکی از خط‌ها بزنی؛ تلگرام باز می‌شود و می‌پرسد «اتصال به پروکسی؟».
 
+سقف ۵ از هر شبکه فقط وقتی بالا می‌رود که لیست بدون آن پر نشود — شبکه‌ها کم باشند، یا یک پروکسی اثبات‌شده جایش را به یک تازه‌وارد بی‌سابقه بدهد. سقفی که واقعاً استفاده شده در `index.json` با کلید `top100_info.network_cap` منتشر می‌شود. اگر قبلاً `top50.txt` را اضافه کرده‌ای، هنوز کار می‌کند: همان ۵۰ خط اول `top100.txt` است.
+
 ## آمار زنده
 
 </div>
 
 <!-- LIVE:BEGIN -->
-**آخرین به‌روزرسانی:** `2026-10-27T07:00:20Z` · محل تست: `US` (`MSP`)
+**آخرین به‌روزرسانی:** `2026-10-27T07:46:31Z` · محل تست: `US` (`ORD`)
 
 | مرحله | تعداد |
 |---|---:|
-| لینک جمع‌آوری‌شده از همهٔ منابع | 3,114 |
-| سرور یکتا (IP:پورت) که تست شد | 1,809 |
-| **تأییدشده در همهٔ 3 دور** (لینک) | **1,704** |
-| همان‌ها، بر حسب **سرور واقعی** | **385** (352 IP) |
-| سهم پرتکرارترین IP از لینک‌های تأییدشده | 561 (32.9%) |
-| سهم بزرگ‌ترین شبکه (`AS219498`) از لینک‌های تأییدشده | 561 (32.9%) |
+| لینک جمع‌آوری‌شده از همهٔ منابع | 3,222 |
+| سرور یکتا (IP:پورت) که تست شد | 1,849 |
+| **تأییدشده در همهٔ 3 دور** (لینک) | **1,753** |
+| همان‌ها، بر حسب **سرور واقعی** | **390** (356 IP) |
+| سهم پرتکرارترین IP از لینک‌های تأییدشده | 967 (55.2%) |
+| سهم بزرگ‌ترین شبکه (`79.182.27.0/24`) از لینک‌های تأییدشده | 967 (55.2%) |
 
-`resilient` 352 · `fast` 97 · `stable` 325 · `verified` 1704 · `faketls` 113 · `secure` 87 · `classic` 161 · `all` 3114
+`resilient` 356 · `fast` 94 · `stable` 326 · `verified` 1753 · `faketls` 118 · `secure` 89 · `classic` 158 · `all` 3222
 
-[🇩🇪 DE 100](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 97](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 60](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 32](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 12](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇵🇱 PL 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇸🇪 SE 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇬🇧 GB 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇬 SG 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
+[🇩🇪 DE 107](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 96](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 58](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 30](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 16](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇵🇱 PL 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇸🇪 SE 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇬 SG 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt) [🇬🇧 GB 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt)
 <!-- LIVE:END -->
 
 <div dir="rtl">
@@ -74,7 +76,8 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top50.txt
 
 | دسته | معیار |
 |---|---|
-| **`resilient/`** | تأییدشده · **از هر IP یک لینک** (لینکی که طولانی‌ترین سابقهٔ بررسی را دارد نگه داشته می‌شود تا لینک ذخیره‌شدهٔ تو بین اجراها عوض نشود) — *پیشنهادی* |
+| **`top100.txt`** | ۱۰۰ لینک از `resilient` · اول پروکسی‌های اثبات‌شده (معیار `stable`) · مرتب بر اساس پایداری اثبات‌شده و بعد RTT · **از هر شبکه حداکثر ۵**، فقط در صورت نیاز بیشتر — *پیشنهادی*؛ `top50.txt` = ۵۰ خط اولش |
+| **`resilient/`** | تأییدشده · **از هر IP یک لینک** (لینکی که طولانی‌ترین سابقهٔ بررسی را دارد نگه داشته می‌شود تا لینک ذخیره‌شدهٔ تو بین اجراها عوض نشود) — همهٔ سرورهای واقعی |
 | `fast/` | سریع‌ترین ۲۵٪ از `resilient` بر اساس زمان رفت‌وبرگشت *از محل تست* |
 | `stable/` | تأییدشده · حداقل ۹۰٪ تست‌های اخیر را پاس کرده (بعد از ~۳ ساعت تاریخچه ظاهر می‌شود) |
 | `verified/` | در **همهٔ** دورها تست کامل را پاس کرده |
@@ -89,7 +92,7 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top50.txt
 </div>
 
 ```
-https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top50.txt
+https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt
 ```
 
 <div dir="rtl">
