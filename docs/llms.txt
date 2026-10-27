@@ -1,0 +1,21 @@
+# Free Telegram Proxy
+
+> Free, open-source list of working Telegram MTProto proxies (MTProxy, FakeTLS `ee`, secure `dd`). Every published proxy relayed a real `req_pq_multi` request to a real Telegram datacenter and returned our random nonce, in every one of 3 rounds. Rebuilt about every 15 minutes on GitHub Actions. MIT licensed. Not affiliated with Telegram.
+
+Recommended single file: `top100.txt` — 100 proxies, one per real server (IP), ranked by proven uptime (Wilson lower bound over check history), at most 5 per network (ASN) by default; the cap rises only when the list cannot be filled otherwise. Tested from one location (the GitHub runner), so a proxy may still be blocked by a specific ISP.
+
+## Lists
+
+- [top100.txt](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt): recommended, `tg://proxy` links
+- [resilient/tme.txt](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/resilient/tme.txt): every verified real server, `https://t.me/proxy` links
+- [fast/tme.txt](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/fast/tme.txt): fastest 25% from the test runner
+- [faketls/tme.txt](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/faketls/tme.txt): FakeTLS (`ee`) only
+- [resilient/proxies.json](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/resilient/proxies.json): server, port, secret, type, country, ASN, RTT, uptime
+- [index.json](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/index.json): every file URL, counts, selection criteria, last update time
+- Mirror if raw.githubusercontent.com is blocked: https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt
+
+## Docs
+
+- [README (English)](https://github.com/0xRadikal/Free-Telegram-Proxy/blob/main/README.md)
+- [README (فارسی)](https://github.com/0xRadikal/Free-Telegram-Proxy/blob/main/README_FA.md)
+- [Live dashboard](https://0xradikal.github.io/Free-Telegram-Proxy/)
