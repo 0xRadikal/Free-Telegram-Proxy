@@ -3,9 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Free Telegram Proxy — live</title>
-<link rel="icon" href="data:,">
-<meta name="description" content="End-to-end verified MTProto proxies for Telegram, tested against real Telegram datacenters every few minutes.">
+<title>Free Telegram Proxy List — Verified MTProto Proxies, Live</title>
+<meta name="description" content="Free Telegram proxy list: MTProto / MTProxy (FakeTLS) proxies tested end-to-end against real Telegram datacenters about every 15 minutes. Tap to connect, no signup.">
+<link rel="canonical" href="https://0xradikal.github.io/Free-Telegram-Proxy/">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0b1220">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Free Telegram Proxy">
+<meta property="og:url" content="https://0xradikal.github.io/Free-Telegram-Proxy/">
+<meta property="og:title" content="Free Telegram Proxy List — Verified MTProto Proxies, Live">
+<meta property="og:description" content="Free Telegram proxy list: MTProto / MTProxy (FakeTLS) proxies tested end-to-end against real Telegram datacenters about every 15 minutes. Tap to connect, no signup.">
+<meta property="og:image" content="https://0xradikal.github.io/Free-Telegram-Proxy/assets/social-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="Free Telegram Proxy — MTProto proxy list, every proxy verified against a real Telegram datacenter">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://0xradikal.github.io/Free-Telegram-Proxy/assets/social-preview.png">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"Dataset","name":"Free Telegram Proxy List (verified MTProto proxies)","alternateName":["Free-Telegram-Proxy","Free MTProto proxy list"],"description":"Working public Telegram MTProto proxies (MTProxy, FakeTLS ee, secure dd). Each proxy relayed a real request to a Telegram datacenter and returned our random nonce in every one of 3 rounds before it was published. Rebuilt about every 15 minutes on GitHub Actions; one link per real server; top100 ranked by proven uptime with at most 5 proxies per network by default.","url":"https://0xradikal.github.io/Free-Telegram-Proxy/","sameAs":"https://github.com/0xRadikal/Free-Telegram-Proxy","isAccessibleForFree":true,"license":"https://spdx.org/licenses/MIT.html","keywords":["Telegram proxy","free Telegram proxy","MTProto proxy","MTProxy","FakeTLS","proxy list","censorship circumvention"],"creator":{"@type":"Person","name":"0xRadikal","url":"https://github.com/0xRadikal"},"measurementTechnique":"End-to-end MTProto probe: obfuscated2 / FakeTLS handshake, req_pq_multi relayed to a Telegram DC, resPQ must contain our nonce, 3 rounds","distribution":[{"@type":"DataDownload","name":"top100.txt","encodingFormat":"text/plain","contentUrl":"https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt"},{"@type":"DataDownload","name":"resilient/proxies.json","encodingFormat":"application/json","contentUrl":"https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/resilient/proxies.json"},{"@type":"DataDownload","name":"verified/tme.txt","encodingFormat":"text/plain","contentUrl":"https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/verified/tme.txt"},{"@type":"DataDownload","name":"index.json","encodingFormat":"application/json","contentUrl":"https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/index.json"}]},{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"Free-Telegram-Proxy","codeRepository":"https://github.com/0xRadikal/Free-Telegram-Proxy","programmingLanguage":"Python","license":"https://spdx.org/licenses/MIT.html","url":"https://github.com/0xRadikal/Free-Telegram-Proxy"},{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"en","mainEntity":[{"@type":"Question","name":"Are these Telegram proxies free?","acceptedAnswer":{"@type":"Answer","text":"Yes. They are public MTProto proxies collected from public lists and Telegram channels; this project only tests and publishes them. No account, app or signup is needed, and the code is open source (MIT)."}},{"@type":"Question","name":"How do you know a proxy actually works?","acceptedAnswer":{"@type":"Answer","text":"The tester does what a Telegram app does: the obfuscated2 handshake (plus the FakeTLS HMAC check for ee secrets), then sends req_pq_multi through the proxy and requires a Telegram datacenter to answer with our random nonce — in every one of 3 rounds. A hostname with several IPv4 addresses must pass on all of them."}},{"@type":"Question","name":"Will they work in Iran, Russia or other censored countries?","acceptedAnswer":{"@type":"Answer","text":"They are tested from a GitHub Actions runner, not from inside every network. Censors block some proxies and not others, so if one does not connect, try the next. top100.txt spreads its proxies over many networks (at most 5 per network by default) so they do not all fail together."}},{"@type":"Question","name":"Is using a free proxy safe?","acceptedAnswer":{"@type":"Answer","text":"The proxy operator can see your IP address and when you connect. Your messages stay encrypted by Telegram's own MTProto encryption; the proxy only relays encrypted traffic and cannot read them. Some proxies may pin a sponsored channel in your chat list."}},{"@type":"Question","name":"How often is the list updated?","acceptedAnswer":{"@type":"Answer","text":"About every 15 minutes. The time of the last update is shown at the top of this page and in index.json."}},{"@type":"Question","name":"What is the difference between MTProto, secure (dd) and FakeTLS (ee) proxies?","acceptedAnswer":{"@type":"Answer","text":"All of them are MTProto proxies. dd (secure) secrets add random padding to the traffic; ee (FakeTLS) secrets wrap it in a handshake that looks like TLS to a chosen website, which is harder to detect. Each type has its own file."}},{"@type":"Question","name":"raw.githubusercontent.com is blocked. Where else can I get the list?","acceptedAnswer":{"@type":"Answer","text":"Use the same path on jsDelivr: https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt — its cache is purged after every update."}},{"@type":"Question","name":"Can I use the list in my own app or bot?","acceptedAnswer":{"@type":"Answer","text":"Yes. index.json lists every file; proxies.json has server, port, secret, type, country, ASN, round-trip time and uptime for each proxy. Keep the MIT notice and the DB-IP (CC BY 4.0) attribution."}}]}]</script>
 <style>
 :root{--bg:#0b1220;--card:#121a2b;--fg:#e6edf7;--mut:#8a97ad;--acc:#2aabee;--ok:#3ccf8e;--bd:#1f2a40}
 *{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg)}
@@ -24,11 +39,13 @@ td.r{text-align:right;font-variant-numeric:tabular-nums}a{color:var(--acc);text-
 .go{background:var(--acc);color:#fff;border:0;padding:6px 10px;border-radius:7px}
 .warn{color:var(--mut);font-size:13px;margin-top:18px}
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px}#more{color:var(--mut);font-size:13px}
-</style>
+.intro{max-width:820px}nav a{margin-right:14px}section{margin-top:34px}h2{font-size:20px;margin:0 0 10px}h3{font-size:16px;margin:18px 0 6px}pre{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px;white-space:pre-wrap;word-break:break-all}code{word-break:break-all}details{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px 14px;margin:8px 0}summary{cursor:pointer;font-weight:600}footer{max-width:1100px;margin:auto;padding:10px 20px 40px;color:var(--mut);font-size:13px}</style>
 </head>
 <body>
 <header>
-  <h1>Free Telegram <span>Proxy</span></h1>
+  <nav><a href="https://github.com/0xRadikal/Free-Telegram-Proxy">GitHub</a><a href="https://github.com/0xRadikal/Free-Telegram-Proxy/blob/main/README_FA.md" hreflang="fa">فارسی</a><a href="#faq">FAQ</a></nav>
+  <h1>Free Telegram <span>Proxy</span> List</h1>
+  <p class="intro">A free, open-source list of working <b>Telegram proxies</b> (MTProto / MTProxy, including FakeTLS). Every proxy here relayed a real request to a real Telegram datacenter — three times — before it was published. The list is rebuilt about every 15 minutes on GitHub Actions. No app and no signup: tap <b>Connect</b> and Telegram asks “Connect proxy?”.</p>
   <div class="sub" id="upd">loading…</div>
 </header>
 <main>
@@ -43,7 +60,32 @@ td.r{text-align:right;font-variant-numeric:tabular-nums}a{color:var(--acc);text-
   <tbody id="rows"></tbody></table></div>
   <p id="more"></p>
   <p class="warn">“Verified” = relayed a real MTProto request to a Telegram datacenter and returned our random nonce, in every round, <b>from the test runner</b> shown above. It does not guarantee the proxy is reachable from your ISP. IP data: <a href="https://db-ip.com">DB-IP</a> (CC BY 4.0).</p>
+  <section id="subscribe">
+  <h2>Subscribe with one link</h2>
+  <p><b>top100.txt</b> — 100 proxies, one per real server, ranked by proven uptime, at most 5 per network:</p>
+  <pre>https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt</pre>
+  <p>Mirror if GitHub is blocked: <code>https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt</code>. Other lists: <a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/resilient/tme.txt">every real server</a>, <a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/fast/tme.txt">fastest</a>, <a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/faketls/tme.txt">FakeTLS only</a>, per country in <a href="https://github.com/0xRadikal/Free-Telegram-Proxy/tree/main/countries">countries/</a>, and every file in <a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/index.json">index.json</a>.</p>
+  </section>
+  <section id="how-to">
+  <h2>How to add a proxy to Telegram</h2>
+  <h3>Android and iPhone</h3>
+  <p>Tap any <b>Connect</b> link above (or any line of top100.txt). Telegram opens and asks to connect. To add one by hand: <b>Settings → Data and Storage → Proxy → Add Proxy → MTProto</b>, then enter the server, port and secret.</p>
+  <h3>Telegram Desktop (Windows, macOS, Linux)</h3>
+  <p>Click a <b>Connect</b> link, or open <b>Settings → Advanced → Connection type → Use custom proxy → Add proxy → MTProto</b>.</p>
+  </section>
+  <section id="faq">
+  <h2>Frequently asked questions</h2>
+  <details><summary>Are these Telegram proxies free?</summary><p>Yes. They are public MTProto proxies collected from public lists and Telegram channels; this project only tests and publishes them. No account, app or signup is needed, and the code is open source (MIT).</p></details>
+  <details><summary>How do you know a proxy actually works?</summary><p>The tester does what a Telegram app does: the obfuscated2 handshake (plus the FakeTLS HMAC check for ee secrets), then sends req_pq_multi through the proxy and requires a Telegram datacenter to answer with our random nonce — in every one of 3 rounds. A hostname with several IPv4 addresses must pass on all of them.</p></details>
+  <details><summary>Will they work in Iran, Russia or other censored countries?</summary><p>They are tested from a GitHub Actions runner, not from inside every network. Censors block some proxies and not others, so if one does not connect, try the next. top100.txt spreads its proxies over many networks (at most 5 per network by default) so they do not all fail together.</p></details>
+  <details><summary>Is using a free proxy safe?</summary><p>The proxy operator can see your IP address and when you connect. Your messages stay encrypted by Telegram&#x27;s own MTProto encryption; the proxy only relays encrypted traffic and cannot read them. Some proxies may pin a sponsored channel in your chat list.</p></details>
+  <details><summary>How often is the list updated?</summary><p>About every 15 minutes. The time of the last update is shown at the top of this page and in index.json.</p></details>
+  <details><summary>What is the difference between MTProto, secure (dd) and FakeTLS (ee) proxies?</summary><p>All of them are MTProto proxies. dd (secure) secrets add random padding to the traffic; ee (FakeTLS) secrets wrap it in a handshake that looks like TLS to a chosen website, which is harder to detect. Each type has its own file.</p></details>
+  <details><summary>raw.githubusercontent.com is blocked. Where else can I get the list?</summary><p>Use the same path on jsDelivr: https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt — its cache is purged after every update.</p></details>
+  <details><summary>Can I use the list in my own app or bot?</summary><p>Yes. index.json lists every file; proxies.json has server, port, secret, type, country, ASN, round-trip time and uptime for each proxy. Keep the MIT notice and the DB-IP (CC BY 4.0) attribution.</p></details>
+  </section>
 </main>
+<footer>Open source (MIT) · <a href="https://github.com/0xRadikal/Free-Telegram-Proxy">github.com/0xRadikal/Free-Telegram-Proxy</a> · not affiliated with Telegram.</footer>
 <script>
 const BASES=["https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main","https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main"];
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
