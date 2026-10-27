@@ -1,0 +1,27 @@
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every claim in this project is measured, not assumed. Ideas that come with a way to measure them are the easiest to accept.
+        Want a new proxy source added? Use the issue form [**Suggest a source**](https://github.com/0xRadikal/Free-Telegram-Proxy/issues/new/choose).
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      placeholder: "e.g. FakeTLS proxies with a well-known domain get blocked faster on my ISP"
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+  - type: textarea
+    id: measure
+    attributes:
+      label: How could we measure whether it helps? (optional)
+      description: "A number before and after — e.g. tier size, uptime, run-to-run churn, runtime"
+    validations:
+      required: false

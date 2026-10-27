@@ -14,7 +14,7 @@
 
 </p>
 
-[English](README.md) · [Русский](README_RU.md) · [داشبورد زنده](https://0xradikal.github.io/Free-Telegram-Proxy/) · [کانال @Raydikalx](https://t.me/Raydikalx)
+[English](README.md) · [Русский](README_RU.md) · [داشبورد زنده](https://0xradikal.github.io/Free-Telegram-Proxy/) · [پرسش و گفت‌وگو](https://github.com/0xRadikal/Free-Telegram-Proxy/discussions) · [کانال @Raydikalx](https://t.me/Raydikalx)
 
 یک **لیست پروکسی تلگرام** رایگان و متن‌باز: پروکسی‌های سالم **MTProto / MTProxy** (FakeTLS با `ee`، secure با `dd` و معمولی)، که تقریباً هر ۱۵ دقیقه روی GitHub Actions از نو ساخته می‌شود. روی لینک بزن، تلگرام وصل می‌شود — بدون برنامهٔ اضافه، بدون ثبت‌نام. برای کسانی که تلگرامشان فیلتر یا کند است — روی همراه اول، ایرانسل، رایتل و اینترنت خانگی (با این توضیح که تست از سرور خارج از ایران انجام می‌شود). روی اندروید، آیفون و دسکتاپ کار می‌کند. وابسته به شرکت تلگرام نیست.
 

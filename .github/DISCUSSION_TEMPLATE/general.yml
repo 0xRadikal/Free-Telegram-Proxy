@@ -1,0 +1,12 @@
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For a question, the **Q&A** category is better — answers can be marked as accepted.
+        Security problem? Do not post it publicly; see [SECURITY.md](https://github.com/0xRadikal/Free-Telegram-Proxy/blob/main/SECURITY.md).
+  - type: textarea
+    id: message
+    attributes:
+      label: Message
+    validations:
+      required: true

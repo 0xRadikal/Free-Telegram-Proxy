@@ -1,0 +1,26 @@
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Built a bot, app, mirror or dashboard on top of this list? Share it here.
+  - type: input
+    id: link
+    attributes:
+      label: Link
+      placeholder: "https://github.com/you/your-project"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What it does and which files it uses
+      placeholder: "Telegram bot that sends 5 proxies from top100.txt on /proxy"
+    validations:
+      required: true
+  - type: checkboxes
+    id: attribution
+    attributes:
+      label: Attribution
+      options:
+        - label: Where country or ASN data is shown, my project keeps the DB-IP (CC BY 4.0) attribution
+          required: true

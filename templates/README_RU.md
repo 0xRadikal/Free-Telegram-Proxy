@@ -9,7 +9,7 @@
 [![servers](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2F0xRadikal%2FFree-Telegram-Proxy%2Fmain%2Findex.json&query=%24.funnel.verified_servers&label=real%20servers&color=0088cc)](resilient/tg.txt)
 [![stars](https://img.shields.io/github/stars/0xRadikal/Free-Telegram-Proxy?style=flat)](https://github.com/0xRadikal/Free-Telegram-Proxy)
 
-[English](README.md) · [فارسی](README_FA.md) · [Живая панель](https://0xradikal.github.io/Free-Telegram-Proxy/)
+[English](README.md) · [فارسی](README_FA.md) · [Живая панель](https://0xradikal.github.io/Free-Telegram-Proxy/) · [Обсуждения](https://github.com/0xRadikal/Free-Telegram-Proxy/discussions)
 
 </div>
 
