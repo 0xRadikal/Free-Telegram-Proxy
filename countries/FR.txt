@@ -1,8 +1,9 @@
-tg://proxy?server=212.47.236.50&port=38443&secret=ddca11911c0de0faffec7edbada55cab1e
-tg://proxy?server=free.tprox.net&port=443&secret=dd583de2881533667b60a718e9bf8049e9
-tg://proxy?server=pooriyaye-vali.ir.igakwvwa.info&port=7443&secret=79e344818749bd7ac519130220c25d09
 tg://proxy?server=rakhsh.ir.igakwvwa.info&port=7443&secret=79e344818749bd7ac519130220c25d09
 tg://proxy?server=51.254.130.47&port=8443&secret=a84102e409230c3b69dd4f68cef86baf
+tg://proxy?server=pooriyaye-vali.ir.igakwvwa.info&port=7443&secret=79e344818749bd7ac519130220c25d09
+tg://proxy?server=212.47.236.50&port=38443&secret=ddca11911c0de0faffec7edbada55cab1e
+tg://proxy?server=free.tprox.net&port=443&secret=dd583de2881533667b60a718e9bf8049e9
 tg://proxy?server=av.1.mtproto.ru&port=443&secret=ee2111222233334444555566667777888862726f777365722e79616e6465782e636f6d
-tg://proxy?server=surf.suslik-cloud.homes&port=443&secret=eed7f61466f824eafe116a533553e01bca737572662e7375736c696b2d636c6f75642e686f6d6573
+tg://proxy?server=shared2.ddproxy.xyz&port=443&secret=eedddddddddddddddddddddddddddddddd6d2e6265626f6f2e7275
+tg://proxy?server=shared.ddproxy.xyz&port=443&secret=eedddddddddddddddddddddddddddddddd6d2e6265626f6f2e7275
 tg://proxy?server=api.cryptocurency.wiki&port=443&secret=eed093d11c950817ff1c54b9d1812031e670782e63727970746f637572656e63792e77696b69
