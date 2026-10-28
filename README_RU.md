@@ -52,20 +52,20 @@ https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt
 ## Статистика в реальном времени
 
 <!-- LIVE:BEGIN -->
-**Последнее обновление:** `2026-10-28T17:11:29Z` · проверено из `US` (`EWR`)
+**Последнее обновление:** `2026-10-28T19:14:08Z` · проверено из `US` (`EWR`)
 
 | Этап | Количество |
 |---|---:|
-| ссылок собрано из всех источников | 3,473 |
-| уникальных серверов (IP:порт) проверено | 1,951 |
-| **прошли проверку во всех 3 раундах** (ссылки) | **1,893** |
-| то же, в **реальных серверах** | **408** (370 IP) |
-| доля самого частого IP среди проверенных ссылок | 1,044 (55.1%) |
-| доля крупнейшей сети (`79.182.27.0/24`) среди проверенных ссылок | 1,044 (55.1%) |
+| ссылок собрано из всех источников | 3,508 |
+| уникальных серверов (IP:порт) проверено | 2,007 |
+| **прошли проверку во всех 3 раундах** (ссылки) | **1,904** |
+| то же, в **реальных серверах** | **421** (378 IP) |
+| доля самого частого IP среди проверенных ссылок | 983 (51.6%) |
+| доля крупнейшей сети (`79.182.27.0/24`) среди проверенных ссылок | 988 (51.9%) |
 
-`resilient` 370 · `fast` 92 · `stable` 345 · `verified` 1893 · `faketls` 111 · `secure` 93 · `classic` 176 · `all` 3473
+`resilient` 378 · `fast` 95 · `stable` 347 · `verified` 1904 · `faketls` 115 · `secure` 93 · `classic` 180 · `all` 3508
 
-[🇩🇪 DE 119](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 98](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 55](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 35](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 15](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇵🇱 PL 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇬🇧 GB 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇪 SE 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇸🇬 SG 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
+[🇩🇪 DE 120](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 96](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 60](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 32](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 17](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 12](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇵🇱 PL 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇬🇧 GB 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇪 SE 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇦🇹 AT 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/AT.txt)
 <!-- LIVE:END -->
 
 ## Чем этот список отличается

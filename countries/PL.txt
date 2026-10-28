@@ -2,4 +2,6 @@ tg://proxy?server=proxy2.bitstars.tg&port=443&secret=ee9d971f649341e7c364e7a34f4
 tg://proxy?server=tg.smartaisupport.ru&port=443&secret=4b3503c268b3d097fe4fb96624cec676
 tg://proxy?server=ghoghnoos.ir.awedsj.info&port=7443&secret=79e344818749bd7ac519130220c25d09
 tg://proxy?server=151.115.61.136&port=38443&secret=ddca11911c0de0faffec7edbada55cab1e
+tg://proxy?server=t6.nevcodeframe.com&port=443&secret=ee0e4d933242164450da8a7e6b469b629774362e6e6576636f64656672616d652e636f6d
 tg://proxy?server=mtproto.online&port=443&secret=ee139e0ee36150c1ea3bf299796586b5457777772e7674622e7275
+tg://proxy?server=t5.nevcodeframe.com&port=443&secret=ee4e7e658f96af22ada977fa3e2e472e6274352e6e6576636f64656672616d652e636f6d
