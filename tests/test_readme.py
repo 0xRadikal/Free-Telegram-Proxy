@@ -114,26 +114,47 @@ def test_links_to_readme_sections_point_at_existing_headings():
 
 
 def test_readme_internal_fragment_links_resolve():
-    """'#...' links inside the English template must land on a heading or an explicit anchor."""
+    """'#...' links inside every template must land on a heading or an explicit anchor."""
     import re
     from pathlib import Path
-    s = (Path(__file__).resolve().parent.parent / "templates" / "README.md").read_text(encoding="utf-8")
-    anchors = _anchors(s)
-    frags = re.findall(r'\]\(#([^)\s]+)\)', s) + re.findall(r'href="#([^"]+)"', s)
-    assert frags
-    bad = [a for a in frags if a not in anchors]
-    assert not bad, bad
+    tdir = Path(__file__).resolve().parent.parent / "templates"
+    for name in ("README.md", "README_FA.md", "README_RU.md"):
+        s = (tdir / name).read_text(encoding="utf-8")
+        anchors = _anchors(s)
+        frags = re.findall(r'\]\(#([^)\s]+)\)', s) + re.findall(r'href="#([^"]+)"', s)
+        assert frags, name
+        bad = [a for a in frags if a not in anchors]
+        assert not bad, (name, bad)
 
 
 def test_legacy_readme_anchors_are_kept():
-    """Ids published by earlier READMEs (linked from docs, forms, chats) keep working."""
+    """Ids published by earlier READMEs (linked from docs, forms, chats) keep working - in every
+    language, so a '#faq' link shared in a Persian or Russian chat jumps too (non-ASCII headings
+    get non-ASCII slugs, hence explicit ASCII <a id> anchors in FA/RU)."""
     from pathlib import Path
-    s = (Path(__file__).resolve().parent.parent / "templates" / "README.md").read_text(encoding="utf-8")
-    anchors = _anchors(s)
-    for a in ("start-here--one-line", "tiers", "how-a-proxy-is-tested", "machine-readable", "run-it-yourself",
-              "honest-limits", "faq", "frequently-asked-questions", "security-privacy-and-honest-limitations",
-              "how-verification-works", "quick-start", "choose-the-right-list", "live-verification-snapshot"):
-        assert a in anchors, a
+    tdir = Path(__file__).resolve().parent.parent / "templates"
+    for name in ("README.md", "README_FA.md", "README_RU.md"):
+        anchors = _anchors((tdir / name).read_text(encoding="utf-8"))
+        for a in ("start-here--one-line", "tiers", "how-a-proxy-is-tested", "machine-readable", "run-it-yourself",
+                  "honest-limits", "faq", "frequently-asked-questions", "security-privacy-and-honest-limitations",
+                  "how-verification-works", "quick-start", "choose-the-right-list", "live-verification-snapshot",
+                  "publishing", "community-and-credits", "why-this-project-exists"):
+            assert a in anchors, (name, a)
+
+
+def test_translations_match_the_english_readme():
+    """FA and RU are full translations: same images and the same set of data-file URLs as EN, so a
+    tier, list or asset can't silently go missing from one language."""
+    import re
+    _, tpls = _templates()
+    assets = lambda s: set(re.findall(r'assets/readme/[\w-]+\.svg', s))  # noqa: E731
+    urls = lambda s: set(re.findall(r'https://raw\.githubusercontent\.com/0xRadikal/[^\s)"<`]+', s))  # noqa: E731
+    en = tpls["README.md"]
+    for name in ("README_FA.md", "README_RU.md"):
+        s = tpls[name]
+        assert assets(s) == assets(en), (name, assets(s) ^ assets(en))
+        assert urls(s) == urls(en), (name, sorted(urls(s) ^ urls(en)))
+        assert s.count("<!-- LIVE:BEGIN -->") == 1 and s.count("<!-- LIVE:END -->") == 1, name
 
 
 _GROW = {"channel": "https://t.me/Raydikalx", "bot": "https://t.me/configexBot",
