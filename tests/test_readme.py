@@ -63,14 +63,33 @@ def test_every_rendered_readme_is_a_publishable_output():
 
 # ------------------------------------------------------------------ template links
 def _slugs(md):
-    """GitHub heading anchors (lower-case, punctuation removed, spaces -> '-')."""
+    """GitHub heading anchors: lower-case, keep letters/marks/numbers/connectors, '-' and spaces
+    (spaces -> '-'), drop everything else. Marks matter: in '🛡️ Security' the emoji is dropped
+    but its variation selector U+FE0F (a mark) stays, so GitHub's id starts with U+FE0F -
+    verified on a rendered preview branch; a plain '-security' link does not jump there."""
     import re
+    import unicodedata
     md = re.sub(r"```.*?```", "", md, flags=re.S)
     out = set()
     for h in re.findall(r"(?m)^#{1,6}\s+(.+?)\s*$", md):
         t = re.sub(r"[`*_]", "", h).strip().lower()
-        out.add(re.sub(r"[^\w\- ]", "", t).replace(" ", "-"))
+        t = "".join(c for c in t if c in "- " or unicodedata.category(c)[0] in "LMN" or unicodedata.category(c) == "Pc")
+        out.add(t.replace(" ", "-"))
     return out
+
+
+def _anchors(md):
+    """Heading slugs plus explicit <a id=...> / <a name=...> anchors (GitHub keeps both)."""
+    import re
+    return _slugs(md) | set(re.findall(r'<a (?:id|name)="([^"]+)"', md))
+
+
+def test_slugs_match_github_rendering():
+    # ids observed on GitHub's render of the V15 template (preview branch, 2026-10-28)
+    assert _slugs("## \U0001f6e1\ufe0f Security, privacy and honest limitations") == {"\ufe0f-security-privacy-and-honest-limitations"}
+    assert _slugs("# \U0001f9ea Does it actually work?") == {"-does-it-actually-work"}
+    assert _slugs("# \U0001f4ca Live metadata \u2014 `index.json`") == {"-live-metadata--indexjson"}
+    assert _slugs("## Frequently asked questions") == {"frequently-asked-questions"}
 
 
 def test_links_to_readme_sections_point_at_existing_headings():
@@ -79,7 +98,7 @@ def test_links_to_readme_sections_point_at_existing_headings():
     import re
     from pathlib import Path
     root = Path(__file__).resolve().parent.parent
-    slugs = _slugs((root / "templates" / "README.md").read_text(encoding="utf-8"))
+    anchors = _anchors((root / "templates" / "README.md").read_text(encoding="utf-8"))
     files = [*root.glob("docs/**/*.html"), root / "docs" / "llms.txt", *root.glob("*.md"),
              *root.glob(".github/**/*.yml"), *root.glob(".github/**/*.md")]
     bad = []
@@ -89,9 +108,46 @@ def test_links_to_readme_sections_point_at_existing_headings():
         s = f.read_text(encoding="utf-8")
         # only real links (href / markdown), not JSON-LD "@id" identifiers
         for a in re.findall(r'(?:href="|\]\()https://github\.com/0xRadikal/Free-Telegram-Proxy#([\w-]+)', s):
-            if a != "readme" and a not in slugs:   # #readme is GitHub's own README anchor
+            if a != "readme" and a not in anchors:   # #readme is GitHub's own README anchor
                 bad.append((f.relative_to(root).as_posix(), a))
     assert not bad, bad
+
+
+def test_readme_internal_fragment_links_resolve():
+    """'#...' links inside the English template must land on a heading or an explicit anchor."""
+    import re
+    from pathlib import Path
+    s = (Path(__file__).resolve().parent.parent / "templates" / "README.md").read_text(encoding="utf-8")
+    anchors = _anchors(s)
+    frags = re.findall(r'\]\(#([^)\s]+)\)', s) + re.findall(r'href="#([^"]+)"', s)
+    assert frags
+    bad = [a for a in frags if a not in anchors]
+    assert not bad, bad
+
+
+def test_legacy_readme_anchors_are_kept():
+    """Ids published by earlier READMEs (linked from docs, forms, chats) keep working."""
+    from pathlib import Path
+    s = (Path(__file__).resolve().parent.parent / "templates" / "README.md").read_text(encoding="utf-8")
+    anchors = _anchors(s)
+    for a in ("start-here--one-line", "tiers", "how-a-proxy-is-tested", "machine-readable", "run-it-yourself",
+              "honest-limits", "faq", "frequently-asked-questions", "security-privacy-and-honest-limitations",
+              "how-verification-works", "quick-start", "choose-the-right-list", "live-verification-snapshot"):
+        assert a in anchors, a
+
+
+def test_cta_cards_are_split_into_two_groups():
+    """Three task CTAs sit with the quick start; star + channel sit in the closing section -
+    five cards in one row read as a wall of buttons (owner feedback on V14)."""
+    import re
+    from pathlib import Path
+    s = (Path(__file__).resolve().parent.parent / "templates" / "README.md").read_text(encoding="utf-8")
+    pos = {m.group(1): m.start() for m in re.finditer(r'src="assets/readme/cta-([a-z0-9]+)\.svg"', s)}
+    assert set(pos) == {"dashboard", "top100", "bot", "star", "channel"}
+    start, live = s.index("Start here"), s.index("<!-- LIVE:BEGIN -->")
+    closing = s.index("Two things keep this running")
+    assert all(start < pos[k] < live for k in ("dashboard", "top100", "bot"))
+    assert all(pos[k] > closing for k in ("star", "channel"))
 
 
 def test_template_relative_links_resolve():
