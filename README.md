@@ -1,7 +1,5 @@
 <div align="center">
-  <a href="https://0xradikal.github.io/Free-Telegram-Proxy/">
-    <img src="assets/readme/hero.svg" width="100%" alt="Raydikalx Free Telegram Proxy — brand hero" />
-  </a>
+  <a href="https://0xradikal.github.io/Free-Telegram-Proxy/"><picture><source media="(max-width: 600px)" srcset="assets/readme/hero-mobile.svg" /><img src="assets/readme/hero.svg" width="100%" alt="Raydikalx Free Telegram Proxy — verified MTProto proxy list, open the live dashboard" /></picture></a>
 
   <h1>Free Telegram Proxy</h1>
 
@@ -16,13 +14,11 @@
   </p>
 
   <p>
-    <a href="https://0xradikal.github.io/Free-Telegram-Proxy/"><strong>🌐 Explore live dashboard</strong></a>
-    &nbsp;·&nbsp;
-    <a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt"><strong>⚡ Get Top 100</strong></a>
-    &nbsp;·&nbsp;
-    <a href="https://t.me/configexBot"><strong>🤖 Open Telegram bot</strong></a>
-    &nbsp;·&nbsp;
-    <a href="https://t.me/Raydikalx"><strong>📣 Join channel</strong></a>
+    <a href="https://0xradikal.github.io/Free-Telegram-Proxy/"><img src="assets/readme/cta-dashboard.svg" width="216" alt="Live dashboard" /></a>
+    <a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt"><img src="assets/readme/cta-top100.svg" width="216" alt="Get Top 100" /></a>
+    <a href="https://t.me/configexBot"><img src="assets/readme/cta-bot.svg" width="216" alt="Open @configexBot" /></a>
+    <a href="https://t.me/Raydikalx"><img src="assets/readme/cta-channel.svg" width="216" alt="Join @Raydikalx" /></a>
+    <a href="https://github.com/0xRadikal/Free-Telegram-Proxy"><img src="assets/readme/cta-star.svg" width="216" alt="Star on GitHub" /></a>
   </p>
 
   <p>
@@ -33,7 +29,7 @@
   </p>
 </div>
 
----
+<picture><img src="assets/readme/divider.svg" width="100%" alt="" /></picture>
 
 <a id="start-here--one-line"></a>
 
@@ -54,9 +50,15 @@
 > [!IMPORTANT]
 > **Verified does not mean universally reachable.** Testing takes place from the project's runner, not from your ISP. Networks may block different proxies, and reliability changes over time.
 
-### Prefer Telegram instead of switching between apps?
+### Open it on your phone
 
-<p align="center"><img src="assets/readme/telegram.svg" width="100%" alt="Raydikalx Telegram entry, bot and community" /></p>
+<div align="center">
+<a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt"><img src="assets/readme/qr-top100.svg" width="208" alt="QR code: Top 100 proxy list" /></a>
+<a href="https://t.me/configexBot"><img src="assets/readme/qr-bot.svg" width="208" alt="QR code: open @configexBot" /></a>
+<a href="https://t.me/Raydikalx"><img src="assets/readme/qr-channel.svg" width="208" alt="QR code: join @Raydikalx" /></a>
+</div>
+
+### Prefer Telegram instead of switching between apps?
 
 Open **[@configexBot](https://t.me/configexBot)** to access the project's Telegram bot. A repository-backed **free-proxy feature is planned**; until its availability is independently confirmed, use the dashboard or the lists above to obtain proxies. No signup is needed to browse the public repository data.
 
@@ -86,20 +88,20 @@ The original investigation behind the project found **958 of 1,394 working links
 The following section is **generated automatically from the current run**. Its timestamps, counts, testing location and country links come from the same published index as the proxy files.
 
 <!-- LIVE:BEGIN -->
-**Last update:** `2026-10-28T15:39:31Z` · tested from `US` (Cloudflare colo `LAX`)
+**Last update:** `2026-10-28T17:11:29Z` · tested from `US` (Cloudflare colo `EWR`)
 
 | Stage | Count |
 |---|---:|
-| links collected from all sources | 3,388 |
-| unique servers (IP:port) probed | 1,873 |
-| **verified in all 3 rounds** (links) | **1,941** |
-| the same, counted as **real servers** | **417** (375 IPs) |
-| largest single IP's share of verified links | 1,034 (53.3%) |
-| largest network's (`79.182.27.0/24`) share of verified links | 1,034 (53.3%) |
+| links collected from all sources | 3,473 |
+| unique servers (IP:port) probed | 1,951 |
+| **verified in all 3 rounds** (links) | **1,893** |
+| the same, counted as **real servers** | **408** (370 IPs) |
+| largest single IP's share of verified links | 1,044 (55.1%) |
+| largest network's (`79.182.27.0/24`) share of verified links | 1,044 (55.1%) |
 
-`resilient` 375 · `fast` 98 · `stable` 351 · `verified` 1941 · `faketls` 109 · `secure` 91 · `classic` 185 · `all` 3388
+`resilient` 370 · `fast` 92 · `stable` 345 · `verified` 1893 · `faketls` 111 · `secure` 93 · `classic` 176 · `all` 3473
 
-[🇩🇪 DE 119](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 101](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 58](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 33](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 17](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 14](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇬🇧 GB 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇵🇱 PL 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇪 SE 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇸🇬 SG 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
+[🇩🇪 DE 119](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 98](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 55](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 35](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 15](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇵🇱 PL 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇬🇧 GB 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇪 SE 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇸🇬 SG 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
 <!-- LIVE:END -->
 
 *The figures above describe the most recent published run, not a promise that every proxy will connect from every network.*
@@ -145,7 +147,7 @@ The publisher attempts to purge jsDelivr caches after updates, but CDN caches ma
 
 ## How verification works
 
-<p align="center"><img src="assets/readme/verification.svg" width="100%" alt="Five-stage MTProto verification pipeline" /></p>
+<picture><source media="(max-width: 600px)" srcset="assets/readme/pipeline-mobile.svg" /><img src="assets/readme/pipeline.svg" width="100%" alt="Five-stage MTProto verification pipeline: collect, normalize, verify, rank, publish" /></picture>
 
 ```mermaid
 flowchart LR
