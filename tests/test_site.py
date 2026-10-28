@@ -365,3 +365,103 @@ def test_search_console_verification_stays_in_place():
     assert src.index('name="google-site-verification"') < src.index("</head>")
     f = DOCS / "googleea45fcdf4e09c638.html"
     assert f.read_bytes() == b"google-site-verification: googleea45fcdf4e09c638.html"
+
+
+# --------------------------------------------------------------------------- performance (PageSpeed)
+
+COMPOSITED = {"opacity", "transform", "translate", "rotate", "scale"}
+
+
+def _css():
+    return "\n".join((DOCS / f).read_text(encoding="utf-8") for f in ("styles.css", "responsive.css"))
+
+
+def _keyframes(css):
+    out = {}
+    for m in re.finditer(r"@keyframes\s+([\w-]+)\s*\{", css):
+        depth, i = 1, m.end()
+        while depth:
+            depth += {"{": 1, "}": -1}.get(css[i], 0)
+            i += 1
+        out[m.group(1)] = css[m.end():i - 1]
+    return out
+
+
+def test_every_keyframe_animates_only_composited_properties():
+    # Measured: six keyframes animating height / left / width / box-shadow /
+    # background-position / stroke-dashoffset kept the main thread ~93% busy
+    # forever (932 ms of work per second at 4x CPU slowdown). Animations of
+    # transform/opacity run on the compositor and cost ~0 ms/s.
+    bad = {}
+    for name, body in _keyframes(_css()).items():
+        props = {p.strip().lower() for p in re.findall(r"([\w-]+)\s*:", body)}
+        if props - COMPOSITED:
+            bad[name] = sorted(props - COMPOSITED)
+    assert not bad, bad
+
+
+def test_every_animation_name_used_is_defined():
+    css = _css()
+    defined = set(_keyframes(css))
+    used = set()
+    for decl in re.findall(r"animation(?:-name)?\s*:\s*([^;}]+)", css):
+        for part in decl.split(","):
+            for tok in part.split():
+                if re.fullmatch(r"[A-Za-z][\w-]*", tok) and tok not in {
+                        "none", "infinite", "linear", "ease", "ease-in", "ease-out", "ease-in-out", "both",
+                        "forwards", "backwards", "alternate", "alternate-reverse", "reverse", "normal", "var"}:
+                    used.add(tok)
+    assert used <= defined, used - defined
+
+
+def test_no_paint_property_transition_fires_on_load():
+    # .copy-all switches from :disabled to enabled when data arrives, so a
+    # box-shadow transition on that rule runs during page load (non-composited).
+    css = _css()
+    rule = re.search(r"\.copy-all:not\(:disabled\)\{([^}]*)\}", css).group(1)
+    assert "box-shadow" not in re.search(r"transition:([^;}]*)", rule).group(1)
+
+
+@pytest.mark.parametrize("rel", HOMES)
+def test_preconnect_to_the_data_origin(rel):
+    # app.js fetch()es index.json from raw.githubusercontent.com right after load
+    # (CORS mode, no credentials) -> the preconnect needs crossorigin.
+    links = [a for t, a in _page(rel).tags if t == "link" and a.get("rel") == "preconnect"]
+    assert any(a.get("href") == "https://raw.githubusercontent.com" and "crossorigin" in a for a in links)
+
+
+@pytest.mark.parametrize("rel", HOMES)
+def test_hero_image_is_responsive(rel):
+    img = next(a for t, a in _page(rel).tags if t == "img" and "brand-hero" in a.get("src", ""))
+    cands = [c.split() for c in img.get("srcset", "").split(",") if c.strip()]
+    assert len(cands) >= 2 and img.get("sizes")
+    for url, w in cands:
+        f = _local_target(url, rel)
+        assert f.is_file(), url
+        assert _webp_width(f) == int(w.rstrip("w")), url
+
+
+def _webp_width(path):
+    """Width of a lossy (VP8) WebP from its header - no image library needed."""
+    b = path.read_bytes()[:30]
+    assert b[:4] == b"RIFF" and b[8:12] == b"WEBP" and b[12:16] == b"VP8 ", path
+    return struct.unpack("<H", b[26:28])[0] & 0x3FFF
+
+
+def test_tier_buttons_accessible_name_matches_visible_text():
+    js = (DOCS / "app.js").read_text(encoding="utf-8")
+    body = js[js.index("function renderTiers"):js.index("function updateCountries")]
+    assert "aria-label" not in body
+
+
+@pytest.mark.parametrize("rel", [r for r in PAGES if r not in HOMES])
+def test_guide_pages_load_fonts_without_an_import_chain(rel):
+    # @import inside reference.css made the browser discover the fonts late;
+    # the swap then shifted the Persian hero (CLS 0.34 measured on /fa/data/).
+    assert "@import" not in (DOCS / "reference.css").read_text(encoding="utf-8")
+    p = _page(rel)
+    sheets = [a["href"] for t, a in p.tags if t == "link" and a.get("rel") == "stylesheet"]
+    assert any(h.endswith("fonts.css") for h in sheets)
+    font = "estedad-arabic" if PAGES[rel] == "fa" else "manrope-latin"
+    pre = [a for t, a in p.tags if t == "link" and a.get("rel") == "preload" and a.get("as") == "font"]
+    assert any(font in a["href"] and "crossorigin" in a and _local_target(a["href"], rel).is_file() for a in pre)
