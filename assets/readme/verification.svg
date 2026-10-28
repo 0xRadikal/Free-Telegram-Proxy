@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1280" height="332" viewBox="0 0 1280 332" role="img" aria-labelledby="svg-title svg-desc"><title id="svg-title">Raydikalx verification pipeline</title><desc id="svg-desc">Five balanced steps from collection to publishing; only decorative connectors animate.</desc><style><![CDATA[
+  text {font-family:'Inter','Segoe UI',Arial,sans-serif}
+  .caps {font-size:16px;letter-spacing:2.4px;font-weight:700}
+  .title {font-size:59px;letter-spacing:-2px;font-weight:800}
+  .heading {font-size:35px;letter-spacing:-.8px;font-weight:800}
+  .sub {font-size:23px;font-weight:600}
+  .copy {font-size:18px;font-weight:450}
+  .boxTitle {font-size:23px;font-weight:750}
+  .boxCopy {font-size:17px;font-weight:450}
+  .number {font-size:15px;font-weight:750}
+  .mini {font-size:15px;font-weight:650}
+  /* Transforms are confined to decorative indicators, never text or layout containers. */
+  .liveDot {animation:dotFade 2.7s ease-in-out infinite}
+  .liveDot2 {animation:dotFade 2.7s ease-in-out 1s infinite}
+  .dataDash {stroke-dasharray:5 9; animation:flowDash 7s linear infinite}
+  .dotTrack {animation:slideDot 7s ease-in-out infinite}
+  .dotTrack2 {animation:slideDot2 7s ease-in-out infinite}
+  .trace {stroke-dasharray:120 980;animation:trace 11s linear infinite}
+  @keyframes dotFade {0%,100%{opacity:.32}50%{opacity:1}}
+  @keyframes flowDash {to{stroke-dashoffset:-140}}
+  @keyframes slideDot {0%,5%{transform:translateX(0);opacity:0}12%{opacity:1}84%{opacity:1}95%,100%{transform:translateX(195px);opacity:0}}
+  @keyframes slideDot2 {0%,5%{transform:translateX(0);opacity:0}12%{opacity:1}84%{opacity:1}95%,100%{transform:translateX(190px);opacity:0}}
+  @keyframes trace {to{stroke-dashoffset:-1100}}
+  @media(prefers-reduced-motion:reduce) {.liveDot,.liveDot2,.dataDash,.dotTrack,.dotTrack2,.trace{animation:none!important;opacity:1!important;transform:none!important}}
+]]></style><rect width="1280" height="332" rx="28" fill="#F2F7FF"/>
+<text x="48" y="48" class="caps" fill="#1F77F1">THE VERIFICATION PIPELINE</text>
+<text x="48" y="91" class="heading" fill="#123468">From public link to tested result</text>
+<rect x="48" y="125" width="214" height="165" rx="23" fill="#fff" stroke="#D7E5FC" stroke-width="2"/>
+      <circle cx="80" cy="162" r="17" fill="#247EFD"/>
+      <text x="80" y="167" text-anchor="middle" class="number" fill="#EFF2F9">01</text>
+      <text x="107" y="169" class="boxTitle" fill="#123468" font-size="22">Collect</text>
+      <path d="M70 199H240" stroke="#D7E5FC" stroke-width="2"/>
+      <text x="70" y="238" class="boxCopy" fill="#214477">Gather public</text><text x="70" y="265" class="boxCopy" fill="#214477">MTProto URLs</text>
+    <path d="M267 213H287" stroke="#1F77F1" stroke-width="3" stroke-linecap="round" class="dataDash"/>
+        <circle cx="267" cy="213" r="3.5" fill="#247EFD" class="liveDot"/>
+        <rect x="292" y="125" width="214" height="165" rx="23" fill="#fff" stroke="#D7E5FC" stroke-width="2"/>
+      <circle cx="324" cy="162" r="17" fill="#247EFD"/>
+      <text x="324" y="167" text-anchor="middle" class="number" fill="#EFF2F9">02</text>
+      <text x="351" y="169" class="boxTitle" fill="#123468" font-size="22">Normalize</text>
+      <path d="M314 199H484" stroke="#D7E5FC" stroke-width="2"/>
+      <text x="314" y="238" class="boxCopy" fill="#214477">Parse secrets</text><text x="314" y="265" class="boxCopy" fill="#214477">and resolve IPs</text>
+    <path d="M511 213H531" stroke="#1F77F1" stroke-width="3" stroke-linecap="round" class="dataDash"/>
+        <circle cx="511" cy="213" r="3.5" fill="#247EFD" class="liveDot"/>
+        <rect x="536" y="125" width="214" height="165" rx="23" fill="#fff" stroke="#D7E5FC" stroke-width="2"/>
+      <circle cx="568" cy="162" r="17" fill="#247EFD"/>
+      <text x="568" y="167" text-anchor="middle" class="number" fill="#EFF2F9">03</text>
+      <text x="595" y="169" class="boxTitle" fill="#123468" font-size="22">Probe</text>
+      <path d="M558 199H728" stroke="#D7E5FC" stroke-width="2"/>
+      <text x="558" y="238" class="boxCopy" fill="#214477">Request a real</text><text x="558" y="265" class="boxCopy" fill="#214477">Telegram DC reply</text>
+    <path d="M755 213H775" stroke="#1F77F1" stroke-width="3" stroke-linecap="round" class="dataDash"/>
+        <circle cx="755" cy="213" r="3.5" fill="#247EFD" class="liveDot"/>
+        <rect x="780" y="125" width="214" height="165" rx="23" fill="#fff" stroke="#D7E5FC" stroke-width="2"/>
+      <circle cx="812" cy="162" r="17" fill="#247EFD"/>
+      <text x="812" y="167" text-anchor="middle" class="number" fill="#EFF2F9">04</text>
+      <text x="839" y="169" class="boxTitle" fill="#123468" font-size="22">Verify</text>
+      <path d="M802 199H972" stroke="#D7E5FC" stroke-width="2"/>
+      <text x="802" y="238" class="boxCopy" fill="#214477">Pass 3 rounds</text><text x="802" y="265" class="boxCopy" fill="#214477">and score history</text>
+    <path d="M999 213H1019" stroke="#1F77F1" stroke-width="3" stroke-linecap="round" class="dataDash"/>
+        <circle cx="999" cy="213" r="3.5" fill="#247EFD" class="liveDot"/>
+        <rect x="1024" y="125" width="214" height="165" rx="23" fill="#fff" stroke="#D7E5FC" stroke-width="2"/>
+      <circle cx="1056" cy="162" r="17" fill="#247EFD"/>
+      <text x="1056" y="167" text-anchor="middle" class="number" fill="#EFF2F9">05</text>
+      <text x="1083" y="169" class="boxTitle" fill="#123468" font-size="22">Publish</text>
+      <path d="M1046 199H1216" stroke="#D7E5FC" stroke-width="2"/>
+      <text x="1046" y="238" class="boxCopy" fill="#214477">Write JSON</text><text x="1046" y="265" class="boxCopy" fill="#214477">and selected lists</text>
+    </svg>

@@ -3,7 +3,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Before asking, check the **FAQ** in the [README](https://github.com/0xRadikal/Free-Telegram-Proxy#faq) — most "how do I connect" questions are answered there.
+        Before asking, check the **FAQ** in the [README](https://github.com/0xRadikal/Free-Telegram-Proxy#frequently-asked-questions) — most "how do I connect" questions are answered there.
         A specific proxy fails from your network? Use the issue form [**Proxy does not work for me**](https://github.com/0xRadikal/Free-Telegram-Proxy/issues/new/choose) instead.
         **Do not post your own IP address.**
   - type: dropdown

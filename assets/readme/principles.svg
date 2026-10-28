@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1280" height="340" viewBox="0 0 1280 340" role="img" aria-labelledby="svg-title svg-desc"><title id="svg-title">Three principles of Raydikalx</title><desc id="svg-desc">Three evenly aligned cards for evidence, diversity and limitations.</desc><style><![CDATA[
+  text {font-family:'Inter','Segoe UI',Arial,sans-serif}
+  .caps {font-size:16px;letter-spacing:2.4px;font-weight:700}
+  .title {font-size:59px;letter-spacing:-2px;font-weight:800}
+  .heading {font-size:35px;letter-spacing:-.8px;font-weight:800}
+  .sub {font-size:23px;font-weight:600}
+  .copy {font-size:18px;font-weight:450}
+  .boxTitle {font-size:23px;font-weight:750}
+  .boxCopy {font-size:17px;font-weight:450}
+  .number {font-size:15px;font-weight:750}
+  .mini {font-size:15px;font-weight:650}
+  /* Transforms are confined to decorative indicators, never text or layout containers. */
+  .liveDot {animation:dotFade 2.7s ease-in-out infinite}
+  .liveDot2 {animation:dotFade 2.7s ease-in-out 1s infinite}
+  .dataDash {stroke-dasharray:5 9; animation:flowDash 7s linear infinite}
+  .dotTrack {animation:slideDot 7s ease-in-out infinite}
+  .dotTrack2 {animation:slideDot2 7s ease-in-out infinite}
+  .trace {stroke-dasharray:120 980;animation:trace 11s linear infinite}
+  @keyframes dotFade {0%,100%{opacity:.32}50%{opacity:1}}
+  @keyframes flowDash {to{stroke-dashoffset:-140}}
+  @keyframes slideDot {0%,5%{transform:translateX(0);opacity:0}12%{opacity:1}84%{opacity:1}95%,100%{transform:translateX(195px);opacity:0}}
+  @keyframes slideDot2 {0%,5%{transform:translateX(0);opacity:0}12%{opacity:1}84%{opacity:1}95%,100%{transform:translateX(190px);opacity:0}}
+  @keyframes trace {to{stroke-dashoffset:-1100}}
+  @media(prefers-reduced-motion:reduce) {.liveDot,.liveDot2,.dataDash,.dotTrack,.dotTrack2,.trace{animation:none!important;opacity:1!important;transform:none!important}}
+]]></style><rect width="1280" height="340" rx="28" fill="#F2F7FF"/>
+<text x="48" y="50" class="caps" fill="#1F77F1">OUR DESIGN PRINCIPLES</text>
+<text x="48" y="95" class="heading" fill="#123468">Built around evidence, not inflated numbers.</text>
+<rect x="48" y="123" width="388" height="178" rx="24" fill="#fff" stroke="#D7E5FC" stroke-width="2"/>
+    <rect x="70" y="146" width="52" height="52" rx="17" fill="#E9F2FF"/>
+    <text x="96" y="179" text-anchor="middle" class="boxTitle" font-size="17" fill="#247EFD">01</text>
+    <text x="138" y="181" class="boxTitle" fill="#123468">End-to-end evidence</text>
+    <path d="M72 224H412" stroke="#D7E5FC" stroke-width="2"/>
+    <text x="72" y="256" class="boxCopy" fill="#214477">Telegram DC response</text><text x="72" y="279" class="boxCopy" fill="#214477">required before publication.</text>
+    <circle cx="406" cy="154" r="4" fill="#247EFD" class="liveDot"/>
+    <rect x="456" y="123" width="388" height="178" rx="24" fill="#fff" stroke="#D7E5FC" stroke-width="2"/>
+    <rect x="478" y="146" width="52" height="52" rx="17" fill="#E9F2FF"/>
+    <text x="504" y="179" text-anchor="middle" class="boxTitle" font-size="17" fill="#247EFD">02</text>
+    <text x="546" y="181" class="boxTitle" fill="#123468">Server diversity</text>
+    <path d="M480 224H820" stroke="#D7E5FC" stroke-width="2"/>
+    <text x="480" y="256" class="boxCopy" fill="#214477">Avoid repeated aliases</text><text x="480" y="279" class="boxCopy" fill="#214477">of the same server IP.</text>
+    <circle cx="814" cy="154" r="4" fill="#247EFD" class="liveDot2"/>
+    <rect x="864" y="123" width="388" height="178" rx="24" fill="#fff" stroke="#D7E5FC" stroke-width="2"/>
+    <rect x="886" y="146" width="52" height="52" rx="17" fill="#E9F2FF"/>
+    <text x="912" y="179" text-anchor="middle" class="boxTitle" font-size="17" fill="#247EFD">03</text>
+    <text x="954" y="181" class="boxTitle" fill="#123468">Honest limitations</text>
+    <path d="M888 224H1228" stroke="#D7E5FC" stroke-width="2"/>
+    <text x="888" y="256" class="boxCopy" fill="#214477">Runner-side testing is</text><text x="888" y="279" class="boxCopy" fill="#214477">not a global guarantee.</text>
+    <circle cx="1222" cy="154" r="4" fill="#247EFD" class="liveDot"/>
+    </svg>

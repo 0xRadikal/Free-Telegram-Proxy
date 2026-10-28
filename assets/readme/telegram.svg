@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="346" viewBox="0 0 1280 346" role="img" aria-labelledby="telegramTitle telegramDescription">
+<title id="telegramTitle">Raydikalx — Telegram access</title>
+<desc id="telegramDescription">Two evenly aligned destination cards for configexBot and the Raydikalx Telegram channel. The free-proxy bot feature is described as planned.</desc>
+<defs>
+  <linearGradient id="page" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2F7FF"/><stop offset="1" stop-color="#EAF3FF"/></linearGradient>
+  <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#247EFD"/><stop offset="1" stop-color="#1B64E8"/></linearGradient>
+  <clipPath id="frame"><rect width="1280" height="346" rx="28"/></clipPath>
+</defs>
+<style><![CDATA[
+  text{font-family:'Segoe UI',Inter,Arial,sans-serif}
+  .kicker{fill:#247EFD;font-size:16px;font-weight:750;letter-spacing:2.2px}
+  .heading{fill:#153568;font-size:43px;font-weight:800;letter-spacing:-1.3px}
+  .subtitle{fill:#43648B;font-size:21px;font-weight:450}
+  .cardEyebrow{fill:#5480B8;font-size:14px;font-weight:750;letter-spacing:1.4px}
+  .cardHeading{fill:#123465;font-size:29px;font-weight:800;letter-spacing:-.5px}
+  .cardSub{fill:#466A98;font-size:18px;font-weight:500}
+  .accentLine{stroke-dasharray:12 18;animation:lineMove 16s linear infinite}
+  .signal1{animation:signal 3.8s ease-in-out infinite}
+  .signal2{animation:signal 3.8s ease-in-out 1.2s infinite}
+  .signal3{animation:signal 3.8s ease-in-out 2.4s infinite}
+  .arrowGlow{animation:arrowGlow 4.5s ease-in-out infinite}
+  @keyframes lineMove{to{stroke-dashoffset:-180}}
+  @keyframes signal{0%,100%{opacity:.35}45%{opacity:1}}
+  @keyframes arrowGlow{0%,100%{opacity:.75}50%{opacity:1}}
+  @media(prefers-reduced-motion:reduce){.accentLine,.signal1,.signal2,.signal3,.arrowGlow{animation:none!important}}
+]]></style>
+<!-- Single, scalable design grid: 52px outer gutter, 36px gap, equal 570px cards -->
+<rect width="1280" height="346" rx="28" fill="url(#page)"/>
+<g clip-path="url(#frame)">
+  <path d="M52 155H1228" stroke="#CFDFF7" stroke-width="1.5"/>
+  <path d="M52 155H1228" stroke="#247EFD" stroke-width="2" opacity=".17" class="accentLine"/>
+  <circle cx="1180" cy="56" r="4.5" fill="#247EFD" opacity=".23" class="signal1"/>
+  <circle cx="1201" cy="56" r="4.5" fill="#247EFD" opacity=".30" class="signal2"/>
+  <circle cx="1222" cy="56" r="4.5" fill="#247EFD" opacity=".38" class="signal3"/>
+</g>
+<!-- Hierarchy: kicker / heading / supporting line -->
+<text x="54" y="49" class="kicker">RAYDIKALX  /  TELEGRAM</text>
+<text x="52" y="106" class="heading">Take the next step inside Telegram.</text>
+<text x="54" y="140" class="subtitle">Two clear ways to stay connected with the project.</text>
+<!-- Identically dimensioned destination cards. Card positions remain static. -->
+<g id="bot-card">
+  <rect x="52" y="177" width="570" height="133" rx="24" fill="#FFFFFF" stroke="#D5E5FC" stroke-width="1.6"/>
+  <rect x="76" y="201" width="84" height="84" rx="22" fill="url(#brand)"/>
+  <circle cx="118" cy="243" r="30" fill="#EFF2F9" opacity=".12"/>
+  <!-- Telegram paper plane icon: static shape -->
+  <g transform="translate(100 225) scale(1.5)"><path fill="#EFF2F9" d="M23.953 5.635 20.588 21.6c-.25 1.127-.906 1.407-1.838.875l-5.093-3.755-2.457 2.368c-.272.271-.5.5-1.025.5l.366-5.179 9.431-8.523c.41-.365-.09-.568-.635-.203L7.683 15.022l-5.02-1.568c-1.09-.341-1.112-1.09.227-1.614L22.527 4.269c.91-.333 1.705.205 1.426 1.366z"/></g>
+  <text x="183" y="208" class="cardEyebrow">OPEN THE BOT</text>
+  <text x="182" y="249" class="cardHeading">@configexBot</text>
+  <circle cx="188" cy="278" r="4" fill="#247EFD" class="signal1"/>
+  <text x="201" y="284" class="cardSub">Free proxy feature: planned</text>
+  <g class="arrowGlow">
+    <circle cx="581" cy="244" r="22" fill="#EEF5FF"/>
+    <path d="M574 244h14m-6-6 6 6-6 6" stroke="#247EFD" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+</g>
+<g id="channel-card">
+  <rect x="658" y="177" width="570" height="133" rx="24" fill="#FFFFFF" stroke="#D5E5FC" stroke-width="1.6"/>
+  <rect x="682" y="201" width="84" height="84" rx="22" fill="url(#brand)"/>
+  <circle cx="724" cy="243" r="30" fill="#EFF2F9" opacity=".12"/>
+  <!-- Community signal / connected nodes icon -->
+  <path d="M707 248 724 230 742 248" stroke="#EFF2F9" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="707" cy="248" r="6.2" fill="#EFF2F9"/>
+  <circle cx="724" cy="230" r="6.2" fill="#EFF2F9"/>
+  <circle cx="742" cy="248" r="6.2" fill="#EFF2F9"/>
+  <path d="M710 263h28" stroke="#EFF2F9" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+  <text x="789" y="208" class="cardEyebrow">JOIN THE COMMUNITY</text>
+  <text x="788" y="249" class="cardHeading">@Raydikalx</text>
+  <circle cx="794" cy="278" r="4" fill="#247EFD" class="signal2"/>
+  <text x="807" y="284" class="cardSub">Project updates and discussions</text>
+  <g class="arrowGlow">
+    <circle cx="1187" cy="244" r="22" fill="#EEF5FF"/>
+    <path d="M1180 244h14m-6-6 6 6-6 6" stroke="#247EFD" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+</g>
+</svg>

@@ -59,3 +59,53 @@ def test_every_rendered_readme_is_a_publishable_output():
     paths = re.search(r'OUTPUT_PATHS: "([^"]+)"', wf).group(1).split()
     for _, dst, _ in LANGS:
         assert dst in paths, dst
+
+
+# ------------------------------------------------------------------ template links
+def _slugs(md):
+    """GitHub heading anchors (lower-case, punctuation removed, spaces -> '-')."""
+    import re
+    md = re.sub(r"```.*?```", "", md, flags=re.S)
+    out = set()
+    for h in re.findall(r"(?m)^#{1,6}\s+(.+?)\s*$", md):
+        t = re.sub(r"[`*_]", "", h).strip().lower()
+        out.add(re.sub(r"[^\w\- ]", "", t).replace(" ", "-"))
+    return out
+
+
+def test_links_to_readme_sections_point_at_existing_headings():
+    """docs/, SUPPORT.md and the discussion forms deep-link into the README;
+    renaming a heading silently turns those links into 'top of page'."""
+    import re
+    from pathlib import Path
+    root = Path(__file__).resolve().parent.parent
+    slugs = _slugs((root / "templates" / "README.md").read_text(encoding="utf-8"))
+    files = [*root.glob("docs/**/*.html"), root / "docs" / "llms.txt", *root.glob("*.md"),
+             *root.glob(".github/**/*.yml"), *root.glob(".github/**/*.md")]
+    bad = []
+    for f in files:
+        if f.name.startswith("README"):
+            continue
+        s = f.read_text(encoding="utf-8")
+        # only real links (href / markdown), not JSON-LD "@id" identifiers
+        for a in re.findall(r'(?:href="|\]\()https://github\.com/0xRadikal/Free-Telegram-Proxy#([\w-]+)', s):
+            if a != "readme" and a not in slugs:   # #readme is GitHub's own README anchor
+                bad.append((f.relative_to(root).as_posix(), a))
+    assert not bad, bad
+
+
+def test_template_relative_links_resolve():
+    """Every relative link/image in the README templates is either a committed
+    source file or a path the publisher writes (OUTPUT_PATHS)."""
+    import re
+    from pathlib import Path
+    root = Path(__file__).resolve().parent.parent
+    wf = (root / ".github/workflows/update.yml").read_text()
+    outputs = re.search(r'OUTPUT_PATHS: "([^"]+)"', wf).group(1).split()
+    for tpl in (root / "templates").glob("README*.md"):
+        s = tpl.read_text(encoding="utf-8")
+        refs = re.findall(r'\]\((?!https?://|#|mailto:)([^)\s#]+)', s) + \
+            re.findall(r'(?:src|href)="(?!https?://|#|mailto:)([^"#]+)"', s)
+        for r in refs:
+            top = r.split("/")[0]
+            assert (root / r).exists() or top in outputs or r in outputs, (tpl.name, r)
