@@ -136,18 +136,60 @@ def test_legacy_readme_anchors_are_kept():
         assert a in anchors, a
 
 
-def test_cta_cards_are_split_into_two_groups():
-    """Three task CTAs sit with the quick start; star + channel sit in the closing section -
-    five cards in one row read as a wall of buttons (owner feedback on V14)."""
+_GROW = {"channel": "https://t.me/Raydikalx", "bot": "https://t.me/configexBot",
+         "star": "https://github.com/0xRadikal/Free-Telegram-Proxy"}
+
+
+def _cta_positions(s):
     import re
+    out = {}
+    for m in re.finditer(r'<a href="([^"]+)"><img src="assets/readme/cta-([a-z0-9]+)\.svg"', s):
+        out.setdefault(m.group(2), []).append((m.start(), m.group(1)))
+    return out
+
+
+def test_channel_bot_and_star_lead_every_readme():
+    """The owner's goals (channel joins, bot starts, stars) come first in every language:
+    their three cards sit above the first heading, each linking to the right place."""
+    import re
+    _, tpls = _templates()
+    for name, s in tpls.items():
+        first_heading = re.search(r"(?m)^#{1,6} ", s).start()
+        pos = _cta_positions(s)
+        for card, url in _GROW.items():
+            assert pos.get(card), (name, card)
+            at, href = pos[card][0]
+            assert at < first_heading, (name, card, "not above the first heading")
+            assert href == url, (name, card, href)
+
+
+def test_english_readme_card_layout():
+    """EN: channel/bot/star on top and again in the closing block; dashboard + Top 100 with the quick start."""
     from pathlib import Path
     s = (Path(__file__).resolve().parent.parent / "templates" / "README.md").read_text(encoding="utf-8")
-    pos = {m.group(1): m.start() for m in re.finditer(r'src="assets/readme/cta-([a-z0-9]+)\.svg"', s)}
-    assert set(pos) == {"dashboard", "top100", "bot", "star", "channel"}
+    pos = _cta_positions(s)
     start, live = s.index("Start here"), s.index("<!-- LIVE:BEGIN -->")
-    closing = s.index("Two things keep this running")
-    assert all(start < pos[k] < live for k in ("dashboard", "top100", "bot"))
-    assert all(pos[k] > closing for k in ("star", "channel"))
+    closing = s.index("Three taps keep this running")
+    for card in ("dashboard", "top100"):
+        assert len(pos[card]) == 1 and start < pos[card][0][0] < live, card
+    for card in _GROW:
+        assert len(pos[card]) == 2, card
+        assert pos[card][0][0] < start and pos[card][1][0] > closing, card
+
+
+def test_sister_project_banner_is_prominent_and_correct():
+    """The Free-v2ray-Configs banner links to the repo, has a mobile variant, and in English sits
+    right after the quick start (before the long lists), not at the bottom of the page."""
+    import re
+    root, tpls = _templates()
+    banner = re.compile(r'<a href="https://github\.com/0xRadikal/Free-v2ray-Configs"><picture><source media="\(max-width: 600px\)" '
+                        r'srcset="assets/readme/promo-v2ray-mobile\.svg" /><img src="assets/readme/promo-v2ray\.svg"')
+    for name, s in tpls.items():
+        assert banner.search(s), name
+    en = tpls["README.md"]
+    assert en.index("Start here") < banner.search(en).start() < en.index('<a id="tiers">')
+    svg = (root / "assets/readme/promo-v2ray.svg").read_text(encoding="utf-8")
+    assert "Free V2Ray Configs" in svg
 
 
 def test_template_relative_links_resolve():

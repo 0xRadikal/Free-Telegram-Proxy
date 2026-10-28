@@ -1,4 +1,10 @@
 <div align="center">
+<a href="https://t.me/Raydikalx"><img src="assets/readme/cta-channel.svg" width="240" alt="Join @Raydikalx" /></a>
+<a href="https://t.me/configexBot"><img src="assets/readme/cta-bot.svg" width="240" alt="Open @configexBot" /></a>
+<a href="https://github.com/0xRadikal/Free-Telegram-Proxy"><img src="assets/readme/cta-star.svg" width="240" alt="Star on GitHub" /></a>
+</div>
+
+<div align="center">
 
 # Прокси для Телеграм бесплатно — проверенный список MTProto прокси
 
@@ -28,6 +34,18 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt
 ```
 https://cdn.jsdelivr.net/gh/0xRadikal/Free-Telegram-Proxy@main/top100.txt
 ```
+
+## 🧩 Соседний проект — бесплатные конфиги V2Ray
+
+<a href="https://github.com/0xRadikal/Free-v2ray-Configs"><picture><source media="(max-width: 600px)" srcset="assets/readme/promo-v2ray-mobile.svg" /><img src="assets/readme/promo-v2ray.svg" width="100%" alt="Free V2Ray Configs, the sister project: free VLESS, VMess, Trojan, Shadowsocks and Reality configs, tested three times — open it on GitHub" /></picture></a>
+
+MTProto-прокси пропускает **только Telegram**. Для всего остального на телефоне и компьютере у того же автора есть **[Free-v2ray-Configs](https://github.com/0xRadikal/Free-v2ray-Configs)**: бесплатные конфиги V2Ray (VLESS, VMess, Trojan, Shadowsocks и др.) из открытых источников, без дубликатов, каждый проверен **трижды** настоящим запросом, обновление примерно каждые 15 минут, со своей [живой панелью](https://0xradikal.github.io/Free-v2ray-Configs/). Самый короткий путь (для v2rayNG, Hiddify, NekoBox и др.):
+
+```
+https://raw.githubusercontent.com/0xRadikal/Free-v2ray-Configs/main/top100.txt
+```
+
+Бот **[@configexBot](https://t.me/configexBot)** — бесплатный экстрактор конфигов V2Ray прямо в Telegram; новости обоих проектов — в канале **[@Raydikalx](https://t.me/Raydikalx)**.
 
 ## Как подключить прокси в Телеграм
 
