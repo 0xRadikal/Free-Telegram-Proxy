@@ -1,3 +1,9 @@
+<div align="center">
+<a href="https://t.me/Raydikalx"><img src="assets/readme/cta-channel.svg" width="240" alt="Join @Raydikalx" /></a>
+<a href="https://t.me/configexBot"><img src="assets/readme/cta-bot.svg" width="240" alt="Open @configexBot" /></a>
+<a href="https://github.com/0xRadikal/Free-Telegram-Proxy"><img src="assets/readme/cta-star.svg" width="240" alt="Star on GitHub" /></a>
+</div>
+
 <div dir="rtl">
 
 # پروکسی رایگان تلگرام — لیست پروکسی MTProto تأییدشده
@@ -34,6 +40,26 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt
 
 سقف ۵ از هر شبکه فقط وقتی بالا می‌رود که لیست بدون آن پر نشود — شبکه‌ها کم باشند، یا یک پروکسی اثبات‌شده جایش را به یک تازه‌وارد بی‌سابقه بدهد. سقفی که واقعاً استفاده شده در `index.json` با کلید `top100_info.network_cap` منتشر می‌شود. اگر قبلاً `top50.txt` را اضافه کرده‌ای، هنوز کار می‌کند: همان ۵۰ خط اول `top100.txt` است.
 
+## 🧩 پروژهٔ خواهر — کانفیگ رایگان V2Ray
+
+</div>
+
+<a href="https://github.com/0xRadikal/Free-v2ray-Configs"><picture><source media="(max-width: 600px)" srcset="assets/readme/promo-v2ray-mobile.svg" /><img src="assets/readme/promo-v2ray.svg" width="100%" alt="Free V2Ray Configs, the sister project: free VLESS, VMess, Trojan, Shadowsocks and Reality configs, tested three times — open it on GitHub" /></picture></a>
+
+<div dir="rtl">
+
+پروکسی MTProto **فقط تلگرام** را رد می‌کند. برای بقیهٔ برنامه‌های گوشی و کامپیوتر، پروژهٔ خواهر **[Free-v2ray-Configs](https://github.com/0xRadikal/Free-v2ray-Configs)** کانفیگ‌های رایگان V2Ray (VLESS، VMess، Trojan، Shadowsocks و …) را از منابع عمومی جمع می‌کند، تکراری‌ها را حذف می‌کند، هر کانفیگ را **سه بار** با یک درخواست واقعی تست می‌کند و تقریباً هر ۱۵ دقیقه به‌روز می‌شود — با داشبورد زندهٔ خودش: [0xradikal.github.io/Free-v2ray-Configs](https://0xradikal.github.io/Free-v2ray-Configs/). کوتاه‌ترین مسیرش (برای v2rayNG، Hiddify، NekoBox و …):
+
+</div>
+
+```
+https://raw.githubusercontent.com/0xRadikal/Free-v2ray-Configs/main/top100.txt
+```
+
+<div dir="rtl">
+
+ربات **[@configexBot](https://t.me/configexBot)** هم ربات استخراج کانفیگ رایگان V2Ray است، داخل خود تلگرام؛ و خبرها و آپدیت‌های هر دو پروژه در کانال **[@Raydikalx](https://t.me/Raydikalx)** است.
+
 ## آموزش اتصال به پروکسی تلگرام
 
 ### اندروید و آیفون
@@ -57,20 +83,20 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt
 </div>
 
 <!-- LIVE:BEGIN -->
-**آخرین به‌روزرسانی:** `2026-10-28T19:14:08Z` · محل تست: `US` (`EWR`)
+**آخرین به‌روزرسانی:** `2026-10-28T21:16:18Z` · محل تست: `US` (`EWR`)
 
 | مرحله | تعداد |
 |---|---:|
-| لینک جمع‌آوری‌شده از همهٔ منابع | 3,508 |
-| سرور یکتا (IP:پورت) که تست شد | 2,007 |
-| **تأییدشده در همهٔ 3 دور** (لینک) | **1,904** |
-| همان‌ها، بر حسب **سرور واقعی** | **421** (378 IP) |
-| سهم پرتکرارترین IP از لینک‌های تأییدشده | 983 (51.6%) |
-| سهم بزرگ‌ترین شبکه (`79.182.27.0/24`) از لینک‌های تأییدشده | 988 (51.9%) |
+| لینک جمع‌آوری‌شده از همهٔ منابع | 3,294 |
+| سرور یکتا (IP:پورت) که تست شد | 1,848 |
+| **تأییدشده در همهٔ 3 دور** (لینک) | **1,884** |
+| همان‌ها، بر حسب **سرور واقعی** | **418** (373 IP) |
+| سهم پرتکرارترین IP از لینک‌های تأییدشده | 968 (51.4%) |
+| سهم بزرگ‌ترین شبکه (`79.182.27.0/24`) از لینک‌های تأییدشده | 968 (51.4%) |
 
-`resilient` 378 · `fast` 95 · `stable` 347 · `verified` 1904 · `faketls` 115 · `secure` 93 · `classic` 180 · `all` 3508
+`resilient` 373 · `fast` 98 · `stable` 347 · `verified` 1884 · `faketls` 107 · `secure` 93 · `classic` 186 · `all` 3294
 
-[🇩🇪 DE 120](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 96](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 60](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 32](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 17](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 12](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇵🇱 PL 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇬🇧 GB 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇪 SE 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇦🇹 AT 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/AT.txt)
+[🇩🇪 DE 123](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 99](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 61](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 30](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 11](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇵🇱 PL 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇬🇧 GB 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇪 SE 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇬 SG 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
 <!-- LIVE:END -->
 
 <div dir="rtl">

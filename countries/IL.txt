@@ -1,2 +1,1 @@
-tg://proxy?server=quartz.velvetoak.work&port=443&secret=ee2b6eb790d613a1725557ce33b9a87b307777772e676f6f676c652e636f6d
 tg://proxy?server=a02.mtjlpoto.fit&port=443&secret=eefc12ba3e57a0bbf431fe455a0c6534946130322e6d746a6c706f746f2e666974

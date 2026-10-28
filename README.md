@@ -2,6 +2,12 @@
   <a href="https://0xradikal.github.io/Free-Telegram-Proxy/"><picture><source media="(max-width: 600px)" srcset="assets/readme/hero-mobile.svg" /><img src="assets/readme/hero.svg" width="100%" alt="Raydikalx Free Telegram Proxy — verified MTProto proxy list, open the live dashboard" /></picture></a>
 
   <p>
+    <a href="https://t.me/Raydikalx"><img src="assets/readme/cta-channel.svg" width="240" alt="Join @Raydikalx" /></a>
+    <a href="https://t.me/configexBot"><img src="assets/readme/cta-bot.svg" width="240" alt="Open @configexBot" /></a>
+    <a href="https://github.com/0xRadikal/Free-Telegram-Proxy"><img src="assets/readme/cta-star.svg" width="240" alt="Star on GitHub" /></a>
+  </p>
+
+  <p>
     <a href="https://github.com/0xRadikal/Free-Telegram-Proxy/actions/workflows/update.yml"><img alt="pipeline" src="https://img.shields.io/github/actions/workflow/status/0xRadikal/Free-Telegram-Proxy/update.yml?style=for-the-badge&amp;label=pipeline&amp;logo=githubactions&amp;logoColor=white" /></a>
     <img alt="auto-update every 15 min" src="https://img.shields.io/badge/auto--update-every%2015%20min-247EFD?style=for-the-badge" />
     <a href="https://t.me/Raydikalx"><img alt="telegram subscribers" src="https://img.shields.io/endpoint?url=https%3A%2F%2Ftg.sumanjay.workers.dev%2FRaydikalx&amp;label=telegram&amp;color=229ED9&amp;style=for-the-badge&amp;logo=telegram&amp;logoColor=white" /></a>
@@ -52,9 +58,8 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/resilient/t
 > proxy → Add proxy → MTProto**. If one fails on your network, try another server.
 
 <div align="center">
-<a href="https://0xradikal.github.io/Free-Telegram-Proxy/"><img src="assets/readme/cta-dashboard.svg" width="216" alt="Live dashboard" /></a>
-<a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt"><img src="assets/readme/cta-top100.svg" width="216" alt="Get Top 100" /></a>
-<a href="https://t.me/configexBot"><img src="assets/readme/cta-bot.svg" width="216" alt="Open @configexBot" /></a>
+<a href="https://0xradikal.github.io/Free-Telegram-Proxy/"><img src="assets/readme/cta-dashboard.svg" width="240" alt="Live dashboard" /></a>
+<a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt"><img src="assets/readme/cta-top100.svg" width="240" alt="Get Top 100" /></a>
 <br><br>
 <b>📱 On your phone? Point the camera at one of these.</b>
 <br>
@@ -62,8 +67,50 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/resilient/t
 <a href="https://t.me/configexBot"><img src="assets/readme/qr-bot.svg" width="180" alt="QR code: open @configexBot" /></a>
 <a href="https://t.me/Raydikalx"><img src="assets/readme/qr-channel.svg" width="180" alt="QR code: join @Raydikalx" /></a>
 <br>
-<sub>Each QR encodes exactly the URL of the link around it — the Top 100 code opens the live file, not a frozen snapshot. <a href="https://t.me/configexBot">@configexBot</a> is the project's bot; proxy delivery there is planned, so use the dashboard or the lists until it is announced.</sub>
+<sub>Each QR encodes exactly the URL of the link around it — the Top 100 code opens the live file, not a frozen snapshot.</sub>
 </div>
+
+## 🧩 Sister project — Free V2Ray Configs
+
+<a href="https://github.com/0xRadikal/Free-v2ray-Configs"><picture><source media="(max-width: 600px)" srcset="assets/readme/promo-v2ray-mobile.svg" /><img src="assets/readme/promo-v2ray.svg" width="100%" alt="Free V2Ray Configs, the sister project: free VLESS, VMess, Trojan, Shadowsocks and Reality configs, tested three times — open it on GitHub" /></picture></a>
+
+<div align="center">
+  <a href="https://github.com/0xRadikal/Free-v2ray-Configs"><img alt="Free-v2ray-Configs stars" src="https://img.shields.io/github/stars/0xRadikal/Free-v2ray-Configs?style=for-the-badge&amp;color=FBBF24&amp;logo=github&amp;label=Free-v2ray-Configs" /></a>
+  <a href="https://raw.githubusercontent.com/0xRadikal/Free-v2ray-Configs/main/index.json"><img alt="V2Ray configs" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2F0xRadikal%2FFree-v2ray-Configs%2Fmain%2Findex.json&amp;query=%24.categories.all.unique&amp;label=configs&amp;color=2563eb&amp;style=for-the-badge" /></a>
+  <a href="https://raw.githubusercontent.com/0xRadikal/Free-v2ray-Configs/main/health.json"><img alt="V2Ray verified" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2F0xRadikal%2FFree-v2ray-Configs%2Fmain%2Fhealth.json&amp;query=%24.cascade.buckets.verified&amp;label=verified&amp;color=16a34a&amp;style=for-the-badge" /></a>
+</div>
+
+An MTProto proxy carries **Telegram only**. For everything else on your phone or computer, the
+same author maintains **[Free-v2ray-Configs](https://github.com/0xRadikal/Free-v2ray-Configs)** —
+built on the same principles: aggregated from public sources, deduplicated, tested **three
+times** through a real request, and published on `main` about every 15 minutes, with its own
+[live dashboard](https://0xradikal.github.io/Free-v2ray-Configs/). Its shortest path:
+
+```text
+https://raw.githubusercontent.com/0xRadikal/Free-v2ray-Configs/main/top100.txt
+```
+
+<details>
+<summary><b>Telegram proxy or V2Ray config — which one do I need?</b></summary>
+
+| | Free Telegram Proxy (this repo) | Free V2Ray Configs |
+|:--|:--|:--|
+| **Carries** | Telegram traffic only | all traffic of the device or app routed through the client |
+| **Protocols** | MTProto — classic, `dd`, `ee` (FakeTLS) | VLESS, VMess, Trojan, Shadowsocks, Hysteria2, TUIC, … |
+| **You need** | only Telegram | a client such as v2rayNG, Hiddify, NekoBox, v2rayN, Clash Meta or Shadowrocket |
+| **Proof of work** | `req_pq_multi` relayed to a Telegram DC, 3 rounds | a real HTTP request through the proxy, 3 rounds; Clash and sing-box files checked by the real, version-pinned `sing-box` and `mihomo` binaries |
+| **Formats** | `tg.txt` · `tme.txt` · `proxies.json` | `configs.txt` · `configs_base64.txt` · `clash.yaml` · `singbox.json` |
+
+The full verified subscription:
+
+```text
+https://raw.githubusercontent.com/0xRadikal/Free-v2ray-Configs/main/verified/configs_base64.txt
+```
+
+The same caveat applies there: "verified" means it worked from that project's test runner,
+not necessarily from your network.
+
+</details>
 
 <picture><img src="assets/readme/divider.svg" width="100%" alt="" /></picture>
 
@@ -237,20 +284,20 @@ This block is not a screenshot. The bot regenerates it on every run from the sam
 that describes the lists, so it cannot drift from them:
 
 <!-- LIVE:BEGIN -->
-**Last update:** `2026-10-28T19:14:08Z` · tested from `US` (Cloudflare colo `EWR`)
+**Last update:** `2026-10-28T21:16:18Z` · tested from `US` (Cloudflare colo `EWR`)
 
 | Stage | Count |
 |---|---:|
-| links collected from all sources | 3,508 |
-| unique servers (IP:port) probed | 2,007 |
-| **verified in all 3 rounds** (links) | **1,904** |
-| the same, counted as **real servers** | **421** (378 IPs) |
-| largest single IP's share of verified links | 983 (51.6%) |
-| largest network's (`79.182.27.0/24`) share of verified links | 988 (51.9%) |
+| links collected from all sources | 3,294 |
+| unique servers (IP:port) probed | 1,848 |
+| **verified in all 3 rounds** (links) | **1,884** |
+| the same, counted as **real servers** | **418** (373 IPs) |
+| largest single IP's share of verified links | 968 (51.4%) |
+| largest network's (`79.182.27.0/24`) share of verified links | 968 (51.4%) |
 
-`resilient` 378 · `fast` 95 · `stable` 347 · `verified` 1904 · `faketls` 115 · `secure` 93 · `classic` 180 · `all` 3508
+`resilient` 373 · `fast` 98 · `stable` 347 · `verified` 1884 · `faketls` 107 · `secure` 93 · `classic` 186 · `all` 3294
 
-[🇩🇪 DE 120](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 96](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 60](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 32](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 17](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 12](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇵🇱 PL 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇬🇧 GB 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇪 SE 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇦🇹 AT 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/AT.txt)
+[🇩🇪 DE 123](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 99](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 61](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 30](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 11](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇵🇱 PL 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇬🇧 GB 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇪 SE 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇬 SG 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
 <!-- LIVE:END -->
 
 **The two rows that matter are "verified links" and "real servers".** In the run of
@@ -627,40 +674,6 @@ stale or invalid, closing it automatically on recovery.
 
 ---
 
-# 🧩 Sister project — Free V2Ray Configs
-
-<div align="center">
-  <a href="https://github.com/0xRadikal/Free-v2ray-Configs"><img alt="Free-v2ray-Configs stars" src="https://img.shields.io/github/stars/0xRadikal/Free-v2ray-Configs?style=for-the-badge&amp;color=FBBF24&amp;logo=github&amp;label=Free-v2ray-Configs" /></a>
-  <a href="https://raw.githubusercontent.com/0xRadikal/Free-v2ray-Configs/main/index.json"><img alt="V2Ray configs" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2F0xRadikal%2FFree-v2ray-Configs%2Fmain%2Findex.json&amp;query=%24.categories.all.unique&amp;label=configs&amp;color=2563eb&amp;style=for-the-badge" /></a>
-  <a href="https://raw.githubusercontent.com/0xRadikal/Free-v2ray-Configs/main/health.json"><img alt="V2Ray verified" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2F0xRadikal%2FFree-v2ray-Configs%2Fmain%2Fhealth.json&amp;query=%24.cascade.buckets.verified&amp;label=verified&amp;color=16a34a&amp;style=for-the-badge" /></a>
-</div>
-
-An MTProto proxy carries **Telegram only**. For everything else, the same author maintains
-**[Free-v2ray-Configs](https://github.com/0xRadikal/Free-v2ray-Configs)** — built on the same
-principles: aggregated from public sources, deduplicated, tested **three times** through a
-real request, and published on `main` about every 15 minutes, with its own
-[live dashboard](https://0xradikal.github.io/Free-v2ray-Configs/).
-
-| | Free Telegram Proxy (this repo) | Free V2Ray Configs |
-|:--|:--|:--|
-| **Carries** | Telegram traffic only | all traffic of the device or app routed through the client |
-| **Protocols** | MTProto — classic, `dd`, `ee` (FakeTLS) | VLESS, VMess, Trojan, Shadowsocks, Hysteria2, TUIC, … |
-| **You need** | only Telegram | a client such as v2rayNG, Hiddify, NekoBox, v2rayN, Clash Meta or Shadowrocket |
-| **Proof of work** | `req_pq_multi` relayed to a Telegram DC, 3 rounds | a real HTTP request through the proxy, 3 rounds; Clash and sing-box files checked by the real, version-pinned `sing-box` and `mihomo` binaries |
-| **Formats** | `tg.txt` · `tme.txt` · `proxies.json` | `configs.txt` · `configs_base64.txt` · `clash.yaml` · `singbox.json` |
-
-Its shortest path, the same way this README starts:
-
-```text
-https://raw.githubusercontent.com/0xRadikal/Free-v2ray-Configs/main/top100.txt
-https://raw.githubusercontent.com/0xRadikal/Free-v2ray-Configs/main/verified/configs_base64.txt
-```
-
-The same caveat applies there: "verified" means it worked from that project's test runner,
-not necessarily from your network.
-
----
-
 <a id="community-and-credits"></a>
 
 # 🤝 Contributing, security, license
@@ -783,26 +796,33 @@ nothing here has to be taken on faith. Use responsibly and in accordance with yo
 
 <div align="center">
 
-## Two things keep this running
+## Three taps keep this running
 
-There is no sign-up, no ad and no paywall here. The two things that actually keep it alive
+There is no sign-up, no ad and no paywall here. The three things that actually keep it alive
 cost you nothing at all:
 
-<a href="https://github.com/0xRadikal/Free-Telegram-Proxy"><img src="assets/readme/cta-star.svg" width="240" alt="Star on GitHub" /></a>
 <a href="https://t.me/Raydikalx"><img src="assets/readme/cta-channel.svg" width="240" alt="Join @Raydikalx" /></a>
+<a href="https://t.me/configexBot"><img src="assets/readme/cta-bot.svg" width="240" alt="Open @configexBot" /></a>
+<a href="https://github.com/0xRadikal/Free-Telegram-Proxy"><img src="assets/readme/cta-star.svg" width="240" alt="Star on GitHub" /></a>
 
 <table>
 <tr>
-<td width="380" valign="top">
+<td width="260" valign="top">
 
-**⭐ A star** is how people find this on GitHub. One click helps the next person looking for a
-working Telegram proxy see this page instead of an unverified list.
+**📣 [@Raydikalx](https://t.me/Raydikalx)** — the author's channel: project news and the
+community around this and the sister project.
 
 </td>
-<td width="380" valign="top">
+<td width="260" valign="top">
 
-**📣 [@Raydikalx](https://t.me/Raydikalx)** is the author's Telegram channel — project news
-and the community around this and the sister project.
+**🤖 [@configexBot](https://t.me/configexBot)** — the author's free V2Ray config extractor bot,
+right inside Telegram.
+
+</td>
+<td width="260" valign="top">
+
+**⭐ A star** is how people find this on GitHub — one click helps the next person looking for a
+working Telegram proxy.
 
 </td>
 </tr>
