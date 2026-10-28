@@ -35,8 +35,9 @@ CC21_HEADINGS = ["## Our Pledge", "## Our Standards", "## Enforcement Responsibi
 
 
 def test_code_of_conduct_is_the_full_contributor_covenant():
-    # GitHub only recognises the Covenant (community profile key
-    # "contributor_covenant") when the text itself is present; a link is "other".
+    # The full text is kept so the rules are readable in the repository itself.
+    # Note: GitHub's detector still reports "other" for 2.1 - its catalogue
+    # (GET /codes_of_conduct) only has Contributor Covenant 2.0 (checked 2026-10-28).
     s = _read("CODE_OF_CONDUCT.md")
     for h in CC21_HEADINGS:
         assert re.search(rf"^{re.escape(h)}\s*$", s, re.M), h
