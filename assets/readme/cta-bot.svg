@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="264" height="142" viewBox="0 0 264 142" role="img" aria-label="Open @configexBot"><style>@media (prefers-reduced-motion: reduce){.rm0{opacity:0.5!important}.rm1{opacity:0!important}}</style>
+<title>Open @configexBot</title><desc>Open @configexBot — Free-proxy feature planned</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#247EFD" /><stop offset=".58" stop-color="#2076F0" /><stop offset="1" stop-color="#135CCF" /></linearGradient>
+<radialGradient id="cloud"><stop stop-color="#B4D8FF" stop-opacity=".24" /><stop offset="1" stop-color="#B4D8FF" stop-opacity="0" /></radialGradient>
+<linearGradient id="sweep"><stop stop-color="#fff" stop-opacity="0" /><stop offset=".5" stop-color="#fff" stop-opacity=".12" /><stop offset="1" stop-color="#fff" stop-opacity="0" /></linearGradient>
+<linearGradient id="edge"><stop stop-color="#EFF2F9" stop-opacity=".12" /><stop offset=".45" stop-color="#EFF2F9" stop-opacity=".8" /><stop offset="1" stop-color="#EFF2F9" stop-opacity=".12" /></linearGradient>
+<clipPath id="round"><rect width="264" height="142" rx="22" /></clipPath>
+</defs><g clip-path="url(#round)">
+<rect width="264" height="142" fill="url(#bg)" />
+<circle cx="40" cy="14" r="92" fill="url(#cloud)" opacity=".5" class="rm0"><animate attributeName="opacity" values=".34;.58;.34" dur="11s" repeatCount="indefinite" /></circle>
+<circle cx="246" cy="121" r="82" fill="url(#cloud)" opacity=".4" />
+<path d="M32 120H232" stroke="#EFF2F9" stroke-opacity=".12" />
+<rect x="1" y="1" width="262" height="140" rx="21" stroke="#EFF2F9" stroke-opacity=".30" fill="none" />
+<rect x="22" y="19" width="48" height="48" rx="16" fill="#EFF2F9" fill-opacity=".17" stroke="#EFF2F9" stroke-opacity=".35" />
+<g transform="translate(46 43)"><path d="M-12-8h24a5 5 0 0 1 5 5v11a5 5 0 0 1-5 5H0l-8 6v-6h-4a5 5 0 0 1-5-5V-3a5 5 0 0 1 5-5z M-7 3h.5 M7 3h.5 M-5 7q5 5 10 0" stroke="#EFF2F9" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></g><text x="86" y="37" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'DejaVu Sans',sans-serif" font-size="11" font-weight="760" fill="#DBEBFF" letter-spacing="1.45">RAYDIKALX</text><text x="86" y="60" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'DejaVu Sans',sans-serif" font-size="12" font-weight="740" fill="#DBEBFF">EXPLORE</text><text x="23" y="101" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'DejaVu Sans',sans-serif" font-size="19" font-weight="780" fill="#EFF2F9">Open @configexBot</text><text x="23" y="123" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'DejaVu Sans',sans-serif" font-size="12" font-weight="530" fill="#DBEBFF">Free-proxy feature planned</text><path d="M16 2H248" stroke="url(#edge)" stroke-width="2" /><circle cx="23" cy="136" r="2.7" fill="#EFF2F9" opacity=".65" class="rm1"><animate attributeName="cx" values="23;241;23" dur="7s" repeatCount="indefinite" /><animate attributeName="opacity" values="0;.8;0" dur="7s" repeatCount="indefinite" /></circle></g></svg>
