@@ -1,7 +1,5 @@
 <div align="center">
-  <a href="https://0xradikal.github.io/Free-Telegram-Proxy/">
-    <img src="assets/readme/hero.svg" width="100%" alt="Raydikalx Free Telegram Proxy — brand hero" />
-  </a>
+  <a href="https://0xradikal.github.io/Free-Telegram-Proxy/"><picture><source media="(max-width: 600px)" srcset="assets/readme/hero-mobile.svg" /><img src="assets/readme/hero.svg" width="100%" alt="Raydikalx Free Telegram Proxy — verified MTProto proxy list, open the live dashboard" /></picture></a>
 
   <h1>Free Telegram Proxy</h1>
 
@@ -16,13 +14,11 @@
   </p>
 
   <p>
-    <a href="https://0xradikal.github.io/Free-Telegram-Proxy/"><strong>🌐 Explore live dashboard</strong></a>
-    &nbsp;·&nbsp;
-    <a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt"><strong>⚡ Get Top 100</strong></a>
-    &nbsp;·&nbsp;
-    <a href="https://t.me/configexBot"><strong>🤖 Open Telegram bot</strong></a>
-    &nbsp;·&nbsp;
-    <a href="https://t.me/Raydikalx"><strong>📣 Join channel</strong></a>
+    <a href="https://0xradikal.github.io/Free-Telegram-Proxy/"><img src="assets/readme/cta-dashboard.svg" width="216" alt="Live dashboard" /></a>
+    <a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt"><img src="assets/readme/cta-top100.svg" width="216" alt="Get Top 100" /></a>
+    <a href="https://t.me/configexBot"><img src="assets/readme/cta-bot.svg" width="216" alt="Open @configexBot" /></a>
+    <a href="https://t.me/Raydikalx"><img src="assets/readme/cta-channel.svg" width="216" alt="Join @Raydikalx" /></a>
+    <a href="https://github.com/0xRadikal/Free-Telegram-Proxy"><img src="assets/readme/cta-star.svg" width="216" alt="Star on GitHub" /></a>
   </p>
 
   <p>
@@ -33,7 +29,7 @@
   </p>
 </div>
 
----
+<picture><img src="assets/readme/divider.svg" width="100%" alt="" /></picture>
 
 <a id="start-here--one-line"></a>
 
@@ -54,9 +50,15 @@
 > [!IMPORTANT]
 > **Verified does not mean universally reachable.** Testing takes place from the project's runner, not from your ISP. Networks may block different proxies, and reliability changes over time.
 
-### Prefer Telegram instead of switching between apps?
+### Open it on your phone
 
-<p align="center"><img src="assets/readme/telegram.svg" width="100%" alt="Raydikalx Telegram entry, bot and community" /></p>
+<div align="center">
+<a href="https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt"><img src="assets/readme/qr-top100.svg" width="208" alt="QR code: Top 100 proxy list" /></a>
+<a href="https://t.me/configexBot"><img src="assets/readme/qr-bot.svg" width="208" alt="QR code: open @configexBot" /></a>
+<a href="https://t.me/Raydikalx"><img src="assets/readme/qr-channel.svg" width="208" alt="QR code: join @Raydikalx" /></a>
+</div>
+
+### Prefer Telegram instead of switching between apps?
 
 Open **[@configexBot](https://t.me/configexBot)** to access the project's Telegram bot. A repository-backed **free-proxy feature is planned**; until its availability is independently confirmed, use the dashboard or the lists above to obtain proxies. No signup is needed to browse the public repository data.
 
@@ -131,7 +133,7 @@ The publisher attempts to purge jsDelivr caches after updates, but CDN caches ma
 
 ## How verification works
 
-<p align="center"><img src="assets/readme/verification.svg" width="100%" alt="Five-stage MTProto verification pipeline" /></p>
+<picture><source media="(max-width: 600px)" srcset="assets/readme/pipeline-mobile.svg" /><img src="assets/readme/pipeline.svg" width="100%" alt="Five-stage MTProto verification pipeline: collect, normalize, verify, rank, publish" /></picture>
 
 ```mermaid
 flowchart LR

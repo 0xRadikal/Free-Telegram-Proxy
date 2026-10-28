@@ -109,3 +109,92 @@ def test_template_relative_links_resolve():
         for r in refs:
             top = r.split("/")[0]
             assert (root / r).exists() or top in outputs or r in outputs, (tpl.name, r)
+
+
+# ------------------------------------------------------------------ README images (assets/readme)
+_SVG_DIR = "assets/readme"
+
+
+def _templates():
+    from pathlib import Path
+    root = Path(__file__).resolve().parent.parent
+    return root, {p.name: p.read_text(encoding="utf-8") for p in (root / "templates").glob("README*.md")}
+
+
+def test_template_srcset_targets_exist():
+    """<source srcset> (mobile variants) is not covered by the src/href check."""
+    import re
+    root, tpls = _templates()
+    for name, s in tpls.items():
+        for ref in re.findall(r'srcset="([^"]+)"', s):
+            assert not ref.startswith(("http://", "https://")), (name, ref)   # keep relative: works on forks/branches
+            assert (root / ref).is_file(), (name, ref)
+
+
+def test_no_orphan_readme_assets():
+    import re
+    root, tpls = _templates()
+    used = set()
+    for s in tpls.values():
+        used |= set(re.findall(r'(?:src|srcset)="(assets/readme/[^"]+)"', s))
+    files = {p.relative_to(root).as_posix() for p in (root / _SVG_DIR).glob("*")}
+    assert files == used, {"unused files": sorted(files - used), "missing files": sorted(used - files)}
+
+
+def test_readme_svgs_are_safe_and_described():
+    """GitHub serves these with a sandbox CSP; keep them self-contained anyway."""
+    import re
+    import xml.etree.ElementTree as ET
+    root, _ = _templates()
+    for p in sorted((root / _SVG_DIR).glob("*.svg")):
+        s = p.read_text(encoding="utf-8")
+        svg = ET.fromstring(s)
+        assert svg.tag == "{http://www.w3.org/2000/svg}svg" and svg.get("viewBox"), p.name
+        assert svg.find("{http://www.w3.org/2000/svg}title") is not None, p.name
+        assert not re.search(r"<script|<foreignObject|\son[a-z]+\s*=|javascript:|@import", s, re.I), p.name
+        refs = re.findall(r'(?:href|src)\s*=\s*"([^"]+)"|url\(\s*["\']?([^)"\']+)', s)
+        for ref in (a or b for a, b in refs):
+            assert ref.startswith(("#", "data:image/png;base64,")), (p.name, ref[:60])
+
+
+def test_every_readme_animation_stops_under_reduced_motion():
+    """SMIL (<animate>) ignores CSS media queries, so each animated element needs a class
+    whose rule inside @media (prefers-reduced-motion: reduce) pins the animated property with
+    !important (an author !important declaration overrides SMIL - verified in Chromium with
+    --force-prefers-reduced-motion). CSS keyframe animations need animation:none there."""
+    import re
+    import xml.etree.ElementTree as ET
+    root, _ = _templates()
+    NS = "{http://www.w3.org/2000/svg}"
+    for p in sorted((root / _SVG_DIR).glob("*.svg")):
+        s = p.read_text(encoding="utf-8")
+        media = "".join(re.findall(r"@media\s*\(\s*prefers-reduced-motion\s*:\s*reduce\s*\)\s*\{((?:[^{}]*\{[^{}]*\})*)\s*\}", s))
+        rules = dict(re.findall(r"\.([\w-]+)\s*\{([^}]*)\}", media))
+        if "@keyframes" in s:
+            assert "animation:none" in media.replace(" ", ""), p.name
+        for el in ET.fromstring(s).iter():
+            anims = [c for c in el if c.tag in (NS + "animate", NS + "animateTransform", NS + "animateMotion", NS + "set")]
+            if not anims:
+                continue
+            decl = " ".join(rules.get(c, "") for c in (el.get("class") or "").split()).replace(" ", "")
+            for a in anims:
+                if a.tag == NS + "animateMotion":
+                    raise AssertionError(f"{p.name}: animateMotion cannot be pinned by CSS")
+                attr = a.get("attributeName")
+                prop = {"cx": "opacity", "cy": "opacity"}.get(attr, attr)   # travelling dots are hidden instead
+                assert f"{prop}:" in decl and "!important" in decl, (p.name, el.tag, attr, decl)
+
+
+def test_qr_codes_point_where_their_link_points():
+    """Each QR image's payload (stated in its <desc>, decoded with OpenCV when the files were added)
+    must equal the href of the link that wraps it in the README."""
+    import re
+    root, tpls = _templates()
+    seen = 0
+    for name, s in tpls.items():
+        for href, src in re.findall(r'<a href="([^"]+)"><img src="(assets/readme/qr-[^"]+)"', s):
+            desc = re.search(r"<desc>Scannable QR: ([^<]+)</desc>", (root / src).read_text(encoding="utf-8"))
+            assert desc and desc.group(1) == href, (name, src, href)
+            seen += 1
+    qrs = list((root / _SVG_DIR).glob("qr-*.svg"))
+    assert seen >= len(qrs)
