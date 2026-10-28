@@ -465,3 +465,35 @@ def test_guide_pages_load_fonts_without_an_import_chain(rel):
     font = "estedad-arabic" if PAGES[rel] == "fa" else "manrope-latin"
     pre = [a for t, a in p.tags if t == "link" and a.get("rel") == "preload" and a.get("as") == "font"]
     assert any(font in a["href"] and "crossorigin" in a and _local_target(a["href"], rel).is_file() for a in pre)
+
+
+@pytest.mark.parametrize("rel", HOMES)
+def test_language_switch_name_contains_its_visible_text(rel):
+    # axe label-content-name-mismatch / WCAG 2.5.3 failed on /fa/ (Lighthouse
+    # 12.8.2, 2026-10-28): aria-label "تغییر زبان به انگلیسی" hid the visible
+    # word "English". The visible word is in the other language (WCAG 3.1.2).
+    src = _src(rel)
+    m = re.search(r'<a([^>]*)id="lang"([^>]*)>(.*?)</a>', src, re.S)
+    attrs, inner = m.group(1) + m.group(2), m.group(3)
+    visible = html.unescape(re.sub(r"<span aria-hidden=\"true\"[^>]*>.*?</span>|<[^>]+>", "", inner)).strip()
+    label = re.search(r'aria-label="([^"]*)"', attrs)
+    assert label is None or visible in html.unescape(label.group(1)), (visible, label and label.group(1))
+    other = "en" if HOMES[rel] == "fa" else "fa"
+    assert re.search(rf'<span[^>]*id="langLabel"[^>]*lang="{other}"|<span[^>]*lang="{other}"[^>]*id="langLabel"', inner)
+
+
+def test_search_field_has_the_same_focus_ring_as_other_controls():
+    # The input sets outline:none; only a faint border change remained.
+    css = (DOCS / "styles.css").read_text(encoding="utf-8")
+    assert re.search(r"\.search-field:focus-within\{[^}]*outline:3px solid #143D99", css)
+
+
+def test_reduced_motion_stops_every_animation_and_transition():
+    # ACCESSIBILITY.md: measured 0 running animations with prefers-reduced-motion
+    # (Chrome 151, 2026-10-28); this keeps the global rule that makes it true.
+    css = (DOCS / "styles.css").read_text(encoding="utf-8")
+    blocks = re.findall(r"@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{(.*?)\}\s*\}", css, re.S)
+    assert any(re.search(r"\*,\*::before,\*::after\{[^}]*animation:none!important[^}]*transition:none!important", b)
+               for b in blocks)
+    js = (DOCS / "motion.js").read_text(encoding="utf-8")
+    assert "prefers-reduced-motion: reduce" in js and "aria-pressed" in (DOCS / "index.html").read_text(encoding="utf-8")

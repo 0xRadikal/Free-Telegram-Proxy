@@ -1,0 +1,41 @@
+name: Accessibility barrier
+description: Something on the site or in the lists is hard or impossible to use
+labels: ["accessibility"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. You do not need to tell us anything about a disability — describe what happened.
+        English or Persian is fine. See [ACCESSIBILITY.md](https://github.com/0xRadikal/Free-Telegram-Proxy/blob/main/ACCESSIBILITY.md).
+  - type: textarea
+    id: task
+    attributes:
+      label: What were you trying to do?
+      placeholder: "e.g. copy a proxy link from the Fast tier"
+    validations: {required: true}
+  - type: input
+    id: page
+    attributes:
+      label: Page or file
+      placeholder: "https://0xradikal.github.io/Free-Telegram-Proxy/fa/"
+    validations: {required: true}
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened, and what did you expect?
+    validations: {required: true}
+  - type: input
+    id: setup
+    attributes:
+      label: Browser, device and operating system (optional)
+      placeholder: "e.g. Chrome 151 on Android 14"
+  - type: input
+    id: at
+    attributes:
+      label: Assistive technology or settings, if any (optional)
+      description: Screen reader, zoom level, keyboard only, high contrast, reduced motion… Leave empty if you prefer.
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else (optional)
+      description: Screenshots or recordings are welcome but never required. Do not post your IP address.
