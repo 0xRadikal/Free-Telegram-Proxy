@@ -1,3 +1,9 @@
+<div align="center">
+<a href="https://t.me/Raydikalx"><img src="assets/readme/cta-channel.svg" width="240" alt="Join @Raydikalx" /></a>
+<a href="https://t.me/configexBot"><img src="assets/readme/cta-bot.svg" width="240" alt="Open @configexBot" /></a>
+<a href="https://github.com/0xRadikal/Free-Telegram-Proxy"><img src="assets/readme/cta-star.svg" width="240" alt="Star on GitHub" /></a>
+</div>
+
 <div dir="rtl">
 
 # پروکسی رایگان تلگرام — لیست پروکسی MTProto تأییدشده
@@ -33,6 +39,26 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/top100.txt
 روی گوشی کافی است روی یکی از خط‌ها بزنی؛ تلگرام باز می‌شود و می‌پرسد «اتصال به پروکسی؟».
 
 سقف ۵ از هر شبکه فقط وقتی بالا می‌رود که لیست بدون آن پر نشود — شبکه‌ها کم باشند، یا یک پروکسی اثبات‌شده جایش را به یک تازه‌وارد بی‌سابقه بدهد. سقفی که واقعاً استفاده شده در `index.json` با کلید `top100_info.network_cap` منتشر می‌شود. اگر قبلاً `top50.txt` را اضافه کرده‌ای، هنوز کار می‌کند: همان ۵۰ خط اول `top100.txt` است.
+
+## 🧩 پروژهٔ خواهر — کانفیگ رایگان V2Ray
+
+</div>
+
+<a href="https://github.com/0xRadikal/Free-v2ray-Configs"><picture><source media="(max-width: 600px)" srcset="assets/readme/promo-v2ray-mobile.svg" /><img src="assets/readme/promo-v2ray.svg" width="100%" alt="Free V2Ray Configs, the sister project: free VLESS, VMess, Trojan, Shadowsocks and Reality configs, tested three times — open it on GitHub" /></picture></a>
+
+<div dir="rtl">
+
+پروکسی MTProto **فقط تلگرام** را رد می‌کند. برای بقیهٔ برنامه‌های گوشی و کامپیوتر، پروژهٔ خواهر **[Free-v2ray-Configs](https://github.com/0xRadikal/Free-v2ray-Configs)** کانفیگ‌های رایگان V2Ray (VLESS، VMess، Trojan، Shadowsocks و …) را از منابع عمومی جمع می‌کند، تکراری‌ها را حذف می‌کند، هر کانفیگ را **سه بار** با یک درخواست واقعی تست می‌کند و تقریباً هر ۱۵ دقیقه به‌روز می‌شود — با داشبورد زندهٔ خودش: [0xradikal.github.io/Free-v2ray-Configs](https://0xradikal.github.io/Free-v2ray-Configs/). کوتاه‌ترین مسیرش (برای v2rayNG، Hiddify، NekoBox و …):
+
+</div>
+
+```
+https://raw.githubusercontent.com/0xRadikal/Free-v2ray-Configs/main/top100.txt
+```
+
+<div dir="rtl">
+
+ربات **[@configexBot](https://t.me/configexBot)** هم ربات استخراج کانفیگ رایگان V2Ray است، داخل خود تلگرام؛ و خبرها و آپدیت‌های هر دو پروژه در کانال **[@Raydikalx](https://t.me/Raydikalx)** است.
 
 ## آموزش اتصال به پروکسی تلگرام
 
