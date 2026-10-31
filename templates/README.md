@@ -820,6 +820,46 @@ working Telegram proxy.
 
 <div align="center">
 
+## 💜 Optional — leave a tip
+
+Nothing on this page is behind a payment and nothing ever will be: every list above works exactly
+the same whether or not you read this section. But if a proxy from here got your Telegram back
+online, you can send a tip. Any amount is appreciated — a small one is completely fine.
+
+<img src="assets/readme/donate-trc20.svg" width="200" alt="Donate on the TRON TRC20 network" />
+<img src="assets/readme/donate-evm.svg" width="200" alt="Donate on any EVM network" />
+<img src="assets/readme/donate-ton.svg" width="200" alt="Donate on The Open Network" />
+
+</div>
+
+**TRC20 — Tron network**
+
+```text
+TYBumju6Mjd8JCn4RTq95Kk2HPsdcinuz5
+```
+
+**EVM chains — Ethereum, BSC, Polygon, Arbitrum, Base, …**
+
+```text
+0x4A0579eb11de7f80F719C9a4Df6CD39510400E02
+```
+
+**TON — The Open Network**
+
+```text
+UQBbZrE5aDsdGVi6enpf_vPuG022W4KjkJNzTDkjVEn4gmu6
+```
+
+> [!IMPORTANT]
+> Send only on the network named above each address. Each QR encodes exactly the address printed
+> under it and nothing else — no amount, no memo, no token contract — so the code and the text are
+> two ways of reading the same thing. These are the same addresses the sister project
+> [Free-v2ray-Configs](https://github.com/0xRadikal/Free-v2ray-Configs#-optional--leave-a-tip) lists.
+
+<picture><img src="assets/readme/divider.svg" width="100%" alt="" /></picture>
+
+<div align="center">
+
 **Channel:** [@Raydikalx](https://t.me/Raydikalx) · **Bot:** [@configexBot](https://t.me/configexBot) · **Dashboard:** [live proxies](https://0xradikal.github.io/Free-Telegram-Proxy/)
 
 <sub>Every number written in the prose of this README is a dated snapshot. The live numbers are always in

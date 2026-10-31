@@ -880,6 +880,46 @@ V2Ray прямо в Telegram.
 
 <div align="center">
 
+## 💜 По желанию — оставить чаевые
+
+Ничего на этой странице не спрятано за оплатой и никогда не будет: каждый список выше работает
+совершенно одинаково, прочитали вы этот раздел или нет. Но если прокси отсюда вернул вам Telegram,
+вы можете отправить чаевые. Любая сумма ценится — маленькая совершенно нормальна.
+
+<img src="assets/readme/donate-trc20.svg" width="200" alt="Чаевые в сети TRON (TRC20)" />
+<img src="assets/readme/donate-evm.svg" width="200" alt="Чаевые в любой сети EVM" />
+<img src="assets/readme/donate-ton.svg" width="200" alt="Чаевые в сети TON" />
+
+</div>
+
+**TRC20 — сеть Tron**
+
+```text
+TYBumju6Mjd8JCn4RTq95Kk2HPsdcinuz5
+```
+
+**Сети EVM — Ethereum, BSC, Polygon, Arbitrum, Base, …**
+
+```text
+0x4A0579eb11de7f80F719C9a4Df6CD39510400E02
+```
+
+**TON — The Open Network**
+
+```text
+UQBbZrE5aDsdGVi6enpf_vPuG022W4KjkJNzTDkjVEn4gmu6
+```
+
+> [!IMPORTANT]
+> Отправляйте только в той сети, которая названа над адресом. Каждый QR кодирует ровно тот адрес,
+> что напечатан под ним, и ничего больше — ни суммы, ни memo, ни контракта токена — так что код и
+> текст это два способа прочитать одно и то же. Это те же адреса, что указаны в соседнем проекте
+> [Free-v2ray-Configs](https://github.com/0xRadikal/Free-v2ray-Configs/blob/main/README_RU.md).
+
+<picture><img src="assets/readme/divider.svg" width="100%" alt="" /></picture>
+
+<div align="center">
+
 **Канал:** [@Raydikalx](https://t.me/Raydikalx) · **Бот:** [@configexBot](https://t.me/configexBot) · **Панель:** [живые прокси](https://0xradikal.github.io/Free-Telegram-Proxy/)
 
 <sub>Каждое число в тексте этого README — датированный снимок. Живые числа всегда в

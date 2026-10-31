@@ -317,3 +317,20 @@ def test_qr_codes_point_where_their_link_points():
             seen += 1
     qrs = list((root / _SVG_DIR).glob("qr-*.svg"))
     assert seen >= len(qrs)
+
+
+def test_donation_qr_cards_encode_exactly_the_printed_addresses():
+    """Each donate-*.svg states its payload in <desc> (decoded with OpenCV from the SVG grid and from
+    Chromium renders when the cards were added). Every template must show that exact address in a
+    copyable code block and embed the card — so the QR and the text are two readings of one string."""
+    import re
+    root, tpls = _templates()
+    cards = sorted((root / _SVG_DIR).glob("donate-*.svg"))
+    assert len(cards) == 3, [c.name for c in cards]
+    for card in cards:
+        m = re.search(r"<desc>Donation address \(([^)]+)\): ([A-Za-z0-9_-]+)</desc>", card.read_text(encoding="utf-8"))
+        assert m, card.name
+        addr = m.group(2)
+        for name, s in tpls.items():
+            assert f"```text\n{addr}\n```" in s, (name, card.name)
+            assert f'src="assets/readme/{card.name}"' in s, (name, card.name)
