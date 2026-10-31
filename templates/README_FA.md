@@ -806,6 +806,53 @@ python -m tgproxy --out ./output          # --rounds 3 --gap 20 by default
 
 <picture><img src="assets/readme/divider.svg" width="100%" alt="" /></picture>
 
+<div align="center">
+
+<h2 dir="rtl">💜 اختیاری — یک انعام بگذار</h2>
+
+<p dir="rtl">هیچ‌چیز در این صفحه پشت پرداخت نیست و هرگز نخواهد بود: هر فهرستِ بالا دقیقاً یکسان کار می‌کند، چه این بخش را بخوانی چه نخوانی. اما اگر یکی از پروکسی‌های این‌جا تلگرامت را دوباره وصل کرد، می‌توانی انعامی بفرستی. هر مبلغی قدردانی می‌شود — مبلغِ کوچک کاملاً خوب است.</p>
+
+<img src="assets/readme/donate-trc20.svg" width="200" alt="انعام در شبکهٔ TRON (TRC20)" />
+<img src="assets/readme/donate-evm.svg" width="200" alt="انعام در هر شبکهٔ EVM" />
+<img src="assets/readme/donate-ton.svg" width="200" alt="انعام در شبکهٔ TON" />
+
+</div>
+
+<div dir="rtl">
+
+**TRC20 — شبکهٔ Tron**
+
+</div>
+
+```text
+TYBumju6Mjd8JCn4RTq95Kk2HPsdcinuz5
+```
+
+<div dir="rtl">
+
+**زنجیره‌های EVM — Ethereum، BSC، Polygon، Arbitrum، Base، …**
+
+</div>
+
+```text
+0x4A0579eb11de7f80F719C9a4Df6CD39510400E02
+```
+
+<div dir="rtl">
+
+**TON — The Open Network**
+
+</div>
+
+```text
+UQBbZrE5aDsdGVi6enpf_vPuG022W4KjkJNzTDkjVEn4gmu6
+```
+
+> [!IMPORTANT]
+> فقط روی شبکه‌ای بفرست که بالای هر نشانی نام برده شده است. هر QR دقیقاً همان نشانیِ چاپ‌شده زیرش را رمزگذاری می‌کند و هیچ‌چیزِ دیگری — نه مبلغ، نه memo، نه قراردادِ توکن — پس کد و متن دو راهِ خواندنِ یک چیزند. این‌ها همان نشانی‌هایی هستند که پروژهٔ خواهر [Free-v2ray-Configs](https://github.com/0xRadikal/Free-v2ray-Configs/blob/main/README_FA.md) هم آورده است.
+
+<picture><img src="assets/readme/divider.svg" width="100%" alt="" /></picture>
+
 <div align="center" dir="rtl">
 
 **کانال:** [‎@Raydikalx](https://t.me/Raydikalx) · **ربات:** [‎@configexBot](https://t.me/configexBot) · **داشبورد:** [پروکسی‌های زنده](https://0xradikal.github.io/Free-Telegram-Proxy/fa/)
