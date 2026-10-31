@@ -1,1 +1,0 @@
-tg://proxy?server=a02.mtjlpoto.fit&port=443&secret=eefc12ba3e57a0bbf431fe455a0c6534946130322e6d746a6c706f746f2e666974
