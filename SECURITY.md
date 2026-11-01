@@ -43,7 +43,7 @@ Nothing listens for incoming connections. The hosts contacted:
 | `download.db-ip.com` | monthly DB-IP Lite country/ASN database (CC BY 4.0) |
 | `www.cloudflare.com` | `/cdn-cgi/trace`, to record the runner's country and data centre (never its IP) |
 | `purge.jsdelivr.net` | clears the jsDelivr cache of the published files after each update |
-| `api.github.com` | only the optional server trigger in `tools/server` (`repository_dispatch`) |
+| `api.github.com` | only the optional server trigger in `tools/server` (`repository_dispatch`); the site (below) reads one commit id from it |
 | listed proxies → Telegram DCs | MTProto probes |
 
 `cdn.jsdelivr.net` is written into `index.json` as a mirror and used by the site as a fallback. The pipeline itself does not contact it.
@@ -70,4 +70,4 @@ The optional server trigger (`tools/server`) reads its token from a root-only fi
 
 ## Site
 
-The site is static. It reads the published JSON from `raw.githubusercontent.com`, falling back to jsDelivr, and renders every value as text (no `innerHTML`). It sets no cookies, uses no local storage, and loads no analytics or third-party scripts or fonts.
+The site is static. It reads the published JSON from `raw.githubusercontent.com`. Only if that fails, it asks `api.github.com` for the current commit id of `main` (anonymous, one request per refresh, nothing sent) and reads the same files from jsDelivr pinned to that exact commit; jsDelivr `@main` is the last resort, because its branch cache can serve an older commit for hours. It renders every value as text (no `innerHTML`). It sets no cookies, uses no local storage, and loads no analytics or third-party scripts or fonts.

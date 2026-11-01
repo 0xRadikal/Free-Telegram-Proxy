@@ -461,7 +461,7 @@ def test_guide_pages_load_fonts_without_an_import_chain(rel):
     assert "@import" not in (DOCS / "reference.css").read_text(encoding="utf-8")
     p = _page(rel)
     sheets = [a["href"] for t, a in p.tags if t == "link" and a.get("rel") == "stylesheet"]
-    assert any(h.endswith("fonts.css") for h in sheets)
+    assert any(urllib.parse.urlsplit(h).path.endswith("fonts.css") for h in sheets)   # ?v=<hash> since ASK#74
     font = "estedad-arabic" if PAGES[rel] == "fa" else "manrope-latin"
     pre = [a for t, a in p.tags if t == "link" and a.get("rel") == "preload" and a.get("as") == "font"]
     assert any(font in a["href"] and "crossorigin" in a and _local_target(a["href"], rel).is_file() for a in pre)
@@ -517,3 +517,37 @@ def test_every_proxy_has_its_own_copy_button_next_to_connect():
     assert re.search(r"\.cell-copy\{[^}]*min-height:39px", css)
     assert re.search(r"\.proxy-card \.row-actions\{[^}]*grid-template-columns", css)
     assert ".cell-copy:disabled{" in css
+
+
+def test_local_css_and_js_are_stamped_with_their_content_hash():
+    # GitHub Pages: Cache-Control max-age=600, unversioned names. Measured (Chrome 151):
+    # after a deploy a reload got the new HTML but ran the cached old app.js. Every local
+    # stylesheet/script URL must carry ?v=<sha256[:10] of the file>; run tools/stamp_assets.py.
+    from tools.stamp_assets import DOCS as TOOL_DOCS, REF, digest
+    assert TOOL_DOCS.resolve() == DOCS.resolve()
+    seen = 0
+    for page in sorted(DOCS.rglob("*.html")):
+        src = page.read_text(encoding="utf-8")
+        for m in re.finditer(r'\b(?:href|src)="((?![a-z][a-z0-9+.-]*:|//)[^"#]+?\.(?:css|js))(\?[^"]*)?"', src):
+            url, query = m.group(1), m.group(2) or ""
+            target = (page.parent / url).resolve()
+            assert target.is_file(), (page, url)
+            assert query == "?v=" + digest(target), (str(page.relative_to(DOCS)), url, query, "run tools/stamp_assets.py")
+            seen += 1
+        assert all(REF.fullmatch(x.group(0)) for x in REF.finditer(src))
+    assert seen >= 20
+
+
+def test_mirror_is_pinned_to_the_current_commit_when_raw_fails():
+    # Measured 2026-11-01: after a non-throttled purge jsDelivr @main still served a commit
+    # that was no longer on main (3 h old data), so users behind a raw block saw every proxy
+    # disabled. Order must stay: last good base, raw, jsDelivr@<sha of main>, jsDelivr@main.
+    js = (DOCS / "app.js").read_text(encoding="utf-8")
+    body = js[js.index("function pinnedBase"):js.index("function isRecent")]
+    assert "https://api.github.com/repos/${REPO}/commits/main" in js
+    assert "application/vnd.github.sha" in body and "/^[0-9a-f]{40}$/" in body
+    assert "https://cdn.jsdelivr.net/gh/${REPO}@${sha}" in body
+    assert "[()=>STATE.okBase,()=>DATA_BASES[0],pinnedBase,()=>DATA_BASES[1]]" in body
+    assert "credentials" not in body and "Authorization" not in body
+    refresh = js[js.index("async function refresh"):]
+    assert refresh.index("STATE.pin=null") < refresh.index("getJSON('index.json')")

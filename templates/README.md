@@ -610,7 +610,9 @@ Three details worth knowing:
 A static page that fetches `index.json` and the selected tier's `proxies.json` in your browser
 and renders tap-to-connect proxies with country filters and the latest funnel. It loads no
 trackers, ads or third-party fonts — the only requests besides the page itself go to the data
-hosts — and it falls back to the jsDelivr mirror automatically if raw is unreachable. The
+hosts. If raw is unreachable it reads the same files from the jsDelivr mirror, pinned to the
+current commit (one anonymous request to `api.github.com` for the commit id), so the mirror
+is never hours behind. The
 [methodology](https://0xradikal.github.io/Free-Telegram-Proxy/methodology/) and
 [data guide](https://0xradikal.github.io/Free-Telegram-Proxy/data/) explain every rule in
 detail.

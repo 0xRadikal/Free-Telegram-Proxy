@@ -612,7 +612,7 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/health.json
 
 **<https://0xradikal.github.io/Free-Telegram-Proxy/fa/>** · [English](https://0xradikal.github.io/Free-Telegram-Proxy/)
 
-یک صفحهٔ ایستا که `index.json` و `proxies.json` دستهٔ انتخاب‌شده را در مرورگر خودت می‌گیرد و پروکسی‌های یک‌لمسی را با فیلتر کشور و آخرین قیف تست نشان می‌دهد. هیچ ردیاب، تبلیغ یا فونت شخص ثالثی بارگذاری نمی‌کند — به‌جز خود صفحه، درخواست‌ها فقط به سرورهای داده می‌روند — و اگر raw در دسترس نباشد خودکار سراغ آینهٔ jsDelivr می‌رود. [روش بررسی](https://0xradikal.github.io/Free-Telegram-Proxy/fa/methodology/) و [راهنمای داده‌ها](https://0xradikal.github.io/Free-Telegram-Proxy/fa/data/) همهٔ قاعده‌ها را با جزئیات توضیح می‌دهند.
+یک صفحهٔ ایستا که `index.json` و `proxies.json` دستهٔ انتخاب‌شده را در مرورگر خودت می‌گیرد و پروکسی‌های یک‌لمسی را با فیلتر کشور و آخرین قیف تست نشان می‌دهد. هیچ ردیاب، تبلیغ یا فونت شخص ثالثی بارگذاری نمی‌کند — به‌جز خود صفحه، درخواست‌ها فقط به سرورهای داده می‌روند — و اگر raw در دسترس نباشد، همان فایل‌ها را از آینهٔ jsDelivr می‌خواند، قفل‌شده روی آخرین کامیت (با یک درخواست ناشناس به `api.github.com` برای شناسهٔ کامیت)، تا آینه هیچ‌وقت چند ساعت عقب نباشد. [روش بررسی](https://0xradikal.github.io/Free-Telegram-Proxy/fa/methodology/) و [راهنمای داده‌ها](https://0xradikal.github.io/Free-Telegram-Proxy/fa/data/) همهٔ قاعده‌ها را با جزئیات توضیح می‌دهند.
 
 </div>
 
