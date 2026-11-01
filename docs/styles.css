@@ -347,3 +347,23 @@ html[lang="fa"] .section-heading h2,html[lang="fa"] .method-heading h2 {letter-s
 /* Manrope has a narrow space glyph; with negative tracking words ran together ("Ourmethod"). */
 html[lang="en"] body{word-spacing:.06em}
 .footer-note{margin-top:2px}
+
+/* ASK#74: per-proxy copy button next to Connect (desktop table: icon button; cards: two equal buttons). */
+.data-table th:nth-child(1){width:27%}.data-table th:nth-child(6){width:18%}
+.row-actions{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;min-width:0}
+.cell-copy{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:39px;min-width:39px;padding:0 11px;border-radius:8px;border:1px solid #cfe0fb;background:#fff;color:#135ccf;font:inherit;font-size:11px;font-weight:790;white-space:nowrap;cursor:pointer;flex:none;transition:transform .25s var(--arc),background .25s,border-color .25s,color .25s}
+.cell-copy:hover:not(:disabled){background:#f1f7ff;border-color:#8fb8f5;transform:translateY(-2px)}
+.cell-copy:active:not(:disabled){transform:translateY(0)}
+.cell-copy-icon{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cell-copy.is-copied{background:#e9f8f0;border-color:#9fdcbb;color:#0d6e3c}
+.cell-copy.is-copied .cell-copy-icon{stroke-width:2.6;animation:copyPop .35s var(--arc) both}
+.cell-copy:disabled{color:#8897ac;background:#f4f6fa;border-color:#e6ebf2;cursor:not-allowed}
+@keyframes copyPop{0%{transform:scale(.4);opacity:0}100%{transform:scale(1);opacity:1}}
+.data-table .cell-copy{padding:0;width:39px}
+.data-table .cell-copy-text{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.proxy-card .row-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-top:16px}
+.proxy-card .row-actions .cell-connect{margin-top:0;width:auto;min-width:0;justify-content:center}
+.proxy-card .cell-copy{min-height:42px;width:100%;min-width:0;font-size:12px}
+@media(max-width:1040px){.data-table th:nth-child(1){width:25%}.data-table th:nth-child(6){width:20%}.data-table td.action-cell{padding-left:10px;padding-right:10px}.data-table .cell-connect{padding-left:10px;padding-right:10px}.row-actions{gap:5px}.data-table .cell-copy{width:38px;min-width:38px}}
+@media(max-width:340px){.proxy-card .row-actions{gap:6px}.proxy-card .cell-copy,.proxy-card .row-actions .cell-connect{padding-left:8px;padding-right:8px}}
+@media(min-width:1200px){.data-table .cell-copy{width:auto;padding:0 12px}.data-table .cell-copy-text{position:static;width:auto;height:auto;margin:0;overflow:visible;clip:auto}}
