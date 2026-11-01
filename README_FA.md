@@ -320,20 +320,20 @@ workflow بعد از هر انتشار، کش پرکاربردترین فایل�
 این بخش عکس نیست. ربات در هر اجرا آن را از همان `index.json` که لیست‌ها را توصیف می‌کند می‌سازد، پس نمی‌تواند با آن‌ها ناهماهنگ شود:
 
 <!-- LIVE:BEGIN -->
-**آخرین به‌روزرسانی:** `2026-11-01T09:39:44Z` · محل تست: `US` (`IAD`)
+**آخرین به‌روزرسانی:** `2026-11-01T09:54:48Z` · محل تست: `US` (`LAX`)
 
 | مرحله | تعداد |
 |---|---:|
-| لینک جمع‌آوری‌شده از همهٔ منابع | 3,329 |
-| سرور یکتا (IP:پورت) که تست شد | 1,808 |
-| **تأییدشده در همهٔ 3 دور** (لینک) | **1,941** |
-| همان‌ها، بر حسب **سرور واقعی** | **427** (377 IP) |
-| سهم پرتکرارترین IP از لینک‌های تأییدشده | 890 (45.9%) |
-| سهم بزرگ‌ترین شبکه (`191.44.90.0/24`) از لینک‌های تأییدشده | 890 (45.9%) |
+| لینک جمع‌آوری‌شده از همهٔ منابع | 3,408 |
+| سرور یکتا (IP:پورت) که تست شد | 1,868 |
+| **تأییدشده در همهٔ 3 دور** (لینک) | **1,955** |
+| همان‌ها، بر حسب **سرور واقعی** | **428** (380 IP) |
+| سهم پرتکرارترین IP از لینک‌های تأییدشده | 893 (45.7%) |
+| سهم بزرگ‌ترین شبکه (`191.44.90.0/24`) از لینک‌های تأییدشده | 893 (45.7%) |
 
-`resilient` 377 · `fast` 99 · `stable` 355 · `verified` 1941 · `faketls` 112 · `secure` 96 · `classic` 179 · `all` 3329
+`resilient` 380 · `fast` 97 · `stable` 357 · `verified` 1955 · `faketls` 114 · `secure` 98 · `classic` 180 · `all` 3408
 
-[🇩🇪 DE 126](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 95](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 70](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 30](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 12](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇵🇱 PL 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇺🇸 US 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇬🇧 GB 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇪 SE 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇬 SG 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
+[🇩🇪 DE 126](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 95](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 68](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 32](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 14](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 11](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇵🇱 PL 9](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇸🇪 SE 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇬🇧 GB 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇬 SG 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
 <!-- LIVE:END -->
 
 **دو ردیف مهم «لینک‌های تأییدشده» و «سرورهای واقعی» است.** در اجرای `2026-10-28T15:54:58Z` (تست از 🇺🇸 آمریکا، colo کلادفلر `ORD`)، **۱٬۹۱۹** لینک تأییدشده فقط به **۴۰۹** سرور روی **۳۶۶** IP می‌رسیدند — و یک IP به‌تنهایی **۱٬۰۳۳** تا از آن‌ها را داشت (**۵۳٫۸٪**). شمردن لینک به‌تنهایی تعداد IPهای متمایز سرور را **۵٫۲ برابر** بیشتر نشان می‌داد. همین فاصله کل دلیل وجود `resilient/` (از هر IP یک لینک) و سقف شبکه در Top 100 است.
@@ -626,7 +626,7 @@ https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/health.json
 
 **<https://0xradikal.github.io/Free-Telegram-Proxy/fa/>** · [English](https://0xradikal.github.io/Free-Telegram-Proxy/)
 
-یک صفحهٔ ایستا که `index.json` و `proxies.json` دستهٔ انتخاب‌شده را در مرورگر خودت می‌گیرد و پروکسی‌های یک‌لمسی را با فیلتر کشور و آخرین قیف تست نشان می‌دهد. هیچ ردیاب، تبلیغ یا فونت شخص ثالثی بارگذاری نمی‌کند — به‌جز خود صفحه، درخواست‌ها فقط به سرورهای داده می‌روند — و اگر raw در دسترس نباشد خودکار سراغ آینهٔ jsDelivr می‌رود. [روش بررسی](https://0xradikal.github.io/Free-Telegram-Proxy/fa/methodology/) و [راهنمای داده‌ها](https://0xradikal.github.io/Free-Telegram-Proxy/fa/data/) همهٔ قاعده‌ها را با جزئیات توضیح می‌دهند.
+یک صفحهٔ ایستا که `index.json` و `proxies.json` دستهٔ انتخاب‌شده را در مرورگر خودت می‌گیرد و پروکسی‌های یک‌لمسی را با فیلتر کشور و آخرین قیف تست نشان می‌دهد. هیچ ردیاب، تبلیغ یا فونت شخص ثالثی بارگذاری نمی‌کند — به‌جز خود صفحه، درخواست‌ها فقط به سرورهای داده می‌روند — و اگر raw در دسترس نباشد، همان فایل‌ها را از آینهٔ jsDelivr می‌خواند، قفل‌شده روی آخرین کامیت (با یک درخواست ناشناس به `api.github.com` برای شناسهٔ کامیت)، تا آینه هیچ‌وقت چند ساعت عقب نباشد. [روش بررسی](https://0xradikal.github.io/Free-Telegram-Proxy/fa/methodology/) و [راهنمای داده‌ها](https://0xradikal.github.io/Free-Telegram-Proxy/fa/data/) همهٔ قاعده‌ها را با جزئیات توضیح می‌دهند.
 
 </div>
 
