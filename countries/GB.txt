@@ -1,4 +1,4 @@
 tg://proxy?server=matrixxx.top&port=853&secret=eee4508d288bf81791177a2f5e73ac06cf6d617472697878782e746f70
 tg://proxy?server=two.dedconnect.cc&port=443&secret=eeddb8caf8cc8af58676f5e60385f51c0d74776f2e646564636f6e6e6563742e6363
-tg://proxy?server=patriickam.dpdns.org&port=2096&secret=48dc1af3d0b9ff66e87d3a55d11d80d6
 tg://proxy?server=77.mishutkin.click&port=443&secret=eec8017bc0cd6ea4b51ca268fb7b3aba6237372e6d69736875746b696e2e636c69636b
+tg://proxy?server=patriickam.dpdns.org&port=2096&secret=48dc1af3d0b9ff66e87d3a55d11d80d6

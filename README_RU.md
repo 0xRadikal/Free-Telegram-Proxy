@@ -315,20 +315,20 @@ MTProto в каждый момент мертва, а многое из того
 описывает списки, поэтому он не может с ними разойтись:
 
 <!-- LIVE:BEGIN -->
-**Последнее обновление:** `2026-10-31T21:54:02Z` · проверено из `US` (`SJC`)
+**Последнее обновление:** `2026-11-01T08:09:42Z` · проверено из `US` (`SJC`)
 
 | Этап | Количество |
 |---|---:|
-| ссылок собрано из всех источников | 3,380 |
-| уникальных серверов (IP:порт) проверено | 1,850 |
-| **прошли проверку во всех 3 раундах** (ссылки) | **1,978** |
-| то же, в **реальных серверах** | **434** (383 IP) |
-| доля самого частого IP среди проверенных ссылок | 936 (47.3%) |
-| доля крупнейшей сети (`191.44.90.0/24`) среди проверенных ссылок | 936 (47.3%) |
+| ссылок собрано из всех источников | 3,387 |
+| уникальных серверов (IP:порт) проверено | 1,856 |
+| **прошли проверку во всех 3 раундах** (ссылки) | **1,908** |
+| то же, в **реальных серверах** | **426** (376 IP) |
+| доля самого частого IP среди проверенных ссылок | 884 (46.3%) |
+| доля крупнейшей сети (`191.44.90.0/24`) среди проверенных ссылок | 884 (46.3%) |
 
-`resilient` 383 · `fast` 101 · `stable` 356 · `verified` 1978 · `faketls` 114 · `secure` 91 · `classic` 188 · `all` 3380
+`resilient` 376 · `fast` 104 · `stable` 355 · `verified` 1908 · `faketls` 112 · `secure` 93 · `classic` 181 · `all` 3387
 
-[🇩🇪 DE 129](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 96](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 67](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 35](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 12](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇵🇱 PL 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇬🇧 GB 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇪 SE 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇭🇰 HK 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/HK.txt)
+[🇩🇪 DE 130](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 95](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 66](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 30](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇵🇱 PL 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇷🇺 RU 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇬🇧 GB 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇪 SE 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇬 SG 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
 <!-- LIVE:END -->
 
 **Главные строки — «проверенные ссылки» и «реальные серверы».** В запуске
@@ -889,6 +889,46 @@ V2Ray прямо в Telegram.
 </table>
 
 </div>
+
+<picture><img src="assets/readme/divider.svg" width="100%" alt="" /></picture>
+
+<div align="center">
+
+## 💜 По желанию — оставить чаевые
+
+Ничего на этой странице не спрятано за оплатой и никогда не будет: каждый список выше работает
+совершенно одинаково, прочитали вы этот раздел или нет. Но если прокси отсюда вернул вам Telegram,
+вы можете отправить чаевые. Любая сумма ценится — маленькая совершенно нормальна.
+
+<img src="assets/readme/donate-trc20.svg" width="200" alt="Чаевые в сети TRON (TRC20)" />
+<img src="assets/readme/donate-evm.svg" width="200" alt="Чаевые в любой сети EVM" />
+<img src="assets/readme/donate-ton.svg" width="200" alt="Чаевые в сети TON" />
+
+</div>
+
+**TRC20 — сеть Tron**
+
+```text
+TYBumju6Mjd8JCn4RTq95Kk2HPsdcinuz5
+```
+
+**Сети EVM — Ethereum, BSC, Polygon, Arbitrum, Base, …**
+
+```text
+0x4A0579eb11de7f80F719C9a4Df6CD39510400E02
+```
+
+**TON — The Open Network**
+
+```text
+UQBbZrE5aDsdGVi6enpf_vPuG022W4KjkJNzTDkjVEn4gmu6
+```
+
+> [!IMPORTANT]
+> Отправляйте только в той сети, которая названа над адресом. Каждый QR кодирует ровно тот адрес,
+> что напечатан под ним, и ничего больше — ни суммы, ни memo, ни контракта токена — так что код и
+> текст это два способа прочитать одно и то же. Это те же адреса, что указаны в соседнем проекте
+> [Free-v2ray-Configs](https://github.com/0xRadikal/Free-v2ray-Configs/blob/main/README_RU.md).
 
 <picture><img src="assets/readme/divider.svg" width="100%" alt="" /></picture>
 

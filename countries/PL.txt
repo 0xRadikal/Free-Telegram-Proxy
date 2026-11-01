@@ -1,8 +1,10 @@
-tg://proxy?server=n5e855f.tidalcache.com&port=443&secret=ee5c89ab20266ce759f96a0745b63d7cdf656467652e746964616c63616368652e636f6d
-tg://proxy?server=proxy.star-v.ru&port=443&secret=ddb632d68d9b00d674cb64265a2e23e98d
+tg://proxy?server=t6.nevcodeframe.com&port=443&secret=ee0e4d933242164450da8a7e6b469b629774362e6e6576636f64656672616d652e636f6d
 tg://proxy?server=proxy2.bitstars.tg&port=443&secret=ee9d971f649341e7c364e7a34f4573592e70726f7879322e62697473746172732e7467
+tg://proxy?server=ariobarzanes.ir.igakwvwa.info&port=7443&secret=79e344818749bd7ac519130220c25d09
+tg://proxy?server=proxy.star-v.ru&port=443&secret=ddb632d68d9b00d674cb64265a2e23e98d
 tg://proxy?server=pooran.ir.awedsj.info&port=7443&secret=79e344818749bd7ac519130220c25d09
 tg://proxy?server=tg.smartaisupport.ru&port=443&secret=4b3503c268b3d097fe4fb96624cec676
-tg://proxy?server=travokur.su&port=443&secret=ee614ae7f6114890fd7a9a37ee8cdd77d7747261766f6b75722e7375
-tg://proxy?server=mtproto.online&port=443&secret=ee139e0ee36150c1ea3bf299796586b5457777772e7674622e7275
 tg://proxy?server=edge.turboass.live&port=443&secret=ee51116f4018a2b3dfc9bda286c52afe9f656467652e747572626f6173732e6c697665
+tg://proxy?server=t5.nevcodeframe.com&port=443&secret=ee4e7e658f96af22ada977fa3e2e472e6274352e6e6576636f64656672616d652e636f6d
+tg://proxy?server=mtproto.online&port=443&secret=ee139e0ee36150c1ea3bf299796586b5457777772e7674622e7275
+tg://proxy?server=n59d2d3.tidalcache.com&port=443&secret=ee5c89ab20266ce759f96a0745b63d7cdf656467652e746964616c63616368652e636f6d

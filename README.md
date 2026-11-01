@@ -284,20 +284,20 @@ This block is not a screenshot. The bot regenerates it on every run from the sam
 that describes the lists, so it cannot drift from them:
 
 <!-- LIVE:BEGIN -->
-**Last update:** `2026-10-31T21:54:02Z` · tested from `US` (Cloudflare colo `SJC`)
+**Last update:** `2026-11-01T08:09:42Z` · tested from `US` (Cloudflare colo `SJC`)
 
 | Stage | Count |
 |---|---:|
-| links collected from all sources | 3,380 |
-| unique servers (IP:port) probed | 1,850 |
-| **verified in all 3 rounds** (links) | **1,978** |
-| the same, counted as **real servers** | **434** (383 IPs) |
-| largest single IP's share of verified links | 936 (47.3%) |
-| largest network's (`191.44.90.0/24`) share of verified links | 936 (47.3%) |
+| links collected from all sources | 3,387 |
+| unique servers (IP:port) probed | 1,856 |
+| **verified in all 3 rounds** (links) | **1,908** |
+| the same, counted as **real servers** | **426** (376 IPs) |
+| largest single IP's share of verified links | 884 (46.3%) |
+| largest network's (`191.44.90.0/24`) share of verified links | 884 (46.3%) |
 
-`resilient` 383 · `fast` 101 · `stable` 356 · `verified` 1978 · `faketls` 114 · `secure` 91 · `classic` 188 · `all` 3380
+`resilient` 376 · `fast` 104 · `stable` 355 · `verified` 1908 · `faketls` 112 · `secure` 93 · `classic` 181 · `all` 3387
 
-[🇩🇪 DE 129](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 96](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 67](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 35](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇷🇺 RU 12](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇵🇱 PL 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇬🇧 GB 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇪 SE 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇭🇰 HK 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/HK.txt)
+[🇩🇪 DE 130](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 95](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 66](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 30](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇵🇱 PL 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇷🇺 RU 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇫🇷 FR 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇬🇧 GB 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇪 SE 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇨🇭 CH 3](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/CH.txt) [🇸🇬 SG 2](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
 <!-- LIVE:END -->
 
 **The two rows that matter are "verified links" and "real servers".** In the run of
@@ -829,6 +829,46 @@ working Telegram proxy.
 </table>
 
 </div>
+
+<picture><img src="assets/readme/divider.svg" width="100%" alt="" /></picture>
+
+<div align="center">
+
+## 💜 Optional — leave a tip
+
+Nothing on this page is behind a payment and nothing ever will be: every list above works exactly
+the same whether or not you read this section. But if a proxy from here got your Telegram back
+online, you can send a tip. Any amount is appreciated — a small one is completely fine.
+
+<img src="assets/readme/donate-trc20.svg" width="200" alt="Donate on the TRON TRC20 network" />
+<img src="assets/readme/donate-evm.svg" width="200" alt="Donate on any EVM network" />
+<img src="assets/readme/donate-ton.svg" width="200" alt="Donate on The Open Network" />
+
+</div>
+
+**TRC20 — Tron network**
+
+```text
+TYBumju6Mjd8JCn4RTq95Kk2HPsdcinuz5
+```
+
+**EVM chains — Ethereum, BSC, Polygon, Arbitrum, Base, …**
+
+```text
+0x4A0579eb11de7f80F719C9a4Df6CD39510400E02
+```
+
+**TON — The Open Network**
+
+```text
+UQBbZrE5aDsdGVi6enpf_vPuG022W4KjkJNzTDkjVEn4gmu6
+```
+
+> [!IMPORTANT]
+> Send only on the network named above each address. Each QR encodes exactly the address printed
+> under it and nothing else — no amount, no memo, no token contract — so the code and the text are
+> two ways of reading the same thing. These are the same addresses the sister project
+> [Free-v2ray-Configs](https://github.com/0xRadikal/Free-v2ray-Configs#-optional--leave-a-tip) lists.
 
 <picture><img src="assets/readme/divider.svg" width="100%" alt="" /></picture>
 
