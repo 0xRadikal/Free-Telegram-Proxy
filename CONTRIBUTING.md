@@ -36,7 +36,7 @@ python tools/validate_outputs.py /tmp/out
 | You want to change | Edit | Do not edit |
 |---|---|---|
 | README text (any language) | `templates/README.md`, `templates/README_FA.md`, `templates/README_RU.md` | `README*.md` in the root. They are regenerated on every run, and only the `<!-- LIVE -->` block is filled in automatically. |
-| The website | `docs/`, then run `python -m pytest -q tests/test_site.py`. See [ACCESSIBILITY.md](ACCESSIBILITY.md) for the keyboard, contrast and motion rules. | |
+| The website | `docs/`, then run `python tools/stamp_assets.py` (cache-busting `?v=` stamps) and `python -m pytest -q tests/test_site.py`. See [ACCESSIBILITY.md](ACCESSIBILITY.md) for the keyboard, contrast and motion rules. | |
 | Testing / ranking | `tgproxy/` plus a test in `tests/` | |
 | Published lists | nothing. The bot owns them. | `verified/`, `fast/`, `stable/`, `resilient/`, `faketls/`, `secure/`, `classic/`, `all/`, `countries/`, `top100.txt`, `top50.txt`, `index.json`, `health.json`, `state.json` |
 
