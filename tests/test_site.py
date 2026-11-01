@@ -497,3 +497,23 @@ def test_reduced_motion_stops_every_animation_and_transition():
                for b in blocks)
     js = (DOCS / "motion.js").read_text(encoding="utf-8")
     assert "prefers-reduced-motion: reduce" in js and "aria-pressed" in (DOCS / "index.html").read_text(encoding="utf-8")
+
+
+def test_every_proxy_has_its_own_copy_button_next_to_connect():
+    # ASK#74: users could only copy the whole filtered list. Each row (desktop
+    # table) and each card (mobile) now groups Connect with a per-proxy Copy
+    # button that copies exactly urlFor(row) and is disabled whenever Connect is.
+    js = (DOCS / "app.js").read_text(encoding="utf-8")
+    body = js[js.index("function renderCopy"):js.index("function rowCells")]
+    assert "canConnect()" in body and "urlFor(row)" in body and "btn.disabled=true" in body
+    assert "btn.type='button'" in body and "aria-label" in body
+    assert "action.append(rowActions(row))" in js and "card.append(grid,rowActions(row))" in js
+    assert "box.append(renderLink(row),renderCopy(row))" in js
+    T = _translations()
+    for lang in ("en", "fa"):
+        for key in ("copyOne", "copyOneLabel", "copiedOne", "copiedShort"):
+            assert T[lang].get(key), (lang, key)
+    css = (DOCS / "styles.css").read_text(encoding="utf-8")
+    assert re.search(r"\.cell-copy\{[^}]*min-height:39px", css)
+    assert re.search(r"\.proxy-card \.row-actions\{[^}]*grid-template-columns", css)
+    assert ".cell-copy:disabled{" in css
