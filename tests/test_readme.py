@@ -334,3 +334,21 @@ def test_donation_qr_cards_encode_exactly_the_printed_addresses():
         for name, s in tpls.items():
             assert f"```text\n{addr}\n```" in s, (name, card.name)
             assert f'src="assets/readme/{card.name}"' in s, (name, card.name)
+
+
+def test_funding_file_drives_the_sponsor_button_to_the_tip_section():
+    """.github/FUNDING.yml (ASK#75): valid GitHub schema keys only, at most 4 custom URLs, and
+    the link lands on the README tip section whose QR cards encode the printed addresses."""
+    from pathlib import Path
+    import yaml
+    root = Path(__file__).resolve().parent.parent
+    data = yaml.safe_load((root / ".github" / "FUNDING.yml").read_text(encoding="utf-8"))
+    allowed = {"github", "patreon", "open_collective", "ko_fi", "tidelift", "community_bridge", "liberapay",
+               "issuehunt", "lfx_crowdfunding", "polar", "buy_me_a_coffee", "thanks_dev", "custom"}
+    assert set(data) <= allowed, set(data) - allowed
+    custom = data["custom"] if isinstance(data["custom"], list) else [data["custom"]]
+    assert 1 <= len(custom) <= 4
+    anchors = _anchors((root / "templates" / "README.md").read_text(encoding="utf-8"))
+    for url in custom:
+        assert url.startswith("https://github.com/0xRadikal/Free-Telegram-Proxy#"), url
+        assert url.split("#", 1)[1] in anchors, url
