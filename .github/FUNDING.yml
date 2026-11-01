@@ -1,0 +1,14 @@
+# Shows a "Sponsor" button at the top of the repository.
+#
+# This project has no GitHub Sponsors profile (GitHub Sponsors does not support
+# the maintainer's region) and no payment processor. Support is crypto-only and
+# entirely optional: every list and the dashboard work the same whether or not
+# anyone ever donates. The custom link points at the tip section of the README,
+# where each address (TRC20 / EVM / TON) sits next to its own QR code.
+#
+# The button is only displayed while Settings -> General -> Features ->
+# "Sponsorships" is enabled for the repository.
+#
+# Schema: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+
+custom: ["https://github.com/0xRadikal/Free-Telegram-Proxy#-optional--leave-a-tip"]
