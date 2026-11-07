@@ -1,9 +1,8 @@
+tg://proxy?server=82.22.41.37&port=8443&secret=ee1104a80139ca104cdb1184484edf78c37275737369616e2d616e696d616c732e7275
 tg://proxy?server=proxy2.bitstars.tg&port=443&secret=ee9d971f649341e7c364e7a34f4573592e70726f7879322e62697473746172732e7467
-tg://proxy?server=n5e855f.tidalcache.com&port=443&secret=ee5c89ab20266ce759f96a0745b63d7cdf656467652e746964616c63616368652e636f6d
-tg://proxy?server=proxy.star-v.ru&port=443&secret=ddb632d68d9b00d674cb64265a2e23e98d
-tg://proxy?server=pooran.ir.awedsj.info&port=7443&secret=79e344818749bd7ac519130220c25d09
-tg://proxy?server=ariobarzanes.ir.igakwvwa.info&port=7443&secret=79e344818749bd7ac519130220c25d09
-tg://proxy?server=tg.smartaisupport.ru&port=443&secret=4b3503c268b3d097fe4fb96624cec676
-tg://proxy?server=t6.nevcodeframe.com&port=443&secret=ee0e4d933242164450da8a7e6b469b629774362e6e6576636f64656672616d652e636f6d
+tg://proxy?server=dark-rush-85krcymd.expresshost.cloud&port=443&secret=eeebd9fc04e4292071437b21c5fcb3e1556461726b2d727573682d38356b7263796d642e65787072657373686f73742e636c6f7564
+tg://proxy?server=95.85.229.14&port=443&secret=ee622d6fd556bda9b8fb87dd10aafdcb8563646e2e67616d652e7275
+tg://proxy?server=45.137.43.156&port=443&secret=4b3503c268b3d097fe4fb96624cec676
+tg://proxy?server=tg.creds.vip&port=38443&secret=ddca11911c0de0faffec7edbada55cab1e
+tg://proxy?server=connect.bifrost.now&port=443&secret=ee5cc2e9533f7ed01348091e2714636407786170692e6f7a6f6e2e7275
 tg://proxy?server=mtproto.online&port=443&secret=ee139e0ee36150c1ea3bf299796586b5457777772e7674622e7275
-tg://proxy?server=t5.nevcodeframe.com&port=443&secret=ee4e7e658f96af22ada977fa3e2e472e6274352e6e6576636f64656672616d652e636f6d

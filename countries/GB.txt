@@ -1,3 +1,3 @@
+tg://proxy?server=45.43.75.152&port=443&secret=ee5947b87f1eeb8b5f3ad4632a64293400626973636f7474692e79656b74616e65742e636f6d
+tg://proxy?server=43.225.90.169&port=443&secret=d744bb1c55262c6150bb89d6a390c553
 tg://proxy?server=two.dedconnect.cc&port=443&secret=eeddb8caf8cc8af58676f5e60385f51c0d74776f2e646564636f6e6e6563742e6363
-tg://proxy?server=77.mishutkin.click&port=443&secret=eec8017bc0cd6ea4b51ca268fb7b3aba6237372e6d69736875746b696e2e636c69636b
-tg://proxy?server=patriickam.dpdns.org&port=2096&secret=48dc1af3d0b9ff66e87d3a55d11d80d6

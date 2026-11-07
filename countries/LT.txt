@@ -1,1 +1,2 @@
+tg://proxy?server=free.user.bizsprocket.com&port=443&secret=ee862a678d40377cde49c74c1a63e8ede6667265652e757365722e62697a7370726f636b65742e636f6d
 tg://proxy?server=tg8.chadvpn.shop&port=443&secret=ee3931ebe70d8f4e37acd9c3db534b17627275747562652e7275

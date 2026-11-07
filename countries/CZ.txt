@@ -1,0 +1,1 @@
+tg://proxy?server=hair.lite64.pro&port=443&secret=ee3f0e1a971342cbd91013937934411d0f686169722e6c69746536342e70726f
