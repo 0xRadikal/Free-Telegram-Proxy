@@ -44,13 +44,22 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - name: Run pipeline (2 short rounds, no GeoIP)
-        run: mkdir -p /tmp/out && python -m tgproxy --out /tmp/out --rounds 2 --gap 5
+        run: |
+          mkdir -p /tmp/out
+          # Production retains history. Starting empty hid state.json growth
+          # and omitted the stable tier from the size check.
+          cp state.json /tmp/out/state.json
+          python -m tgproxy --out /tmp/out --rounds 2 --gap 5
       - run: python tools/validate_outputs.py /tmp/out
-      - run: python tools/check_size.py /tmp/out
+      - run: python tools/check_size.py /tmp/out --report "$RUNNER_TEMP/output-size.json"
       - name: Summary
         if: always()
         run: |
-          python3 - | tee -a "$GITHUB_STEP_SUMMARY" <<'PY'
+          if [ ! -s /tmp/out/index.json ] || [ ! -s /tmp/out/health.json ]; then
+            echo "Pipeline outputs unavailable; see the failed pipeline step." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          python3 - <<'PY' | tee -a "$GITHUB_STEP_SUMMARY"
           import json
           i = json.load(open("/tmp/out/index.json"))
           h = json.load(open("/tmp/out/health.json"))
@@ -68,4 +77,5 @@ jobs:
           path: |
             /tmp/out/index.json
             /tmp/out/health.json
+            ${{ runner.temp }}/output-size.json
           retention-days: 7
