@@ -1,1 +1,2 @@
 tg://proxy?server=158.247.234.65&port=9443&secret=2adab36179e7a39026adf74034615248
+tg://proxy?server=64.176.231.154&port=8443&secret=2adab36179e7a39026adf74034615248
