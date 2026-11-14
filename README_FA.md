@@ -320,20 +320,20 @@ workflow بعد از هر انتشار، کش پرکاربردترین فایل�
 این بخش عکس نیست. ربات در هر اجرا آن را از همان `index.json` که لیست‌ها را توصیف می‌کند می‌سازد، پس نمی‌تواند با آن‌ها ناهماهنگ شود:
 
 <!-- LIVE:BEGIN -->
-**آخرین به‌روزرسانی:** `2026-11-09T12:29:45Z` · محل تست: `US` (`MSP`)
+**آخرین به‌روزرسانی:** `2026-11-14T21:59:37Z` · محل تست: `US` (`IAD`)
 
 | مرحله | تعداد |
 |---|---:|
-| لینک جمع‌آوری‌شده از همهٔ منابع | 5,277 |
-| سرور یکتا (IP:پورت) که تست شد | 3,485 |
-| **تأییدشده در همهٔ 3 دور** (لینک) | **2,369** |
-| همان‌ها، بر حسب **سرور واقعی** | **703** (635 IP) |
-| سهم پرتکرارترین IP از لینک‌های تأییدشده | 633 (26.7%) |
-| سهم بزرگ‌ترین شبکه (`AS24940`) از لینک‌های تأییدشده | 776 (32.8%) |
+| لینک جمع‌آوری‌شده از همهٔ منابع | 5,176 |
+| سرور یکتا (IP:پورت) که تست شد | 3,375 |
+| **تأییدشده در همهٔ 3 دور** (لینک) | **2,273** |
+| همان‌ها، بر حسب **سرور واقعی** | **699** (634 IP) |
+| سهم پرتکرارترین IP از لینک‌های تأییدشده | 788 (34.7%) |
+| سهم بزرگ‌ترین شبکه (`48.103.142.0/24`) از لینک‌های تأییدشده | 788 (34.7%) |
 
-`resilient` 635 · `fast` 166 · `stable` 601 · `verified` 2369 · `faketls` 173 · `secure` 152 · `classic` 331 · `all` 5277
+`resilient` 634 · `fast` 170 · `stable` 601 · `verified` 2273 · `faketls` 188 · `secure` 150 · `classic` 312 · `all` 5176
 
-[🇩🇪 DE 225](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 128](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 100](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 77](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇭🇰 HK 17](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/HK.txt) [🇺🇸 US 14](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇵🇱 PL 11](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 9](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇸🇪 SE 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇸🇬 SG 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt) [🇬🇧 GB 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇷🇺 RU 4](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt)
+[🇩🇪 DE 218](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 135](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 102](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 59](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇭🇰 HK 20](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/HK.txt) [🇺🇸 US 18](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇸🇪 SE 12](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇷🇺 RU 11](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇵🇱 PL 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇬🇧 GB 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇬 SG 5](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
 <!-- LIVE:END -->
 
 **دو ردیف مهم «لینک‌های تأییدشده» و «سرورهای واقعی» است.** در اجرای `2026-10-28T15:54:58Z` (تست از 🇺🇸 آمریکا، colo کلادفلر `ORD`)، **۱٬۹۱۹** لینک تأییدشده فقط به **۴۰۹** سرور روی **۳۶۶** IP می‌رسیدند — و یک IP به‌تنهایی **۱٬۰۳۳** تا از آن‌ها را داشت (**۵۳٫۸٪**). شمردن لینک به‌تنهایی تعداد IPهای متمایز سرور را **۵٫۲ برابر** بیشتر نشان می‌داد. همین فاصله کل دلیل وجود `resilient/` (از هر IP یک لینک) و سقف شبکه در Top 100 است.

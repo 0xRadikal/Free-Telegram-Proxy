@@ -1,4 +1,8 @@
-tg://proxy?server=45.43.75.152&port=443&secret=ee5947b87f1eeb8b5f3ad4632a64293400626973636f7474692e79656b74616e65742e636f6d
+tg://proxy?server=exp.proxy.digitalresistance.dog&port=443&secret=eed41d8cd98f00b204e9800998ecf8322e7777772e676f6f676c652e636f6d
+tg://proxy?server=nex7.space&port=443&secret=e8da6fda391b335dff2083634c9e7db5
+tg://proxy?server=chestno.servera-dlya-tg-zdes-net.abrdns.com&port=443&secret=eea65c7fc5a0d5669ba371a7ca88fc19496f7a6f6e2e7275
+tg://proxy?server=two.dedconnect.cc&port=443&secret=eeddb8caf8cc8af58676f5e60385f51c0d74776f2e646564636f6e6e6563742e6363
 tg://proxy?server=43.225.90.169&port=443&secret=d744bb1c55262c6150bb89d6a390c553
+tg://proxy?server=rf1.data-edge.fyi&port=443&secret=ee4b8b183c13a3c4b63ddf54838b7e52527266312e646174612d656467652e667969
 tg://proxy?server=storagexx.space&port=443&secret=ee24b61556a3ec49bc0c7a5a7e8525702873746f7261676578782e7370616365
-tg://proxy?server=77.mishutkin.click&port=443&secret=eec8017bc0cd6ea4b51ca268fb7b3aba6237372e6d69736875746b696e2e636c69636b
+tg://proxy?server=4x4.subaru-volga.com&port=443&secret=ee54701e1686de96a44721501a7bee9e4c6c796e657474652e6d79726b612e6469676974616c
