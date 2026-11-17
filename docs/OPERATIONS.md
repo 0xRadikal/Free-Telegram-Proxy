@@ -14,6 +14,9 @@ Everything runs on **GitHub Actions** (US runners). The always-on server only se
 
 **Freshness gate:** cron runs are skipped if `index.json` on `main` is < 13 min old; dispatch runs if < 8 min old.
 Back-to-back triggers therefore collapse into one run. `force=true` on manual runs bypasses it.
+A run that still waited in the queue starts from the commit of its trigger event, so it first moves to the newest `main` when the two differ only in output files (`state.json` history must never go back); if source changed in between, it keeps its checkout.
+
+**GeoIP:** DB-IP Lite is cached per month (`dbip-v2-YYYY-MM`) and that key is saved only with that month's files. Before DB-IP publishes a new month (hours into the 1st), runs use the newest cached month without saving it under the new key.
 
 ## About GitHub cron (measured, not assumed)
 
@@ -24,7 +27,7 @@ Back-to-back triggers therefore collapse into one run. `force=true` on manual ru
 
 ## Size control
 - Output is replaced, not appended: `main` = source history + exactly **one** output commit (rolling squash).
-- Measured output per run: ~1.4–1.9 MiB raw, ~180–245 KiB compressed. `tools/check_size.py` fails above 4 MiB total / 1 MiB per file.
+- Measured output (2026-11-17): 4,039,355 B raw (~3.9 MiB, 1,023,140 B of it `state.json`), ~590 KiB compressed. `tools/check_size.py` fails above 8 MiB total / 2 MiB per file and warns at 80%.
 - `verified/` is the only tier with every alias; other tiers keep one link per server IP; `all/` is text only.
 - `state.json` tracks only proxies that passed at least once; history capped at 96 checks, entries forgotten after 7 days.
 
