@@ -77,23 +77,48 @@ def test_hex_roundtrip_is_canonical():
 tdjson = pytest.importorskip("tdjson", reason="differential test needs the real TDLib")
 
 
-def _tdlib_verdicts(secrets):
-    tdjson.td_execute(json.dumps({"@type": "setLogVerbosityLevel", "new_verbosity_level": 0}).encode())
-    cid = tdjson.td_create_client_id()
-    for i, s in enumerate(secrets):
-        tdjson.td_send(cid, json.dumps({
-            "@type": "testProxy", "@extra": f"s{i}", "dc_id": 2, "timeout": 1,
-            "proxy": {"@type": "proxy", "server": "127.0.0.1", "port": 1,
-                      "type": {"@type": "proxyTypeMtproto", "secret": s}}}).encode())
-    out, t0 = {}, time.time()
-    while len(out) < len(secrets) and time.time() - t0 < 90:
+def _close(cid: int) -> bool:
+    """Close a TDLib client and wait for authorizationStateClosed.
+
+    A client left open makes the interpreter abort (SIGABRT, exit 134) at
+    shutdown, AFTER every test passed. Measured with this module's own
+    calls: 10 of 30 processes aborted when idle for 20 s before exit, 3 of
+    30 when exiting at once, 0 of 60 when the client was closed first; the
+    full suite aborted 1 run in 15 both before and after unrelated changes.
+    """
+    tdjson.td_send(cid, json.dumps({"@type": "close"}).encode())
+    t0 = time.time()
+    while time.time() - t0 < 30:
         r = tdjson.td_receive(0.5)
         if r:
             o = json.loads(r)
-            e = o.get("@extra")
-            if isinstance(e, str) and e.startswith("s"):
-                m = o.get("message") or o["@type"]
-                out[int(e[1:])] = "ecret" not in m  # TDLib's parse errors all mention "secret"
+            if (o.get("@client_id") == cid and o.get("@type") == "updateAuthorizationState"
+                    and (o.get("authorization_state") or {}).get("@type") == "authorizationStateClosed"):
+                return True
+    return False
+
+
+def _tdlib_verdicts(secrets):
+    tdjson.td_execute(json.dumps({"@type": "setLogVerbosityLevel", "new_verbosity_level": 0}).encode())
+    cid = tdjson.td_create_client_id()
+    try:
+        for i, s in enumerate(secrets):
+            tdjson.td_send(cid, json.dumps({
+                "@type": "testProxy", "@extra": f"s{i}", "dc_id": 2, "timeout": 1,
+                "proxy": {"@type": "proxy", "server": "127.0.0.1", "port": 1,
+                          "type": {"@type": "proxyTypeMtproto", "secret": s}}}).encode())
+        out, t0 = {}, time.time()
+        while len(out) < len(secrets) and time.time() - t0 < 90:
+            r = tdjson.td_receive(0.5)
+            if r:
+                o = json.loads(r)
+                e = o.get("@extra")
+                if isinstance(e, str) and e.startswith("s"):
+                    m = o.get("message") or o["@type"]
+                    out[int(e[1:])] = "ecret" not in m  # TDLib's parse errors all mention "secret"
+    finally:
+        closed = _close(cid)
+    assert closed, "TDLib client was not closed; an open client aborts the interpreter at exit"
     return out
 
 
