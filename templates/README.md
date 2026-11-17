@@ -361,8 +361,8 @@ every generated file:
 - `top100.txt` is a subset of `resilient/`, repeats no link or IP, respects the network cap
   it reports, and `top50.txt` is exactly its first 50 lines.
 
-Then [`tools/check_size.py`](tools/check_size.py) enforces a size budget (4 MiB in total,
-1 MiB per file). If any check fails, **the run aborts and nothing is committed** — the
+Then [`tools/check_size.py`](tools/check_size.py) enforces a size budget (8 MiB in total,
+2 MiB per file). If any check fails, **the run aborts and nothing is committed** — the
 previous good release stays exactly where it is.
 
 The prober itself is tested against real things, not mocks, on GitHub's own runner on every

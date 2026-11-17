@@ -65,6 +65,52 @@ jobs:
           echo "index.json age: ${age} min (gate ${gate} min, event ${{ github.event_name }})"
           if [ "$age" -lt "$gate" ]; then echo "run=false" >> "$GITHUB_OUTPUT"; else echo "run=true" >> "$GITHUB_OUTPUT"; fi
 
+      # actions/checkout checks out the commit of the triggering EVENT, not the
+      # branch tip. A run that waited in the `update` concurrency queue therefore
+      # starts from the outputs as they were before the run ahead of it
+      # published, and state.json (per-proxy history) is the one output read
+      # back. Measured 2026-10-26: run 40370716618 queued behind 40370613057,
+      # started from bdfb6b19 (state runs=1) and force-published 57118ef7 with
+      # runs=2 over 15143441 (runs=2, 1797 proxies) — that run's history was
+      # lost. The gate above stops short waits, but not a run ahead that lasts
+      # past the gate (longest job measured: 12.6 min on 2026-10-30, gate 8 min
+      # for dispatch) nor a forced run. Move to the newest publish when the two
+      # commits differ only in OUTPUT_PATHS (the code is identical, so its
+      # outputs are the newest valid ones). If the source differs, or the tip
+      # cannot be read, keep the checkout — the outputs then match this code.
+      - name: Sync outputs with the newest publish
+        id: sync_outputs
+        if: steps.gate.outputs.run == 'true'
+        timeout-minutes: 3
+        run: |
+          HEAD_SHA=$(git rev-parse HEAD)
+          if ! timeout 60 git fetch --no-tags --force --depth=1 origin \
+               +refs/heads/main:refs/remotes/origin/main; then
+            echo "::warning title=Output sync skipped::could not fetch main — keeping the outputs of ${HEAD_SHA:0:8}"
+            exit 0
+          fi
+          if ! TIP=$(git rev-parse --verify -q "refs/remotes/origin/main^{commit}"); then
+            echo "::warning title=Output sync skipped::no main tip after the fetch — keeping the outputs of ${HEAD_SHA:0:8}"
+            exit 0
+          fi
+          if [ "$TIP" = "$HEAD_SHA" ]; then
+            echo "✅ checkout ${HEAD_SHA:0:8} is the newest main — nothing to sync"
+            exit 0
+          fi
+          EXCLUDE=()
+          for p in $OUTPUT_PATHS; do EXCLUDE+=(":(exclude)$p"); done
+          if ! SOURCE_DIFF=$(git diff --no-renames --name-only "$HEAD_SHA" "$TIP" -- . "${EXCLUDE[@]}"); then
+            echo "::warning title=Output sync skipped::could not compare ${HEAD_SHA:0:8} with ${TIP:0:8} — keeping the checkout"
+            exit 0
+          fi
+          if [ -n "$SOURCE_DIFF" ]; then
+            echo "::notice title=Output sync skipped::source changed since this run was triggered ($(echo "$SOURCE_DIFF" | head -5 | tr '\n' ' ')) — keeping the outputs that match this code"
+            exit 0
+          fi
+          CHANGED=$(git diff --no-renames --name-only "$HEAD_SHA" "$TIP" | wc -l) || CHANGED="?"
+          git reset -q --hard "$TIP"
+          echo "🔄 queued run: outputs synced ${HEAD_SHA:0:8} → ${TIP:0:8} (${CHANGED} output files differ, source identical)"
+
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         if: steps.gate.outputs.run == 'true'
         with:
@@ -80,29 +126,80 @@ jobs:
         id: geokey
         run: echo "ym=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      # A month's cache key must only ever hold that month's files. DB-IP
+      # publishes them hours into the 1st (2026-11: Last-Modified 07:41 UTC).
+      # The previous single `actions/cache` step saved whatever the first run
+      # of the month had: run 41255477045 (2026-11-01 00:09 UTC) fell back to
+      # "✓ country 2026-10" and saved it as `dbip-2026-11`, every later run
+      # restored it, and all of November used October's GeoIP (642/642
+      # published rows matched October's database, which differs from
+      # November's on 12 countries and 11 ASNs). Now: restore this month's
+      # key, or the newest older one (restore-keys); download this month when
+      # it is not cached; save under this month's key ONLY when both files
+      # are this month's. The key prefix is new, so the mislabelled
+      # `dbip-2026-11` entry is never read again.
+      - name: Restore DB-IP cache
+        id: geocache
         if: steps.gate.outputs.run == 'true'
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: .cache
-          key: dbip-${{ steps.geokey.outputs.ym }}
+          key: dbip-v2-${{ steps.geokey.outputs.ym }}
+          restore-keys: dbip-v2-
 
       - name: Download DB-IP Lite (country + ASN, CC BY 4.0)
+        id: dbip
         if: steps.gate.outputs.run == 'true'
+        env:
+          YM: ${{ steps.geokey.outputs.ym }}
+          CACHE_HIT: ${{ steps.geocache.outputs.cache-hit }}
+          MATCHED: ${{ steps.geocache.outputs.cache-matched-key }}
         run: |
           set -uo pipefail
           mkdir -p .cache
+          # Not `date -d 'last month'`: on the 31st GNU date returns the
+          # current month (2026-12-31 → 2026-12). Count back from the 1st.
+          PREV=$(date -u -d "$YM-01 -1 month" +%Y-%m)
+          current=0
           for kind in country asn; do
             dest=".cache/dbip-$kind-lite.mmdb"
-            [ -s "$dest" ] && [ "$(stat -c%s "$dest")" -gt 1000000 ] && continue
-            for ym in "$(date -u +%Y-%m)" "$(date -u -d 'last month' +%Y-%m)"; do
-              if curl -fsSL --retry 3 --max-time 120 -o /tmp/db.gz "https://download.db-ip.com/free/dbip-$kind-lite-$ym.mmdb.gz" \
-                 && gunzip -c /tmp/db.gz > "$dest.tmp" && [ "$(stat -c%s "$dest.tmp")" -gt 1000000 ]; then
-                mv "$dest.tmp" "$dest"; echo "✓ $kind $ym"; break
+            have=false
+            [ -s "$dest" ] && [ "$(stat -c%s "$dest")" -gt 1000000 ] && have=true
+            if [ "$CACHE_HIT" = "true" ] && [ "$have" = true ]; then
+              echo "✓ $kind $YM (cache)"; current=$((current + 1)); continue
+            fi
+            got=""
+            for ym in "$YM" "$PREV"; do
+              # An older copy restored from the cache is at least as new as PREV.
+              [ "$ym" = "$PREV" ] && [ "$have" = true ] && break
+              tmp=$(mktemp)
+              if curl -fsSL --retry 3 --max-time 120 -o "$tmp" "https://download.db-ip.com/free/dbip-$kind-lite-$ym.mmdb.gz" \
+                 && gunzip -c "$tmp" > "$dest.tmp" && [ "$(stat -c%s "$dest.tmp")" -gt 1000000 ]; then
+                mv "$dest.tmp" "$dest"; got=$ym
               fi
-              rm -f "$dest.tmp"
+              rm -f "$tmp" "$dest.tmp"
+              [ -n "$got" ] && break
             done
-            [ -s "$dest" ] || echo "::warning::DB-IP $kind unavailable — countries/ASN will be empty this run"
+            if [ "$got" = "$YM" ]; then
+              echo "✓ $kind $YM"; current=$((current + 1))
+            elif [ -n "$got" ]; then
+              echo "::notice::DB-IP $kind $YM not available (not published yet?) — using $got"
+            elif [ "$have" = true ]; then
+              echo "::notice::DB-IP $kind $YM not available (not published yet?) — using the cached copy (${MATCHED:-unknown key})"
+            else
+              echo "::warning::DB-IP $kind unavailable — countries/ASN will be empty this run"
+            fi
           done
+          if [ "$current" -eq 2 ]; then echo "cacheable=true" >> "$GITHUB_OUTPUT"; else echo "cacheable=false" >> "$GITHUB_OUTPUT"; fi
+
+      # Never fails the run: publishing must not depend on the cache service.
+      - name: Save DB-IP cache
+        if: steps.gate.outputs.run == 'true' && steps.geocache.outputs.cache-hit != 'true' && steps.dbip.outputs.cacheable == 'true'
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .cache
+          key: dbip-v2-${{ steps.geokey.outputs.ym }}
 
       - name: Collect, probe, publish files
         id: collect
@@ -155,7 +252,10 @@ jobs:
           set -euo pipefail
           git config user.name  "tgproxy-bot"
           git config user.email "actions@users.noreply.github.com"
-          is_output() { for p in $OUTPUT_PATHS; do case "$1" in "$p"|"$p"/*) return 0;; esac; done; return 1; }
+          # `local p`: the caller's loop below also uses $p; without it the
+          # "source changed" message named the last OUTPUT_PATHS entry
+          # (README_RU.md) instead of the files that actually changed.
+          is_output() { local p; for p in $OUTPUT_PATHS; do case "$1" in "$p"|"$p"/*) return 0;; esac; done; return 1; }
           for f in index.json health.json verified/tg.txt resilient/tg.txt top100.txt top50.txt; do
             [ -s "$f" ] || { echo "❌ missing $f — not publishing"; exit 1; }
           done
