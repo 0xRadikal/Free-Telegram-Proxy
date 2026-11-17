@@ -31,6 +31,39 @@ jobs:
       # -rs prints any skipped test so a silent skip cannot hide.
       - run: python -m pytest -q -rs
 
+  # Generated files belong to the publisher. Dependabot branches from the tip
+  # of main, which is always the current [auto-output] commit; 15 minutes later
+  # that commit is replaced, so the PR now carries day-old lists AND state.json
+  # (#33: 43 files, #37: 54 files for a one-line bump). Merging such a PR
+  # rolls the published lists and the per-proxy history back. Fail the PR,
+  # with the remedy, instead of relying on someone noticing the file count.
+  outputs-guard:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: No generated output in this PR
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          # Same list the publisher owns (single source of truth: update.yml).
+          OUTPUT_PATHS=$(sed -n 's/^  OUTPUT_PATHS: "\(.*\)"$/\1/p' .github/workflows/update.yml)
+          if [ -z "$OUTPUT_PATHS" ]; then echo "::error::OUTPUT_PATHS not found in .github/workflows/update.yml"; exit 1; fi
+          read -ra OUT <<< "$OUTPUT_PATHS"
+          MB=$(git merge-base "refs/remotes/origin/$BASE_REF" "$HEAD_SHA")
+          CHANGED=$(git diff --no-renames --name-only "$MB" "$HEAD_SHA" -- "${OUT[@]}")
+          if [ -n "$CHANGED" ]; then
+            echo "::error title=Generated output in this PR::$(wc -l <<< "$CHANGED") generated file(s) would be overwritten with this branch's copies (merging rolls the published lists and state.json back). Recreate the branch from the newest source commit of $BASE_REF with only the source change, as in #36."
+            echo "Generated files changed by this PR:"
+            head -20 <<< "$CHANGED"
+            exit 1
+          fi
+          echo "✅ no generated output in this PR (checked: $OUTPUT_PATHS)"
+
   e2e:
     # Full pipeline against the live sources from the US runner, then the same
     # validators the publisher uses. Nothing is pushed.
