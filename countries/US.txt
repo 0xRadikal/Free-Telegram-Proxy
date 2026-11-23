@@ -1,13 +1,8 @@
 tg://proxy?server=a.similemat.com&port=12341&secret=4170ef4862902c504d0e3e8c38d5fa24
-tg://proxy?server=68.164.56.131&port=443&secret=ee5622e11fff3e49bcc85280197a6106b5742e6d656f772d6e6574776f726b2e636f6d
-tg://proxy?server=0xb00b5.top&port=853&secret=ee54ce330e4690cc297d2b031ff3f288b06d742e616b656e61692e636c69636b
-tg://proxy?server=13.58.22.61&port=443&secret=7d98258a55364368867e30b16b2fdd83
-tg://proxy?server=n941633.tidalcache.com&port=443&secret=ee5c89ab20266ce759f96a0745b63d7cdf656467652e746964616c63616368652e636f6d
-tg://proxy?server=3.149.86.139&port=8443&secret=ee7f19d4230173736615aca50d4a67aeaa7370656564746573742e6e6574
-tg://proxy?server=tm.mosibat.in&port=45745&secret=67c3d2dc3b106f273c7afd103d441041
-tg://proxy?server=formuse.new.tg&port=8880&secret=2cf6777b57d6b42378e1c727c339c63c
-tg://proxy?server=177.3.252.184&port=443&secret=ee44cd74d18707cd8bb74920a99d445599646561726c792e6e657468657275732e636f6d
+tg://proxy?server=pro.rocketpro.isroot.in&port=64953&secret=6e4c38e51df0ed03a32a340f709b899f
+tg://proxy?server=bearencrypt.co&port=443&secret=5e8a1c3d7f2b9a4c6d0e1f8b3a7c2d9e
+tg://proxy?server=beartunnel.co&port=443&secret=3a9f7c8b1e2d4f6a5c0b9d8e7f1a2c3d
 tg://proxy?server=23.128.248.150&port=3128&secret=ddc5d1717f50bdab002e1ba52d9ed8f2fe
 tg://proxy?server=104.250.239.16&port=12347&secret=ee0791ecfea02ec47e40f8d4583e4a7e767777772e6d6963726f736f66742e636f6d
-tg://proxy?server=tg.mishka.me&port=2302&secret=2084c7e58d8213296a3206da70356c81
 tg://proxy?server=23.238.92.12&port=443&secret=cd7ca69a7459a76443678fe79b037684
+tg://proxy?server=edge.tidalcache.com&port=443&secret=ee5c89ab20266ce759f96a0745b63d7cdf656467652e746964616c63616368652e636f6d

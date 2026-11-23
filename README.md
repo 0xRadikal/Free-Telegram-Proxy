@@ -284,20 +284,20 @@ This block is not a screenshot. The bot regenerates it on every run from the sam
 that describes the lists, so it cannot drift from them:
 
 <!-- LIVE:BEGIN -->
-**Last update:** `2026-11-17T07:44:42Z` · tested from `US` (Cloudflare colo `IAD`)
+**Last update:** `2026-11-23T06:23:30Z` · tested from `US` (Cloudflare colo `MSP`)
 
 | Stage | Count |
 |---|---:|
-| links collected from all sources | 5,296 |
-| unique servers (IP:port) probed | 3,456 |
-| **verified in all 3 rounds** (links) | **2,322** |
-| the same, counted as **real servers** | **712** (650 IPs) |
-| largest single IP's share of verified links | 429 (18.5%) |
-| largest network's (`191.44.90.0/24`) share of verified links | 910 (39.2%) |
+| links collected from all sources | 5,346 |
+| unique servers (IP:port) probed | 3,368 |
+| **verified in all 3 rounds** (links) | **2,408** |
+| the same, counted as **real servers** | **589** (517 IPs) |
+| largest single IP's share of verified links | 838 (34.8%) |
+| largest network's (`AS9304`) share of verified links | 1,020 (42.4%) |
 
-`resilient` 650 · `fast` 165 · `stable` 608 · `verified` 2322 · `faketls` 189 · `secure` 152 · `classic` 326 · `all` 5296
+`resilient` 517 · `fast` 133 · `stable` 470 · `verified` 2408 · `faketls` 164 · `secure` 125 · `classic` 240 · `all` 5346
 
-[🇩🇪 DE 226](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 133](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 104](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 72](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇭🇰 HK 15](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/HK.txt) [🇷🇺 RU 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇸🇪 SE 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇵🇱 PL 9](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇬🇧 GB 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇬 SG 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
+[🇩🇪 DE 148](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 131](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇳🇱 NL 78](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇫🇮 FI 61](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇭🇰 HK 17](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/HK.txt) [🇫🇷 FR 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇲🇩 MD 9](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/MD.txt) [🇷🇺 RU 9](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇵🇱 PL 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇸🇪 SE 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇺🇸 US 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇬🇧 GB 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt)
 <!-- LIVE:END -->
 
 **The two rows that matter are "verified links" and "real servers".** In the run of
@@ -375,8 +375,8 @@ every generated file:
 - `top100.txt` is a subset of `resilient/`, repeats no link or IP, respects the network cap
   it reports, and `top50.txt` is exactly its first 50 lines.
 
-Then [`tools/check_size.py`](tools/check_size.py) enforces a size budget (4 MiB in total,
-1 MiB per file). If any check fails, **the run aborts and nothing is committed** — the
+Then [`tools/check_size.py`](tools/check_size.py) enforces a size budget (8 MiB in total,
+2 MiB per file). If any check fails, **the run aborts and nothing is committed** — the
 previous good release stays exactly where it is.
 
 The prober itself is tested against real things, not mocks, on GitHub's own runner on every

@@ -1,2 +1,3 @@
-tg://proxy?server=158.247.234.65&port=9443&secret=2adab36179e7a39026adf74034615248
+tg://proxy?server=amber.tealbriar.xyz&port=8443&secret=ee161a50ae8c2609a3df6daa30ca2dfb9f786170692e6f7a6f6e2e7275
 tg://proxy?server=64.176.231.154&port=8443&secret=2adab36179e7a39026adf74034615248
+tg://proxy?server=158.247.234.65&port=9443&secret=2adab36179e7a39026adf74034615248

@@ -315,20 +315,20 @@ MTProto в каждый момент мертва, а многое из того
 описывает списки, поэтому он не может с ними разойтись:
 
 <!-- LIVE:BEGIN -->
-**Последнее обновление:** `2026-11-17T07:44:42Z` · проверено из `US` (`IAD`)
+**Последнее обновление:** `2026-11-23T06:23:30Z` · проверено из `US` (`MSP`)
 
 | Этап | Количество |
 |---|---:|
-| ссылок собрано из всех источников | 5,296 |
-| уникальных серверов (IP:порт) проверено | 3,456 |
-| **прошли проверку во всех 3 раундах** (ссылки) | **2,322** |
-| то же, в **реальных серверах** | **712** (650 IP) |
-| доля самого частого IP среди проверенных ссылок | 429 (18.5%) |
-| доля крупнейшей сети (`191.44.90.0/24`) среди проверенных ссылок | 910 (39.2%) |
+| ссылок собрано из всех источников | 5,346 |
+| уникальных серверов (IP:порт) проверено | 3,368 |
+| **прошли проверку во всех 3 раундах** (ссылки) | **2,408** |
+| то же, в **реальных серверах** | **589** (517 IP) |
+| доля самого частого IP среди проверенных ссылок | 838 (34.8%) |
+| доля крупнейшей сети (`AS9304`) среди проверенных ссылок | 1,020 (42.4%) |
 
-`resilient` 650 · `fast` 165 · `stable` 608 · `verified` 2322 · `faketls` 189 · `secure` 152 · `classic` 326 · `all` 5296
+`resilient` 517 · `fast` 133 · `stable` 470 · `verified` 2408 · `faketls` 164 · `secure` 125 · `classic` 240 · `all` 5346
 
-[🇩🇪 DE 226](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 133](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇫🇮 FI 104](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇳🇱 NL 72](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇭🇰 HK 15](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/HK.txt) [🇷🇺 RU 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇺🇸 US 13](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇸🇪 SE 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇵🇱 PL 9](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇫🇷 FR 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇬🇧 GB 7](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt) [🇸🇬 SG 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SG.txt)
+[🇩🇪 DE 148](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/DE.txt) [🇮🇷 IR 131](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/IR.txt) [🇳🇱 NL 78](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/NL.txt) [🇫🇮 FI 61](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FI.txt) [🇭🇰 HK 17](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/HK.txt) [🇫🇷 FR 10](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/FR.txt) [🇲🇩 MD 9](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/MD.txt) [🇷🇺 RU 9](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/RU.txt) [🇵🇱 PL 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/PL.txt) [🇸🇪 SE 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/SE.txt) [🇺🇸 US 8](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/US.txt) [🇬🇧 GB 6](https://raw.githubusercontent.com/0xRadikal/Free-Telegram-Proxy/main/countries/GB.txt)
 <!-- LIVE:END -->
 
 **Главные строки — «проверенные ссылки» и «реальные серверы».** В запуске
@@ -409,8 +409,8 @@ MTProto в каждый момент мертва, а многое из того
 - `top100.txt` — подмножество `resilient/`, не повторяет ни ссылок, ни IP, соблюдает заявленное
   ограничение по сетям, а `top50.txt` — ровно его первые 50 строк.
 
-Затем [`tools/check_size.py`](tools/check_size.py) проверяет бюджет размера (всего 4 МиБ,
-1 МиБ на файл). Если любая проверка не проходит, **запуск прерывается и ничего не коммитится** —
+Затем [`tools/check_size.py`](tools/check_size.py) проверяет бюджет размера (всего 8 МиБ,
+2 МиБ на файл). Если любая проверка не проходит, **запуск прерывается и ничего не коммитится** —
 предыдущий хороший релиз остаётся на месте.
 
 Сам проверяющий модуль тестируется на настоящих вещах, а не на заглушках, на раннере GitHub при
